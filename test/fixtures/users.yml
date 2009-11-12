@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  username: test1
+  # password is "test1" in SHA512
+  password: <%= User.digest_password("test1") %>
+  full_name: "Test User 1"
+  email: "test1@test.com"
+  parent_id: 1
+
+two:
+  username: test2
+  # password is "test2" in SHA512
+  password: 6d201beeefb589b08ef0672dac82353d0cbd9ad99e1642c83a1601f3d647bcca003257b5e8f31bdc1d73fbec84fb085c79d6e2677b7ff927e823a54e789140d9
+  full_name: "Test User 2"
+  email: "test2@test.com"
+  parent_id: 1
+

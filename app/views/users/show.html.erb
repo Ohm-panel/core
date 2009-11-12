@@ -1,0 +1,69 @@
+<p>
+  <b>Username:</b>
+  <%=h @user.username %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%=h @user.password %>
+</p>
+
+<p>
+  <b>Full name:</b>
+  <%=h @user.full_name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @user.email %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @user.parent.full_name + " (" + @user.parent.username + ")" %>
+</p>
+
+<p>
+  <b>Domains:</b><br/>
+  <% @user.domains.each do |d| %>
+    <%= h d.domain %> (<%= link_to 'remove', d, :confirm => 'Are you sure?', :method => :delete %>)<br/>
+  <% end %>
+</p>
+
+<p>
+  <b>Add a domain</b>
+  <% form_for(Domain.new) do |f| %>
+  <p>
+    <%= f.label :domain %><br />
+    <%= f.text_field :domain %>
+
+    <%= f.hidden_field :user_id, :value => @user.id %>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+</p>
+
+<p>
+  <b>Services:</b><br/>
+  <% @user.services.each do |s| %>
+    <% form_tag '/users/removeservice' do %>
+      <%= hidden_field_tag 'user_id', @user.id %>
+      <%= hidden_field_tag 'service_id', s.id %>
+      <%= label_tag h s.name %>
+      (<%= submit_tag 'remove' %>)
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <b>Add a service</b>
+  <% form_tag '/users/addservice' do %>
+    <%= hidden_field_tag 'user_id', @user.id %>
+    <%= collection_select :service_id, nil, Service.all, :id, :name %>
+    <%= submit_tag 'Add service' %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
