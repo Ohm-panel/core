@@ -818,3 +818,552 @@ Processing UsersController#update (for 0.0.0.0 at 2009-11-11 18:12:30) [PUT]
 Redirected to http://test.host/login
 Filter chain halted as [:authenticate] rendered_or_redirected.
 Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785?]
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" [0m
+
+
+Processing DomainsController#create (for 0.0.0.0 at 2009-11-18 13:38:18) [POST]
+  Parameters: {"domain"=>{}}
+  [4;35;1mDomain Load (0.3ms)[0m   [0mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" IS NULL) LIMIT 1[0m
+  [4;36;1mDomain Create (0.4ms)[0m   [0;1mINSERT INTO "domains" ("created_at", "updated_at", "domain", "user_id") VALUES('2009-11-18 12:38:18', '2009-11-18 12:38:18', NULL, NULL)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSELECT count(*) AS count_all FROM "domains" [0m
+  [4;36;1mDomain Load (0.5ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#destroy (for 0.0.0.0 at 2009-11-18 13:38:18) [DELETE]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mDomain Load (0.5ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+  [4;36;1mDomain Destroy (0.3ms)[0m   [0;1mDELETE FROM "domains" WHERE "id" = 2053932785[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#edit (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+Rendering template within layouts/domains
+Rendering domains/edit
+Completed in 56ms (View: 55, DB: 4) | 200 OK [http://test.host/domains/2053932785/edit]
+
+
+Processing DomainsController#index (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  [4;36;1mDomain Load (0.8ms)[0m   [0;1mSELECT * FROM "domains" [0m
+Rendering template within layouts/domains
+Rendering domains/index
+Completed in 21ms (View: 19, DB: 1) | 200 OK [http://test.host/domains]
+
+
+Processing DomainsController#new (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+Rendering template within layouts/domains
+Rendering domains/new
+Completed in 6ms (View: 5, DB: 0) | 200 OK [http://test.host/domains/new]
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#show (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+Rendering template within layouts/domains
+Rendering domains/show
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://test.host/domains/2053932785]
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#update (for 0.0.0.0 at 2009-11-18 13:38:18) [PUT]
+  Parameters: {"domain"=>{}, "id"=>"2053932785"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "services" [0m
+
+
+Processing ServicesController#create (for 0.0.0.0 at 2009-11-18 13:38:18) [POST]
+  Parameters: {"service"=>{}}
+  [4;35;1mService Create (0.2ms)[0m   [0mINSERT INTO "services" ("name", "created_at", "updated_at", "description") VALUES(NULL, '2009-11-18 12:38:18', '2009-11-18 12:38:18', NULL)[0m
+Redirected to http://test.host/services/2053932786
+Completed in 4ms (DB: 0) | 302 Found [http://test.host/services?]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "services" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#destroy (for 0.0.0.0 at 2009-11-18 13:38:18) [DELETE]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" INNER JOIN "services_users" ON "users".id = "services_users".user_id WHERE ("services_users".service_id = 2053932785 ) [0m
+  [4;35;1mService Destroy (0.1ms)[0m   [0mDELETE FROM "services" WHERE "id" = 2053932785[0m
+Redirected to http://test.host/services
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/services/2053932785]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "services" [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#edit (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+Rendering template within layouts/services
+Rendering services/edit
+Completed in 5ms (View: 4, DB: 0) | 200 OK [http://test.host/services/2053932785/edit]
+
+
+Processing ServicesController#index (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" [0m
+Rendering template within layouts/services
+Rendering services/index
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/services]
+
+
+Processing ServicesController#new (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+Rendering template within layouts/services
+Rendering services/new
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/services/new]
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#show (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+Rendering template within layouts/services
+Rendering services/show
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://test.host/services/2053932785]
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#update (for 0.0.0.0 at 2009-11-18 13:38:18) [PUT]
+  Parameters: {"service"=>{}, "id"=>"2053932785"}
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+Redirected to http://test.host/services/2053932785
+Completed in 2ms (DB: 0) | 302 Found [http://test.host/services/2053932785?]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+
+
+Processing UsersController#create (for 0.0.0.0 at 2009-11-18 13:38:18) [POST]
+  Parameters: {"user"=>{}}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users?]
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" [0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+  [4;35;1mUser Load (0.7ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#destroy (for 0.0.0.0 at 2009-11-18 13:38:18) [DELETE]
+  Parameters: {"id"=>"2053932785"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/users/2053932785]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  Parameters: {"id"=>"2053932785"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785/edit]
+
+
+Processing UsersController#index (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users]
+
+
+Processing UsersController#new (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/new]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2009-11-18 13:38:18) [GET]
+  Parameters: {"id"=>"2053932785"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2009-11-18 13:38:18) [PUT]
+  Parameters: {"id"=>"2053932785", "user"=>{}}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785?]
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" [0m
+
+
+Processing DomainsController#create (for 0.0.0.0 at 2009-11-18 13:38:50) [POST]
+  Parameters: {"domain"=>{}}
+  [4;35;1mDomain Load (0.4ms)[0m   [0mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" IS NULL) LIMIT 1[0m
+  [4;36;1mDomain Create (0.4ms)[0m   [0;1mINSERT INTO "domains" ("created_at", "updated_at", "domain", "user_id") VALUES('2009-11-18 12:38:50', '2009-11-18 12:38:50', NULL, NULL)[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "domains" [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#destroy (for 0.0.0.0 at 2009-11-18 13:38:50) [DELETE]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+  [4;36;1mDomain Destroy (0.1ms)[0m   [0;1mDELETE FROM "domains" WHERE "id" = 2053932785[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#edit (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+Rendering template within layouts/domains
+Rendering domains/edit
+Completed in 5ms (View: 5, DB: 3) | 200 OK [http://test.host/domains/2053932785/edit]
+
+
+Processing DomainsController#index (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" [0m
+Rendering template within layouts/domains
+Rendering domains/index
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/domains]
+
+
+Processing DomainsController#new (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+Rendering template within layouts/domains
+Rendering domains/new
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/domains/new]
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#show (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+Rendering template within layouts/domains
+Rendering domains/show
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://test.host/domains/2053932785]
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 2053932785) [0m
+
+
+Processing DomainsController#update (for 0.0.0.0 at 2009-11-18 13:38:50) [PUT]
+  Parameters: {"domain"=>{}, "id"=>"2053932785"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "services" [0m
+
+
+Processing ServicesController#create (for 0.0.0.0 at 2009-11-18 13:38:50) [POST]
+  Parameters: {"service"=>{}}
+  [4;35;1mService Create (0.2ms)[0m   [0mINSERT INTO "services" ("name", "created_at", "updated_at", "description") VALUES(NULL, '2009-11-18 12:38:50', '2009-11-18 12:38:50', NULL)[0m
+Redirected to http://test.host/services/2053932786
+Completed in 4ms (DB: 0) | 302 Found [http://test.host/services?]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "services" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#destroy (for 0.0.0.0 at 2009-11-18 13:38:50) [DELETE]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" INNER JOIN "services_users" ON "users".id = "services_users".user_id WHERE ("services_users".service_id = 2053932785 ) [0m
+  [4;35;1mService Destroy (0.1ms)[0m   [0mDELETE FROM "services" WHERE "id" = 2053932785[0m
+Redirected to http://test.host/services
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/services/2053932785]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "services" [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#edit (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+Rendering template within layouts/services
+Rendering services/edit
+Completed in 5ms (View: 4, DB: 0) | 200 OK [http://test.host/services/2053932785/edit]
+
+
+Processing ServicesController#index (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" [0m
+Rendering template within layouts/services
+Rendering services/index
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/services]
+
+
+Processing ServicesController#new (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+Rendering template within layouts/services
+Rendering services/new
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/services/new]
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#show (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  Parameters: {"id"=>"2053932785"}
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+Rendering template within layouts/services
+Rendering services/show
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://test.host/services/2053932785]
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+
+
+Processing ServicesController#update (for 0.0.0.0 at 2009-11-18 13:38:50) [PUT]
+  Parameters: {"service"=>{}, "id"=>"2053932785"}
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+Redirected to http://test.host/services/2053932785
+Completed in 2ms (DB: 0) | 302 Found [http://test.host/services/2053932785?]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+
+
+Processing UsersController#create (for 0.0.0.0 at 2009-11-18 13:38:50) [POST]
+  Parameters: {"user"=>{}}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users?]
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#destroy (for 0.0.0.0 at 2009-11-18 13:38:50) [DELETE]
+  Parameters: {"id"=>"2053932785"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  Parameters: {"id"=>"2053932785"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785/edit]
+
+
+Processing UsersController#index (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users]
+
+
+Processing UsersController#new (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/new]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2009-11-18 13:38:50) [GET]
+  Parameters: {"id"=>"2053932785"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2009-11-18 13:38:50) [PUT]
+  Parameters: {"id"=>"2053932785", "user"=>{}}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/users/2053932785?]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:41:38) [GET]
+Rendering login/index
+Completed in 20ms (View: 15, DB: 1) | 200 OK [http://test.host/login]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:41:56) [GET]
+Rendering login/index
+Completed in 10ms (View: 5, DB: 1) | 200 OK [http://test.host/login]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:47:28) [GET]
+Rendering login/index
+Completed in 14ms (View: 12, DB: 1) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:47:28) [POST]
+  Parameters: {"username"=>"test1", "password"=>"b16ed7d24b3ecbd4164dcdad374e08c0ab7518aa07f9d3683f34c2b3c67a15830268cb4a56c1ff6f54c8e54a795f5b87c08668b51f82d0093f7baee7d2981181"}
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:49:21) [GET]
+Rendering login/index
+Completed in 16ms (View: 10, DB: 1) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:49:21) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "b16ed7d24b3ecbd4164dcdad374e08c0ab7518aa07f9d3683f3...", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:49:20", updated_at: "2009-11-18 12:49:20", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:50:38) [GET]
+Rendering login/index
+Completed in 8ms (View: 5, DB: 1) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:50:38) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "b16ed7d24b3ecbd4164dcdad374e08c0ab7518aa07f9d3683f3...", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:50:38", updated_at: "2009-11-18 12:50:38", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:52:00) [GET]
+Rendering login/index
+Completed in 19ms (View: 14, DB: 1) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:52:00) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:52:00", updated_at: "2009-11-18 12:52:00", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 12:52:00', "session_ts" = '2009-11-18 12:52:00', "session" = '530e544515918cd045d3d1db366ee938' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 127ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:52:53) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:52:53", updated_at: "2009-11-18 12:52:53", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 8ms (DB: 3) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:52:53) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:52:53", updated_at: "2009-11-18 12:52:53", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 12:52:53', "session_ts" = '2009-11-18 12:52:53', "session" = '00e502b0d4d96d4ea0734c287bcbeb9f' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 12ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:52:53) [GET]
+Rendering login/index
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:53:07) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:53:07", updated_at: "2009-11-18 12:53:07", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 7ms (DB: 2) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:53:07) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:53:07", updated_at: "2009-11-18 12:53:07", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 12:53:07', "session_ts" = '2009-11-18 12:53:07', "session" = 'daef8f6bb005edbea99931a689cd13f6' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 12ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:53:07) [GET]
+Rendering login/index
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:54:00) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:54:00", updated_at: "2009-11-18 12:54:00", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 4ms (DB: 2) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:54:00) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:54:00", updated_at: "2009-11-18 12:54:00", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.7ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 12:54:00', "session_ts" = '2009-11-18 12:54:00', "session" = 'd483ba9de6753f9b3a5bf9d1856a64a7' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 17ms (DB: 2) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:54:00) [GET]
+Rendering login/index
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:55:03) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:55:03", updated_at: "2009-11-18 12:55:03", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 6ms (DB: 2) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:55:03) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:55:03", updated_at: "2009-11-18 12:55:03", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 12:55:03', "session_ts" = '2009-11-18 12:55:03', "session" = 'e5383c93fd46871fc4510856379b2b7b' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 11ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:55:03) [GET]
+Rendering login/index
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:55:33) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:55:33", updated_at: "2009-11-18 12:55:33", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 8ms (DB: 3) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 13:55:33) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 12:55:33", updated_at: "2009-11-18 12:55:33", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (3.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 12:55:33', "session_ts" = '2009-11-18 12:55:33', "session" = 'ef024a7c06ef9001db09cc535c6d1f7a' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 16ms (DB: 4) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 13:55:33) [GET]
+Rendering login/index
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 14:00:46) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 13:00:46", updated_at: "2009-11-18 13:00:46", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 8ms (DB: 3) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2009-11-18 14:00:46) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2009-11-18 13:00:46", updated_at: "2009-11-18 13:00:46", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-18 13:00:46', "session_ts" = '2009-11-18 13:00:46', "session" = 'a3898aa5762086a17c48cc06b1ecc5f7' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/users
+Completed in 12ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2009-11-18 14:00:46) [GET]
+Rendering login/index
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
