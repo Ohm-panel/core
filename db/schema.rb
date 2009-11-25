@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091109200020) do
+ActiveRecord::Schema.define(:version => 20091125223936) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20091109200020) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "by_domain"
   end
 
   create_table "services_users", :id => false, :force => true do |t|
