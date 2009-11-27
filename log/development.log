@@ -13858,3 +13858,87 @@ Processing ServicesController#index (for 127.0.0.1 at 2009-11-25 23:47:48) [GET]
 Rendering template within layouts/services
 Rendering services/index
 Completed in 15ms (View: 9, DB: 1) | 200 OK [http://localhost/services]
+  [4;36;1mSQL (1.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.8ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateServices (20091102130116)
+Migrating to CreateUsers (20091102130127)
+Migrating to CreateServicesUsers (20091102150031)
+Migrating to CreateDomains (20091108151922)
+Migrating to AddSessionToUsers (20091109200020)
+Migrating to AddDomainToService (20091125223936)
+Migrating to CreateDomainsServices (20091127193819)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mCREATE TABLE "domains_services" ("domain_id" integer, "service_id" integer) [0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091127193819')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("domains")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("domains_services")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("services")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("services_users")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing LoginController#index (for 127.0.0.1 at 2009-11-27 20:39:47) [GET]
+Rendering login/index
+Completed in 223ms (View: 134, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2009-11-27 20:39:51) [POST]
+  Parameters: {"commit"=>"Login", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "user"=>{"username"=>"root", "password"=>"toor"}}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'root') LIMIT 1[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:39:51', "session_ts" = '2009-11-27 19:39:51', "session" = 'd02ad85cd400b26fb5608b010aa2f6ac' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/users
+Completed in 273ms (DB: 1) | 302 Found [http://localhost/login/login]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-11-27 20:39:52) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:39:52', "session_ts" = '2009-11-27 19:39:52' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:39:52', "session_ts" = '2009-11-27 19:39:52' WHERE "id" = 1[0m
+  [4;35;1mUser Load (1.4ms)[0m   [0mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2) [0m
+Completed in 214ms (View: 46, DB: 4) | 200 OK [http://localhost/users]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2009-11-27 20:39:55) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:39:55', "session_ts" = '2009-11-27 19:39:55' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:39:55', "session_ts" = '2009-11-27 19:39:55' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/users
+Rendering users/show
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mDomain Load (0.9ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.3ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" [0m
+Completed in 282ms (View: 68, DB: 4) | 200 OK [http://localhost/users/1]
+
+
+Processing ServicesController#index (for 127.0.0.1 at 2009-11-27 20:40:05) [GET]
+  [4;36;1mService Load (0.5ms)[0m   [0;1mSELECT * FROM "services" [0m
+Rendering template within layouts/services
+Rendering services/index
+Completed in 23ms (View: 17, DB: 1) | 200 OK [http://localhost/services]

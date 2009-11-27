@@ -9,13 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091125223936) do
+ActiveRecord::Schema.define(:version => 20091127193819) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "domains_services", :id => false, :force => true do |t|
+    t.integer "domain_id"
+    t.integer "service_id"
   end
 
   create_table "services", :force => true do |t|
