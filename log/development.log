@@ -13942,3 +13942,698 @@ Processing ServicesController#index (for 127.0.0.1 at 2009-11-27 20:40:05) [GET]
 Rendering template within layouts/services
 Rendering services/index
 Completed in 23ms (View: 17, DB: 1) | 200 OK [http://localhost/services]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2009-11-27 20:47:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:47:34', "session_ts" = '2009-11-27 19:47:34' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:47:34', "session_ts" = '2009-11-27 19:47:34' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/users
+Rendering users/show
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mDomain Load (0.4ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.3ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" [0m
+Completed in 252ms (View: 81, DB: 4) | 200 OK [http://localhost/users/1]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:53:26) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:53:26', "session_ts" = '2009-11-27 19:53:26' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:53:26', "session_ts" = '2009-11-27 19:53:26' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.4ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" [0m
+Completed in 214ms (View: 38, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:54:42) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:54:42', "session_ts" = '2009-11-27 19:54:42' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:54:42', "session_ts" = '2009-11-27 19:54:42' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;35;1mDomain Load (0.4ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" [0m
+Completed in 362ms (View: 83, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:55:15) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:15', "session_ts" = '2009-11-27 19:55:15' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:15', "session_ts" = '2009-11-27 19:55:15' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" [0m
+Completed in 308ms (View: 30, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:55:16) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:16', "session_ts" = '2009-11-27 19:55:16' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:16', "session_ts" = '2009-11-27 19:55:16' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;35;1mDomain Load (0.9ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" [0m
+Completed in 274ms (View: 81, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:55:27) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:27', "session_ts" = '2009-11-27 19:55:27' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:27', "session_ts" = '2009-11-27 19:55:27' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (1.0ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 159ms (View: 31, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:55:52) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:52', "session_ts" = '2009-11-27 19:55:52' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:55:52', "session_ts" = '2009-11-27 19:55:52' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 235ms (View: 82, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:56:22) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (1.1ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:56:22', "session_ts" = '2009-11-27 19:56:22' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:56:22', "session_ts" = '2009-11-27 19:56:22' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (1.0ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 179ms (View: 37, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:56:29) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.1ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:56:29', "session_ts" = '2009-11-27 19:56:29' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:56:29', "session_ts" = '2009-11-27 19:56:29' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 157ms (View: 23, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:57:19) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:57:19', "session_ts" = '2009-11-27 19:57:19' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:57:19', "session_ts" = '2009-11-27 19:57:19' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 186ms (View: 37, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 20:57:37) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.1ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 19:57:37', "session_ts" = '2009-11-27 19:57:37' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 19:57:37', "session_ts" = '2009-11-27 19:57:37' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 179ms (View: 37, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 21:04:34) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 20:04:34', "session_ts" = '2009-11-27 20:04:34' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:04:34', "session_ts" = '2009-11-27 20:04:34' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 227ms (View: 37, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 21:07:26) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (8.8ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 20:07:26', "session_ts" = '2009-11-27 20:07:26' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:07:26', "session_ts" = '2009-11-27 20:07:26' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "services" [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+Completed in 212ms (View: 42, DB: 12) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 21:22:33) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+Redirected to http://localhost:3000/login
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 57ms (DB: 0) | 302 Found [http://localhost/dashboard]
+
+
+Processing LoginController#index (for 127.0.0.1 at 2009-11-27 21:22:33) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd02ad85cd400b26fb5608b010aa2f6ac') LIMIT 1[0m
+Rendering login/index
+Completed in 13ms (View: 3, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2009-11-27 21:22:35) [POST]
+  Parameters: {"commit"=>"Login", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "user"=>{"username"=>"root", "password"=>"toor"}}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'root') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:22:35', "session_ts" = '2009-11-27 20:22:35', "session" = 'c68568b0a47ea76e0f980d7f65a3d6ff' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/users
+Completed in 96ms (DB: 0) | 302 Found [http://localhost/login/login]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-11-27 21:22:35) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.1ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 20:22:35', "session_ts" = '2009-11-27 20:22:35' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:22:35', "session_ts" = '2009-11-27 20:22:35' WHERE "id" = 1[0m
+  [4;36;1mUser Load (1.4ms)[0m   [0;1mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2) [0m
+Completed in 299ms (View: 20, DB: 5) | 200 OK [http://localhost/users]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 21:22:41) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 20:22:41', "session_ts" = '2009-11-27 20:22:41' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (3.9ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:22:41', "session_ts" = '2009-11-27 20:22:41' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+
+ActionView::TemplateError (undefined local variable or method `addable_services' for #<ActionView::Base:0x7fad189255a0>) on line #17 of app/views/dashboard/index.html.erb:
+14:   addable_services = Service.all.select { |s| s.by_domain } - @user.services
+15:   <% form_tag '/domains/addservice' do %>
+16:     <%= hidden_field_tag 'domain_id', domain.id %>
+17:     <%= collection_select :service_id, nil, addable_services, :id, :name %>
+18:     <%= submit_tag 'Add service' %>
+19:   <% end %>
+20:   </p>
+
+    app/views/dashboard/index.html.erb:17
+    app/views/dashboard/index.html.erb:15
+    app/views/dashboard/index.html.erb:7
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (39.5ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 21:23:09) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 20:23:09', "session_ts" = '2009-11-27 20:23:09' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:23:09', "session_ts" = '2009-11-27 20:23:09' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "services" [0m
+Completed in 231ms (View: 32, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-27 21:23:31) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-27 20:23:31', "session_ts" = '2009-11-27 20:23:31' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-27 20:23:31', "session_ts" = '2009-11-27 20:23:31' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.4ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+Completed in 161ms (View: 34, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DomainsController#addservice (for 127.0.0.1 at 2009-11-27 21:23:35) [POST]
+  Parameters: {"commit"=>"Add service", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "domain_id"=>"1", "service_id"=>["1"]}
+
+ActionController::UnknownAction (No action responded to addservice. Actions: authenticate, create, destroy, edit, index, loggedin?, new, and show):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing DomainsController#addservice (for 127.0.0.1 at 2009-11-28 12:41:00) [POST]
+  Parameters: {"commit"=>"Add service", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "domain_id"=>"1", "service_id"=>["1"]}
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 1) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "domains_services" ("domain_id", "service_id") VALUES (1, 1)[0m
+  [4;35;1mDomain Load (0.3ms)[0m   [0mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" = 'joelcogen.com' AND "domains".id <> 1) LIMIT 1[0m
+Redirected to http://localhost:3000/dashboard
+Completed in 114ms (DB: 1) | 302 Found [http://localhost/domains/addservice]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:41:00) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+Redirected to http://localhost:3000/login
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 9ms (DB: 0) | 302 Found [http://localhost/dashboard]
+
+
+Processing LoginController#index (for 127.0.0.1 at 2009-11-28 12:41:00) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'c68568b0a47ea76e0f980d7f65a3d6ff') LIMIT 1[0m
+Rendering login/index
+Completed in 12ms (View: 3, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2009-11-28 12:41:02) [POST]
+  Parameters: {"commit"=>"Login", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "user"=>{"username"=>"root", "password"=>"toor"}}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'root') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:02', "session_ts" = '2009-11-28 11:41:02', "session" = 'b54c6161048b65a962663a6ca6acc6bc' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/users
+Completed in 126ms (DB: 1) | 302 Found [http://localhost/login/login]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-11-28 12:41:02) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.1ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:02', "session_ts" = '2009-11-28 11:41:02' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:02', "session_ts" = '2009-11-28 11:41:02' WHERE "id" = 1[0m
+  [4;36;1mUser Load (1.4ms)[0m   [0;1mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2) [0m
+Completed in 174ms (View: 29, DB: 5) | 200 OK [http://localhost/users]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:41:07) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:07', "session_ts" = '2009-11-28 11:41:07' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:08', "session_ts" = '2009-11-28 11:41:08' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.7ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+Completed in 213ms (View: 35, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing DomainsController#addservice (for 127.0.0.1 at 2009-11-28 12:41:14) [POST]
+  Parameters: {"commit"=>"Add service", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "domain_id"=>"2", "service_id"=>["1"]}
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 2) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 1) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "domains_services" ("domain_id", "service_id") VALUES (2, 1)[0m
+  [4;35;1mDomain Load (0.3ms)[0m   [0mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" = 'age-sciences.be' AND "domains".id <> 2) LIMIT 1[0m
+Redirected to http://localhost:3000/dashboard
+Completed in 133ms (DB: 1) | 302 Found [http://localhost/domains/addservice]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:41:14) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:14', "session_ts" = '2009-11-28 11:41:14' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:41:14', "session_ts" = '2009-11-28 11:41:14' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+Completed in 233ms (View: 20, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:42:29) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:42:29', "session_ts" = '2009-11-28 11:42:29' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:42:29', "session_ts" = '2009-11-28 11:42:29' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.3ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+Completed in 291ms (View: 78, DB: 3) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:44:00) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:00', "session_ts" = '2009-11-28 11:44:00' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:00', "session_ts" = '2009-11-28 11:44:00' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+
+ActionView::TemplateError (undefined method `users' for #<User:0x7fad18846e68>) on line #45 of app/views/dashboard/index.html.erb:
+42: 
+43: <h2>Users</h2>
+44: <p>
+45:   <% @user.users.each do |u| %>
+46:     <%=h u.full_name %><br/>
+47:   <% end %>
+48: </p>
+
+    app/views/dashboard/index.html.erb:45
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (30.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:44:01) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:01', "session_ts" = '2009-11-28 11:44:01' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:01', "session_ts" = '2009-11-28 11:44:01' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (1.0ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.7ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+
+ActionView::TemplateError (undefined method `users' for #<User:0x7fad188abf70>) on line #45 of app/views/dashboard/index.html.erb:
+42: 
+43: <h2>Users</h2>
+44: <p>
+45:   <% @user.users.each do |u| %>
+46:     <%=h u.full_name %><br/>
+47:   <% end %>
+48: </p>
+
+    app/views/dashboard/index.html.erb:45
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (30.8ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:44:28) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:28', "session_ts" = '2009-11-28 11:44:28' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:28', "session_ts" = '2009-11-28 11:44:28' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSQLite3::SQLException: no such column: users.user_id: SELECT * FROM "users" WHERE ("users".user_id = 1) [0m
+
+ActionView::TemplateError (SQLite3::SQLException: no such column: users.user_id: SELECT * FROM "users" WHERE ("users".user_id = 1) ) on line #45 of app/views/dashboard/index.html.erb:
+42: 
+43: <h2>Users</h2>
+44: <p>
+45:   <% @user.users.each do |u| %>
+46:     <%=h u.full_name %><br/>
+47:   <% end %>
+48: </p>
+
+    app/views/dashboard/index.html.erb:45
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (40.8ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:44:53) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:53', "session_ts" = '2009-11-28 11:44:53' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:44:53', "session_ts" = '2009-11-28 11:44:53' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;35;1mDomain Load (0.9ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 259ms (View: 26, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2009-11-28 12:45:11) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:45:11', "session_ts" = '2009-11-28 11:45:11' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:45:11', "session_ts" = '2009-11-28 11:45:11' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/users
+Rendering users/show
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mDomain Load (0.3ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" [0m
+Completed in 171ms (View: 28, DB: 4) | 200 OK [http://localhost/users/1]
+
+
+Processing UsersController#edit (for 127.0.0.1 at 2009-11-28 12:45:17) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:45:17', "session_ts" = '2009-11-28 11:45:17' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:45:17', "session_ts" = '2009-11-28 11:45:17' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/users
+Rendering users/edit
+Completed in 200ms (View: 17, DB: 3) | 200 OK [http://localhost/users/1/edit]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:46:17) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:46:17', "session_ts" = '2009-11-28 11:46:17' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:46:17', "session_ts" = '2009-11-28 11:46:17' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (1.1ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.3ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 272ms (View: 36, DB: 5) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:46:44) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:46:44', "session_ts" = '2009-11-28 11:46:44' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:46:45', "session_ts" = '2009-11-28 11:46:45' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;35;1mDomain Load (0.9ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mUser Load (0.5ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+
+ActionView::TemplateError (undefined method `full' for #<User:0x7fad189052c8>) on line #45 of app/views/dashboard/index.html.erb:
+42: <h2>Users</h2>
+43: <p>
+44:   <% @user.users.each do |u| %>
+45:     <%=h u.full %><br/>
+46:   <% end %>
+47: </p>
+
+    app/views/dashboard/index.html.erb:45
+    app/views/dashboard/index.html.erb:44
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (56.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:46:59) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:46:59', "session_ts" = '2009-11-28 11:46:59' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:46:59', "session_ts" = '2009-11-28 11:46:59' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.5ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 251ms (View: 40, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:48:06) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:48:06', "session_ts" = '2009-11-28 11:48:06' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:48:06', "session_ts" = '2009-11-28 11:48:06' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;35;1mDomain Load (0.9ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.3ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mUser Load (0.5ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 279ms (View: 42, DB: 5) | 200 OK [http://localhost/dashboard]

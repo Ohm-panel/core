@@ -2,6 +2,7 @@ require 'digest/sha2'
 
 class User < ActiveRecord::Base
   belongs_to :parent, :class_name => "User"
+  has_many :users, :foreign_key => "parent_id"
 
   has_and_belongs_to_many :services
 

@@ -63,5 +63,20 @@ class DomainsController < ApplicationController
       format.html { redirect_to(@domain.user) }
     end
   end
+
+  def addservice
+    @domain = Domain.find(params[:domain_id])
+    @domain.services << Service.find(params[:service_id])
+
+    respond_to do |format|
+      if @domain.save
+        flash[:notice] = 'Service successfully added'
+        format.html { redirect_to :controller => "dashboard" }
+      else
+        flash[:notice] = 'Error occured'
+        format.html { redirect_to :controller => "dashboard" }
+      end
+    end
+  end
 end
 

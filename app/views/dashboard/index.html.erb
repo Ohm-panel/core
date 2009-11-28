@@ -1,2 +1,47 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<p>
+  Welcome,
+  <%=h @user.full_name %>
+</p>
+
+<h2>Your domains</h2>
+<% @user.domains.each do |domain| %>
+  <p><b><%=h domain.domain %></b><br/>
+
+  <% domain.services.each do |service| %>
+    <%=h service.name %><br/>
+  <% end %>
+
+  <% addable_services = @user.services.select { |s| s.by_domain } - domain.services %>
+  <% if not addable_services.empty? %>
+    <% form_tag '/domains/addservice' do %>
+      <%= hidden_field_tag 'domain_id', domain.id %>
+      <%= collection_select :service_id, nil, addable_services, :id, :name %>
+      <%= submit_tag 'Add service' %>
+    <% end %>
+  <% end %>
+  </p>
+<% end %>
+
+<p>
+  <b>Add a domain:</b>
+  <% form_for(Domain.new) do |f| %>
+    <%= f.text_field :domain %>
+    <%= f.hidden_field :user_id, :value => @user.id %>
+    <%= f.submit 'Add' %>
+<% end %>
+</p>
+
+<h2>Available services</h2>
+<p>
+  <% @user.services.each do |s| %>
+    <%=h s.name %><br/>
+  <% end %>
+</p>
+
+<h2>Users</h2>
+<p>
+  <% @user.users.each do |u| %>
+    <%=h u.full_name %><br/>
+  <% end %>
+</p>
+
