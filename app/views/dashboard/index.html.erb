@@ -8,7 +8,12 @@
   <p><b><%=h domain.domain %></b><br/>
 
   <% domain.services.each do |service| %>
-    <%=h service.name %><br/>
+    <%=h service.name %>
+    <% form_tag '/service_' + service.name.downcase + '/manage' do %>
+      <%= hidden_field_tag 'domain_id', domain.id %>
+      <%= submit_tag 'Manage' %>
+    <% end %>
+    <br/>
   <% end %>
 
   <% addable_services = @user.services.select { |s| s.by_domain } - domain.services %>

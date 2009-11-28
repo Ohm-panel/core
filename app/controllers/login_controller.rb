@@ -3,7 +3,7 @@ class LoginController < ApplicationController
 
   def index
     if loggedin?
-      redirect_to :controller => "Users", :action => "index"
+      redirect_to :controller => "dashboard", :action => "index"
     end
     @user = User.new
   end
@@ -21,7 +21,7 @@ class LoginController < ApplicationController
       session[:session] = @user.session
 
       flash[:notice] = 'Login successful'
-      redirect_to :controller => "Users", :action => "index"
+      redirect_to :controller => "dashboard", :action => "index"
     else
       flash[:error] = 'Login incorrect'
       redirect_to :action => "index"

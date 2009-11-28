@@ -14637,3 +14637,395 @@ Rendering dashboard/index
   [4;36;1mService Load (0.3ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
   [4;35;1mUser Load (0.5ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
 Completed in 279ms (View: 42, DB: 5) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:58:39) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+Redirected to http://localhost:3000/login
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 15ms (DB: 0) | 302 Found [http://localhost/dashboard]
+
+
+Processing LoginController#index (for 127.0.0.1 at 2009-11-28 12:58:39) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'b54c6161048b65a962663a6ca6acc6bc') LIMIT 1[0m
+Rendering login/index
+Completed in 22ms (View: 5, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2009-11-28 12:58:41) [POST]
+  Parameters: {"commit"=>"Login", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "user"=>{"username"=>"root", "password"=>"toor"}}
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'root') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:58:41', "session_ts" = '2009-11-28 11:58:41', "session" = '120b87e13546b8c2120b0534698d4abf' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/users
+Completed in 99ms (DB: 1) | 302 Found [http://localhost/login/login]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-11-28 12:58:41) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:58:41', "session_ts" = '2009-11-28 11:58:41' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:58:41', "session_ts" = '2009-11-28 11:58:41' WHERE "id" = 1[0m
+  [4;36;1mUser Load (1.4ms)[0m   [0;1mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2) [0m
+Completed in 205ms (View: 27, DB: 5) | 200 OK [http://localhost/users]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:58:49) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:58:49', "session_ts" = '2009-11-28 11:58:49' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:58:49', "session_ts" = '2009-11-28 11:58:49' WHERE "id" = 1[0m
+Rendering dashboard/index
+ERROR: compiling _run_erb_app47views47dashboard47index46html46erb RAISED compile error
+/home/joel/Progra/Rails/ohm/app/views/dashboard/index.html.erb:51: syntax error, unexpected kENSURE, expecting kEND
+/home/joel/Progra/Rails/ohm/app/views/dashboard/index.html.erb:53: syntax error, unexpected $end, expecting kEND
+Function body:           def _run_erb_app47views47dashboard47index46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<p>\n  Welcome,\n  "
+
+; @output_buffer.concat((h @user.full_name ).to_s); @output_buffer.concat "\n</p>\n\n<h2>Your domains</h2>\n"
+
+
+
+;  @user.domains.each do |domain| ; @output_buffer.concat "\n  <p><b>"
+; @output_buffer.concat((h domain.domain ).to_s); @output_buffer.concat "</b><br/>\n\n  "
+
+;  domain.services.each do |service| ; @output_buffer.concat "\n    "
+; @output_buffer.concat((h service.name ).to_s); @output_buffer.concat "\n    "
+;  form_tag '/service_'+service.name.lowercase+'/addservice' do ; @output_buffer.concat "\n    <br/>\n  "
+
+;  end ; @output_buffer.concat "\n\n  "
+
+;  addable_services = @user.services.select { |s| s.by_domain } - domain.services ; @output_buffer.concat "\n  "
+;  if not addable_services.empty? ; @output_buffer.concat "\n    "
+;  form_tag '/domains/addservice' do ; @output_buffer.concat "\n      "
+; @output_buffer.concat(( hidden_field_tag 'domain_id', domain.id ).to_s); @output_buffer.concat "\n      "
+; @output_buffer.concat(( collection_select :service_id, nil, addable_services, :id, :name ).to_s); @output_buffer.concat "\n      "
+; @output_buffer.concat(( submit_tag 'Add service' ).to_s); @output_buffer.concat "\n    "
+;  end ; @output_buffer.concat "\n  "
+;  end ; @output_buffer.concat "\n  </p>\n"
+
+;  end ; @output_buffer.concat "\n\n<p>\n  <b>Add a domain:</b>\n  "
+
+
+
+;  form_for(Domain.new) do |f| ; @output_buffer.concat "\n    "
+; @output_buffer.concat(( f.text_field :domain ).to_s); @output_buffer.concat "\n    "
+; @output_buffer.concat(( f.hidden_field :user_id, :value => @user.id ).to_s); @output_buffer.concat "\n    "
+; @output_buffer.concat(( f.submit 'Add' ).to_s); @output_buffer.concat "\n"
+;  end ; @output_buffer.concat "\n</p>\n\n<h2>Available services</h2>\n<p>\n  "
+
+
+
+
+;  @user.services.each do |s| ; @output_buffer.concat "\n    "
+; @output_buffer.concat((h s.name ).to_s); @output_buffer.concat "<br/>\n  "
+;  end ; @output_buffer.concat "\n</p>\n\n<h2>Users</h2>\n<p>\n  "
+
+
+
+
+;  @user.users.each do |u| ; @output_buffer.concat "\n    "
+; @output_buffer.concat((h u.full_name ).to_s); @output_buffer.concat "<br/>\n  "
+;  end ; @output_buffer.concat "\n</p>\n\n"
+
+
+; @output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /home/joel/Progra/Rails/ohm/app/views/dashboard/index.html.erb:53:in `compile!'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:61:in `compile'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:28:in `render'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_view/template.rb:199:in `render_template'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:260:in `render'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1250:in `render_for_file'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:951:in `render_without_benchmark'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/home/joel/.gem/ruby/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/home/joel/.gem/ruby/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `send'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `custom'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `respond'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `each'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `respond'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:107:in `respond_to'
+/home/joel/Progra/Rails/ohm/app/controllers/dashboard_controller.rb:7:in `index'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `send'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `perform_action_without_filters'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:617:in `call_filters'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/home/joel/.gem/ruby/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/home/joel/.gem/ruby/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/flash.rb:146:in `perform_action'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `send'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `process_without_filters'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:606:in `process'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:391:in `process'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:386:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/routing/route_set.rb:437:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:121:in `_call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+/home/joel/.gem/ruby/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/home/joel/.gem/ruby/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/home/joel/.gem/ruby/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/home/joel/.gem/ruby/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:9:in `cache'
+/home/joel/.gem/ruby/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:28:in `call'
+/home/joel/.gem/ruby/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/head.rb:9:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/methodoverride.rb:24:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/params_parser.rb:15:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/session/cookie_store.rb:93:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/failsafe.rb:26:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `synchronize'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:114:in `call'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/reloader.rb:34:in `run'
+/var/lib/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:108:in `call'
+/var/lib/gems/1.8/gems/rails-2.3.4/lib/rails/rack/static.rb:31:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:46:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `each'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `call'
+/var/lib/gems/1.8/gems/rails-2.3.4/lib/rails/rack/log_tailer.rb:17:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/content_length.rb:13:in `call'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/handler/webrick.rb:46:in `service'
+/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/home/joel/.gem/ruby/1.8/gems/rack-1.0.0/lib/rack/handler/webrick.rb:13:in `run'
+/var/lib/gems/1.8/gems/rails-2.3.4/lib/commands/server.rb:111
+/usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `require'
+script/server:3
+
+ActionView::TemplateError (compile error
+/home/joel/Progra/Rails/ohm/app/views/dashboard/index.html.erb:51: syntax error, unexpected kENSURE, expecting kEND
+/home/joel/Progra/Rails/ohm/app/views/dashboard/index.html.erb:53: syntax error, unexpected $end, expecting kEND) on line #51 of app/views/dashboard/index.html.erb:
+48: </p>
+
+    app/views/dashboard/index.html.erb:53:in `compile!'
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (49.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:59:04) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:59:04', "session_ts" = '2009-11-28 11:59:04' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:59:04', "session_ts" = '2009-11-28 11:59:04' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+
+ActionView::TemplateError (undefined method `lowercase' for "WWW":String) on line #12 of app/views/dashboard/index.html.erb:
+9: 
+10:   <% domain.services.each do |service| %>
+11:     <%=h service.name %>
+12:     <% form_tag '/service_'+service.name.lowercase+'/addservice' do %>
+13:     <% end %>
+14:     <br/>
+15:   <% end %>
+
+    app/views/dashboard/index.html.erb:12
+    app/views/dashboard/index.html.erb:10
+    app/views/dashboard/index.html.erb:7
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (61.9ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:59:36) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:59:36', "session_ts" = '2009-11-28 11:59:36' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:59:36', "session_ts" = '2009-11-28 11:59:36' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+
+ActionView::TemplateError (undefined method `tolowercase' for "WWW":String) on line #12 of app/views/dashboard/index.html.erb:
+9: 
+10:   <% domain.services.each do |service| %>
+11:     <%=h service.name %>
+12:     <% form_tag '/service_'+service.name.tolowercase+'/addservice' do %>
+13:     <% end %>
+14:     <br/>
+15:   <% end %>
+
+    app/views/dashboard/index.html.erb:12
+    app/views/dashboard/index.html.erb:10
+    app/views/dashboard/index.html.erb:7
+    app/controllers/dashboard_controller.rb:7:in `index'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (61.9ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 12:59:59) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 11:59:59', "session_ts" = '2009-11-28 11:59:59' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 11:59:59', "session_ts" = '2009-11-28 11:59:59' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.5ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 217ms (View: 34, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 13:44:06) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+Redirected to http://localhost:3000/login
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 17ms (DB: 0) | 302 Found [http://localhost/dashboard]
+
+
+Processing LoginController#index (for 127.0.0.1 at 2009-11-28 13:44:06) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = '120b87e13546b8c2120b0534698d4abf') LIMIT 1[0m
+Rendering login/index
+Completed in 23ms (View: 5, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2009-11-28 13:44:07) [POST]
+  Parameters: {"commit"=>"Login", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "user"=>{"username"=>"root", "password"=>"toor"}}
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'root') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:07', "session_ts" = '2009-11-28 12:44:07', "session" = 'd500de8315b9294ea30c950d9c4c114f' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/users
+Completed in 87ms (DB: 1) | 302 Found [http://localhost/login/login]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-11-28 13:44:08) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd500de8315b9294ea30c950d9c4c114f') LIMIT 1[0m
+  [4;36;1mUser Load (1.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:08', "session_ts" = '2009-11-28 12:44:08' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd500de8315b9294ea30c950d9c4c114f') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:08', "session_ts" = '2009-11-28 12:44:08' WHERE "id" = 1[0m
+  [4;35;1mUser Load (1.4ms)[0m   [0mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2) [0m
+Completed in 241ms (View: 88, DB: 6) | 200 OK [http://localhost/users]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 13:44:12) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd500de8315b9294ea30c950d9c4c114f') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:12', "session_ts" = '2009-11-28 12:44:12' WHERE "id" = 1[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd500de8315b9294ea30c950d9c4c114f') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:12', "session_ts" = '2009-11-28 12:44:12' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;35;1mDomain Load (0.5ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 188ms (View: 42, DB: 4) | 200 OK [http://localhost/dashboard]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2009-11-28 13:44:58) [GET]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'd500de8315b9294ea30c950d9c4c114f') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:58', "session_ts" = '2009-11-28 12:44:58' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."session" = 'd500de8315b9294ea30c950d9c4c114f') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'root' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2009-11-28 12:44:58', "session_ts" = '2009-11-28 12:44:58' WHERE "id" = 1[0m
+Rendering dashboard/index
+  [4;36;1mDomain Load (0.9ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 1) [0m
+  [4;35;1mService Load (0.4ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 1 ) [0m
+  [4;36;1mService Load (0.4ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mService Load (0.3ms)[0m   [0mSELECT * FROM "services" INNER JOIN "domains_services" ON "services".id = "domains_services".service_id WHERE ("domains_services".domain_id = 2 ) [0m
+  [4;36;1mUser Load (9.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 1) [0m
+Completed in 257ms (View: 89, DB: 14) | 200 OK [http://localhost/dashboard]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-28 13:45:01) [POST]
+  Parameters: {"commit"=>"Manage", "authenticity_token"=>"YAewxpeoclWYX0QlvO9PSOGuqEm8+LbrFTgmFaHAzaU=", "domain_id"=>"1"}
+
+ActionController::RoutingError (No route matches "/service_www/manage" with {:method=>:post}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
