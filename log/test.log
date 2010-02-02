@@ -1367,3 +1367,26 @@ Completed in 12ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932
 Processing LoginController#index (for 0.0.0.0 at 2009-11-18 14:00:46) [GET]
 Rendering login/index
 Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-02 18:22:40) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-02 17:22:40", updated_at: "2010-02-02 17:22:40", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 8ms (DB: 7) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-02 18:22:40) [POST]
+  Parameters: {"user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-02 17:22:40", updated_at: "2010-02-02 17:22:40", session: nil, session_ts: nil>}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-02 17:22:40', "session_ts" = '2010-02-02 17:22:40', "session" = '4287c6efd3b1f8ded200171f2aab1482' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 12ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-02 18:22:40) [GET]
+Rendering login/index
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]

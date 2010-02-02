@@ -1,4 +1,6 @@
 class DomainsController < ApplicationController
+  before_filter :authenticate
+
   # GET /domains
   # GET /domains.xml
   def index
@@ -12,23 +14,41 @@ class DomainsController < ApplicationController
 
   # GET /domains/1
   # GET /domains/1.xml
-  def show
-    @domain = Domain.find(params[:id])
+  #  def show
+  #    @domain = Domain.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @domain }
-    end
-  end
+  #    respond_to do |format|
+  #      format.html # show.html.erb
+  #      format.xml  { render :xml => @domain }
+  #    end
+  #  end
 
   # GET /domains/new
   # GET /domains/new.xml
   def new
     @domain = Domain.new
+    @user = @logged_user
 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @domain }
+    end
+  end
+
+  # POST /domains
+  # POST /domains.xml
+  def create
+    @domain = Domain.new(params[:domain])
+    @domain.user = @logged_user
+
+    respond_to do |format|
+      if @domain.save
+        flash[:notice] = 'Domain was successfully added.'
+        format.html { redirect_to :controller => "dashboard" }
+      else
+        flash[:error] = 'Error adding domain.'
+        format.html { redirect_to :controller => "dashboard" }
+      end
     end
   end
 
@@ -37,18 +57,17 @@ class DomainsController < ApplicationController
     @domain = Domain.find(params[:id])
   end
 
-  # POST /domains
-  # POST /domains.xml
-  def create
-    @domain = Domain.new(params[:domain])
+  def update
+    @domain = Domain.find(params[:id])
 
     respond_to do |format|
-      if @domain.save
-        flash[:notice] = 'Domain was successfully added.'
-        format.html { redirect_to(@domain.user) }
+      if @domain.update_attributes(params[:domain])
+        flash[:notice] = 'Service was successfully updated.'
+        format.html { redirect_to :controller => "dashboard" }
+        format.xml  { head :ok }
       else
-        flash[:error] = 'Error adding domain.'
-        format.html { redirect_to(@domain.user) }
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @service.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,7 +79,7 @@ class DomainsController < ApplicationController
     @domain.destroy
 
     respond_to do |format|
-      format.html { redirect_to(@domain.user) }
+      format.html { redirect_to :controller => 'dashboard' }
     end
   end
 

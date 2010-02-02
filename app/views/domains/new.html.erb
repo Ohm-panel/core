@@ -1,4 +1,4 @@
-<h1>New domain</h1>
+<h1>Add a domain</h1>
 
 <% form_for(@domain) do |f| %>
   <%= f.error_messages %>
@@ -8,12 +8,13 @@
     <%= f.text_field :domain %>
   </p>
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= f.label :path %><br />
+    /home/<%= @user.username %>/<%= f.text_field :path %>
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Add' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', domains_path %>
+<%= link_to 'Back', :controller => 'dashboard' %>
+

@@ -5,14 +5,19 @@
 
 <h2>Your domains</h2>
 <% @user.domains.each do |domain| %>
-  <p><b><%=h domain.domain %></b><br/>
+  <p><b><%=h domain.domain %></b>
+  (<%= link_to domain.path, :controller => 'domains', :action => 'edit', :id => domain.id %>)
+  <%= link_to 'Delete', domain, :method => 'delete', :confirm => 'ALL DATA stored for this domain will be destroyed! Are you sure?' %><br/>
 
   <% domain.services.each do |service| %>
+    <%= link_to (h service.name), '/service_' + service.name.downcase + '/manage/' + domain.id.to_s %>
+    <!--
     <%=h service.name %>
     <% form_tag '/service_' + service.name.downcase + '/manage' do %>
       <%= hidden_field_tag 'domain_id', domain.id %>
       <%= submit_tag 'Manage' %>
     <% end %>
+    -->
     <br/>
   <% end %>
 
@@ -28,12 +33,7 @@
 <% end %>
 
 <p>
-  <b>Add a domain:</b>
-  <% form_for(Domain.new) do |f| %>
-    <%= f.text_field :domain %>
-    <%= f.hidden_field :user_id, :value => @user.id %>
-    <%= f.submit 'Add' %>
-<% end %>
+  <%= link_to 'Add a domain', :controller => 'domains', :action => 'new' %>
 </p>
 
 <h2>Available services</h2>

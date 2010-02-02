@@ -4,17 +4,16 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :domain %><br />
-    <%= f.text_field :domain %>
+    <%= @domain.domain %>
   </p>
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= f.label :path %><br />
+    <%= f.text_field :path %>
   </p>
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @domain %> |
-<%= link_to 'Back', domains_path %>
+<%= link_to 'Back', :controller => 'dashboard' %>
+

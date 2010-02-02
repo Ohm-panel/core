@@ -1,4 +1,6 @@
 class ServicesController < ApplicationController
+  before_filter :authenticate
+
   # GET /services
   # GET /services.xml
   def index
@@ -83,3 +85,4 @@ class ServicesController < ApplicationController
     end
   end
 end
+
