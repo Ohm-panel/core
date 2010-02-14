@@ -1,74 +1,22 @@
-<p>
-  Welcome,
-  <%=h @user.full_name %>
-</p>
+<h1>Dashboard</h1>
 
-<%= "You have no domain yet" if @user.domains.count == 0 %>
-<% @user.domains.each do |domain| %>
-  <h2><%=h domain.domain %></h2>
-  <div class="domain">
-
-  <h3>Subdomains</h3>
-  <div class="innerdomain">
-  <table class="subdomains">
-  <tr>
-    <th>Subdomain</th>
-    <th>Path</th>
-    <th>Actions</th>
-  </tr>
-  <% domain.subdomains.each do |sub| %>
-    <tr>
-      <td><%= "* " if sub.mainsub %> <%= sub.url %></td>
-      <td>/home/<%= @logged_user.username %>/<%= domain.domain %>/<%= sub.path %>/</td>
-      <td>
-        <%= link_to 'Edit', edit_subdomain_path(sub) %>
-        <%= link_to 'Delete', sub, :confirm => 'ALL DATA for this subdomain will be destroyed! Are you sure?', :method => :delete %>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-
-  <%= link_to 'Add a subdomain', :controller => 'subdomains', :action => 'new', :domain => domain %>
-  </div>
-
-  <h3>Active services</h3>
-  <div class="innerdomain">
-  <p>
-  <%= "No service active on this domain" if domain.services.count == 0 %>
-  <% domain.services.each do |service| %>
-    <%= link_to (h service.name), '/service_' + service.name.downcase + '/manage/' + domain.id.to_s %>
-    <br/>
-  <% end %>
-
-  <% addable_services = @user.services.select { |s| s.by_domain } - domain.services %>
-  <% if not addable_services.empty? %>
-    <% form_tag '/domains/addservice' do %>
-      <%= hidden_field_tag 'domain_id', domain.id %>
-      <%= collection_select :service_id, nil, addable_services, :id, :name %>
-      <%= submit_tag 'Add service' %>
-    <% end %>
-  <% end %>
-  </p>
-  </div>
-
-  <p><%= link_to 'Delete this domain completely', domain, :method => 'delete', :confirm => 'ALL DATA stored for this domain and ALL subdomains will be destroyed! Are you sure?' %></p>
-  </div>
-<% end %>
-
+<h2>Domains</h2>
+<%= "You have no domain yet" if @logged_user.domains.count == 0 %>
+<%= render :partial => @user.domains %>
 <p>
   <%= link_to 'Add a domain', :controller => 'domains', :action => 'new' %>
 </p>
 
 <h2>Available services</h2>
 <p>
-  <% @user.services.each do |s| %>
+  <% @logged_user.services.each do |s| %>
     <%=h s.name %><br/>
   <% end %>
 </p>
 
 <h2>Users</h2>
 <p>
-  <% @user.users.each do |u| %>
+  <% @logged_user.users.each do |u| %>
     <%=h u.full_name %><br/>
   <% end %>
 </p>

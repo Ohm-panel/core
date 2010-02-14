@@ -12,7 +12,7 @@
     /home/<%= @logged_user.username %>/<%= @subdomain.domain.domain %>/<%= f.text_field :path, :size=>15 %>
   </p>
   <p>
-    <%= f.check_box :mainsub %> http://<%= @subdomain.domain.domain %> should redirect here<br />
+    <%= f.check_box :mainsub, :disabled=>("disabled" if @subdomain.mainsub) %> http://<%= @subdomain.domain.domain %> redirects here<br />
   </p>
   <p>
     <%= f.submit 'Update' %>

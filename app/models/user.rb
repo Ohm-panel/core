@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   end
 
   attr_accessor :new_password, :new_password_confirmation
-  validate :passwords_must_match
 
+  validate :passwords_must_match
   def passwords_must_match
     errors.add(:password, "incorrect") if new_password && User.digest_password(password) != User.find(id).password
     errors.add(:new_password, "and confirmation don't match") if new_password && new_password_confirmation != new_password

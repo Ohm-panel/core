@@ -52,19 +52,3 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
-
-.domain {
-    border: 1px solid #ccc;
-    background: #cfc;
-}
-
-.innerdomain {
-    border: 1px solid #ccc;
-    background: #ccf;
-}
-
-table.subdomains td, th {
-    text-align: left;
-    padding-right: 50px;
-}
-

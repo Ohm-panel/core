@@ -1,28 +1,6 @@
 class SubdomainsController < ApplicationController
   before_filter :authenticate
 
-  # GET /subdomains
-  # GET /subdomains.xml
-#  def index
-#    @subdomains = Subdomain.all
-
-#    respond_to do |format|
-#      format.html # index.html.erb
-#      format.xml  { render :xml => @subdomains }
-#    end
-#  end
-
-  # GET /subdomains/1
-  # GET /subdomains/1.xml
-#  def show
-#    @subdomain = Subdomain.find(params[:id])
-
-#    respond_to do |format|
-#      format.html # show.html.erb
-#      format.xml  { render :xml => @subdomain }
-#    end
-#  end
-
   # GET /subdomains/new
   # GET /subdomains/new.xml
   def new
@@ -66,6 +44,7 @@ class SubdomainsController < ApplicationController
         flash[:notice] = 'Subdomain was successfully updated.'
         format.html { redirect_to :controller => "dashboard" }
       else
+        flash[:error] = 'Error applying modifications.'
         format.html { redirect_to :controller => "dashboard" }
       end
     end
@@ -74,11 +53,26 @@ class SubdomainsController < ApplicationController
   # DELETE /subdomains/1
   # DELETE /subdomains/1.xml
   def destroy
-    @subdomain = Subdomain.find(params[:id])
-    @subdomain.destroy
+    if Subdomain.find(:all).count > 1
+      @subdomain = Subdomain.find(params[:id])
+      @subdomain.destroy
 
-    respond_to do |format|
-      format.html { redirect_to :controller => "dashboard" }
+      # If deleted mainsub, we need to set another one
+      if @subdomain.mainsub
+        newmain = Subdomain.find(:first)
+        newmain.mainsub = true
+        newmain.save
+      end
+
+      respond_to do |format|
+        flash[:notice] = 'Subdomain was successfully deleted.'
+        format.html { redirect_to :controller => "dashboard" }
+      end
+    else
+      respond_to do |format|
+        flash[:error] = 'You must have at least one subdomain.'
+        format.html { redirect_to :controller => "dashboard" }
+      end
     end
   end
 end
