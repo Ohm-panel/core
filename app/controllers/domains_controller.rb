@@ -43,8 +43,17 @@ class DomainsController < ApplicationController
 
     respond_to do |format|
       if @domain.save
-        flash[:notice] = 'Domain was successfully added.'
-        format.html { redirect_to :controller => "dashboard" }
+        # Create main WWW subdomain
+        @subdomain = Subdomain.new()
+        @subdomain.url = "www"
+        @subdomain.domain = @domain
+        @subdomain.path = "www"
+        @subdomain.mainsub = true
+
+        if @subdomain.save
+          flash[:notice] = 'Domain was successfully added.'
+          format.html { redirect_to :controller => "dashboard" }
+        end
       else
         flash[:error] = 'Error adding domain.'
         format.html { redirect_to :controller => "dashboard" }
@@ -76,6 +85,10 @@ class DomainsController < ApplicationController
   # DELETE /domains/1.xml
   def destroy
     @domain = Domain.find(params[:id])
+    @domain.subdomains.each do |sub|
+      sub.destroy
+    end
+
     @domain.destroy
 
     respond_to do |format|

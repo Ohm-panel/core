@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  url: MyString
+  domain: 1
+  path: MyString
+  mainsub: false
+
+two:
+  url: MyString
+  domain: 1
+  path: MyString
+  mainsub: false

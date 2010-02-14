@@ -2,14 +2,10 @@
 
 <% form_for(@domain) do |f| %>
   <%= f.error_messages %>
+  <%= hidden_field_tag 'user_id', 0 %>
 
   <p>
-    <%= f.label :domain %><br />
-    <%= f.text_field :domain %>
-  </p>
-  <p>
-    <%= f.label :path %><br />
-    /home/<%= @user.username %>/<%= f.text_field :path %>
+    www.<%= f.text_field :domain %>
   </p>
   <p>
     <%= f.submit 'Add' %>

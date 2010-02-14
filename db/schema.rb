@@ -9,14 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100202164535) do
+ActiveRecord::Schema.define(:version => 20100213153633) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "path"
   end
 
   create_table "domains_services", :id => false, :force => true do |t|
@@ -35,6 +34,15 @@ ActiveRecord::Schema.define(:version => 20100202164535) do
   create_table "services_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "service_id"
+  end
+
+  create_table "subdomains", :force => true do |t|
+    t.string   "url"
+    t.string   "path"
+    t.boolean  "mainsub"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "domain_id"
   end
 
   create_table "users", :force => true do |t|
