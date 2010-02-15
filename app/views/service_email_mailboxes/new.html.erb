@@ -1,0 +1,39 @@
+<h1>New service_email_mailbox</h1>
+
+<% form_for(@service_email_mailbox) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </p>
+  <p>
+    <%= f.label :domain_id %><br />
+    <%= f.text_field :domain_id %>
+  </p>
+  <p>
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </p>
+  <p>
+    <%= f.label :size %><br />
+    <%= f.text_field :size %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </p>
+  <p>
+    <%= f.label :forward %><br />
+    <%= f.text_area :forward %>
+  </p>
+  <p>
+    <%= f.label :forward_only %><br />
+    <%= f.check_box :forward_only %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', service_email_mailboxes_path %>

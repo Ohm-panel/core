@@ -15,6 +15,9 @@
   <br /><br />
 
 <% if @logged_user %>
+  <% if @logged_user.id==1 %>
+    <strong>User menu</strong><br /><br />
+  <% end %>
   <%= "&gt;" if controller.controller_name=="dashboard" || controller.controller_name=="domains" || controller.controller_name=="subdomains" %>
   <%= link_to "Dashboard", :controller=>"dashboard" %>
   <% @logged_user.services.each do |service| %>
@@ -24,9 +27,8 @@
   <% end %>
 
   <% if @logged_user.id==1 %>
-    <br /><br /><hr />
-    <strong>Administration</strong>
-    <br /><br />
+    <br /><br /><hr /><br />
+    <strong>Admin menu</strong><br /><br />
     <%= "&gt;" if controller.controller_name=="services" %>
     <%= link_to "Services", :controller=>"services" %>
   <% end %>

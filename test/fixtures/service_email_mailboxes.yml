@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  address: MyString
+  domain_id: 1
+  full_name: MyString
+  size: 1
+  password: MyString
+  forward: MyText
+  forward_only: false
+
+two:
+  address: MyString
+  domain_id: 1
+  full_name: MyString
+  size: 1
+  password: MyString
+  forward: MyText
+  forward_only: false

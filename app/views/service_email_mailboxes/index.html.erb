@@ -1,0 +1,32 @@
+<h1>Listing service_email_mailboxes</h1>
+
+<table>
+  <tr>
+    <th>Address</th>
+    <th>Domain</th>
+    <th>Full name</th>
+    <th>Size</th>
+    <th>Password</th>
+    <th>Forward</th>
+    <th>Forward only</th>
+  </tr>
+
+<% @service_email_mailboxes.each do |service_email_mailbox| %>
+  <tr>
+    <td><%=h service_email_mailbox.address %></td>
+    <td><%=h service_email_mailbox.domain_id %></td>
+    <td><%=h service_email_mailbox.full_name %></td>
+    <td><%=h service_email_mailbox.size %></td>
+    <td><%=h service_email_mailbox.password %></td>
+    <td><%=h service_email_mailbox.forward %></td>
+    <td><%=h service_email_mailbox.forward_only %></td>
+    <td><%= link_to 'Show', service_email_mailbox %></td>
+    <td><%= link_to 'Edit', edit_service_email_mailbox_path(service_email_mailbox) %></td>
+    <td><%= link_to 'Destroy', service_email_mailbox, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New service_email_mailbox', new_service_email_mailbox_path %>

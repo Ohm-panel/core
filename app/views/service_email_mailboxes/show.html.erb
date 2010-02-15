@@ -1,0 +1,38 @@
+<p>
+  <b>Address:</b>
+  <%=h @service_email_mailbox.address %>
+</p>
+
+<p>
+  <b>Domain:</b>
+  <%=h @service_email_mailbox.domain_id %>
+</p>
+
+<p>
+  <b>Full name:</b>
+  <%=h @service_email_mailbox.full_name %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%=h @service_email_mailbox.size %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%=h @service_email_mailbox.password %>
+</p>
+
+<p>
+  <b>Forward:</b>
+  <%=h @service_email_mailbox.forward %>
+</p>
+
+<p>
+  <b>Forward only:</b>
+  <%=h @service_email_mailbox.forward_only %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_email_mailbox_path(@service_email_mailbox) %> |
+<%= link_to 'Back', service_email_mailboxes_path %>
