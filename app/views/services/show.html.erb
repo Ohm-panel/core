@@ -13,6 +13,11 @@
   <%= if @service.by_domain then "True" else "False" end %>
 </p>
 
+<p>
+  <b>Controller:</b>
+  <%=h @service.controller %>
+</p>
+
 <%= link_to 'Edit', edit_service_path(@service) %> |
 <%= link_to 'Back', services_path %>
 

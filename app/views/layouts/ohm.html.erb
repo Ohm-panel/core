@@ -11,7 +11,7 @@
 <body>
 
 <div id="left" class="dark">
-  <img src="images/ohm.png" alt="Ohm | Open Hosting Manager" />
+  <%= image_tag "ohm.png", :alt=>"Ohm | Open Hosting Manager"%>
   <br /><br />
 
 <% if @logged_user %>
@@ -19,8 +19,16 @@
   <%= link_to "Dashboard", :controller=>"dashboard" %>
   <% @logged_user.services.each do |service| %>
     <br /><br />
-    <%= "&gt;" if controller.controller_name=="service_"+service.name.downcase %>
-    <%= link_to service.name, :controller=>"service_"+service.name.downcase %>
+    <%= "&gt;" if controller.controller_name==service.controller %>
+    <%= link_to service.name, :controller=>service.controller %>
+  <% end %>
+
+  <% if @logged_user.id==1 %>
+    <br /><br /><hr />
+    <strong>Administration</strong>
+    <br /><br />
+    <%= "&gt;" if controller.controller_name=="services" %>
+    <%= link_to "Services", :controller=>"services" %>
   <% end %>
 
   <br /><br /><br /><br /><hr /><br />

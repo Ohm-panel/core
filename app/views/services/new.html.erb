@@ -16,6 +16,10 @@
     <%= f.select :by_domain, [true, false] %>
   </p>
   <p>
+    <%= f.label :controller %><br />
+    <%= f.text_area :controller %>
+  </p>
+  <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
