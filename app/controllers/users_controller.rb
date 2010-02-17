@@ -4,11 +4,10 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = @logged_user.users
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @users }
     end
   end
 
@@ -16,6 +15,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
+    @available_services = @logged_user.services - @user.services
 
     respond_to do |format|
       format.html # show.html.erb

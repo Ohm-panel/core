@@ -1,7 +1,7 @@
 class Subdomain < ActiveRecord::Base
   belongs_to :domain
 
-  validate :max_one_mainsub
+  validate :max_one_mainsub, :path_not_empty
 
   def max_one_mainsub
     if self.mainsub
@@ -11,6 +11,10 @@ class Subdomain < ActiveRecord::Base
         curmain.save
       end
     end
+  end
+
+  def path_not_empty
+    self.path = self.url if self.path == ""
   end
 end
 

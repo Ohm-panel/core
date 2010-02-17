@@ -1,50 +1,30 @@
-<p>
-  <b>Username:</b>
-  <%=h @user.username %>
-</p>
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1><%=h @user.full_name + ' (' + @user.username + ')' %></h1>
 
 <p>
-  <b>Password:</b>
-  <%=h @user.password %>
+  <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => '', :class => 'action') + 'Edit', edit_user_path(@user) %>
 </p>
 
-<p>
-  <b>Full name:</b>
-  <%=h @user.full_name %>
-</p>
+<h2>E-mail: <small><%= link_to @user.email, 'mailto:'+@user.email %></small></h2>
 
-<p>
-  <b>Email:</b>
-  <%=h @user.email %>
-</p>
+<h2>Disk usage: <small><%= print_quota @user.used_space, @user.max_space, 'Mb' %></small></h2>
 
-<p>
-  <b>Parent:</b>
-  <%=h @user.parent.full_name + " (" + @user.parent.username + ")" %>
-</p>
-
-<p>
-  <b>Domains:</b><br/>
-  <% @user.domains.each do |d| %>
-    <%= h d.domain %> (<%= link_to 'remove', d, :confirm => 'Are you sure?', :method => :delete %>)<br/>
+<h2>Domains <small>(<%= print_quota @user.subdomains_count, @user.max_subdomains, '' %>)</small></h2>
+<%= 'This user has no domain yet' if @user.domains.count == 0 %>
+<% @user.domains.each do |dom| %>
+  <h3><%= dom.domain %></h3>
+  <ul class="subdomains">
+  <% dom.subdomains.each do |subdom| %>
+    <li>
+      <%= subdom.url+'.'+dom.domain %>
+      <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
+    </li>
   <% end %>
-</p>
-
-<p>
-  <b>Add a domain</b>
-  <% form_for(Domain.new) do |f| %>
-  <p>
-    <%= f.label :domain %><br />
-    <%= f.text_field :domain %>
-
-    <%= f.hidden_field :user_id, :value => @user.id %>
-    <%= f.submit 'Create' %>
-  </p>
+  </ul>
 <% end %>
-</p>
 
+<h2>Services:</h2>
 <p>
-  <b>Services:</b><br/>
   <% @user.services.each do |s| %>
     <% form_tag '/users/removeservice' do %>
       <%= hidden_field_tag 'user_id', @user.id %>
@@ -53,17 +33,22 @@
       (<%= submit_tag 'remove' %>)
     <% end %>
   <% end %>
-</p>
 
-<p>
-  <b>Add a service</b>
   <% form_tag '/users/addservice' do %>
     <%= hidden_field_tag 'user_id', @user.id %>
-    <%= collection_select :service_id, nil, Service.all, :id, :name %>
+    <%= collection_select :service_id, nil, @available_services, :id, :name %>
     <%= submit_tag 'Add service' %>
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<h2>Users</h2>
+<p>
+  <% @user.users.each do |u| %>
+    <%= u.full_name %><br/>
+  <% end %>
+</p>
+
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back to users', :controller => 'users' %><br />
+</p>
 

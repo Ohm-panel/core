@@ -4,7 +4,12 @@ class DomainsController < ApplicationController
   # GET /domains
   # GET /domains.xml
   def index
-    @domains = Domain.all
+    @domains = @logged_user.domains
+
+    @subdomains_count = 0
+    @logged_user.domains.each do |dom|
+      @subdomains_count += dom.subdomains.count
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,14 +18,18 @@ class DomainsController < ApplicationController
 
   # GET /domains/1
   # GET /domains/1.xml
-  #  def show
-  #    @domain = Domain.find(params[:id])
+  def show
+    @domain = Domain.find(params[:id])
 
-  #    respond_to do |format|
-  #      format.html # show.html.erb
-  #      format.xml  { render :xml => @domain }
-  #    end
-  #  end
+    respond_to do |format|
+      if !@domain or @domain.user == @logged_user
+        format.html
+      else
+        flash[:error] = "Invalid domain"
+        format.html { redirect_to :controller => 'domains' }
+      end
+    end
+  end
 
   # GET /domains/new
   # GET /domains/new.xml

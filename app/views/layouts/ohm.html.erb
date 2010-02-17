@@ -11,21 +11,28 @@
 <body>
 
 <div id="left" class="dark">
-  <%= image_tag "ohm.png", :alt=>"Ohm | Open Hosting Manager"%>
+  <%= image_tag 'logo.png', :alt => 'Ohm | Open Hosting Manager', :width => '140' %>
   <br /><br />
 
 <% if @logged_user %>
   <% if @logged_user.id==1 %>
     <strong>User menu</strong><br /><br />
   <% end %>
-  <%= "&gt;" if current_page?(:controller => 'dashboard') %>
+
+  <%= "&gt;" if current_controller?('dashboard') %>
   <%= link_to 'Dashboard', :controller => 'dashboard' %>
+
   <br /><br />
-  <%= "&gt;" if current_page?(:controller => 'domains') || current_page?(:controller => 'subdomains') %>
+  <%= "&gt;" if current_controller?('domains') %>
   <%= link_to 'Domains', :controller => 'domains' %>
+
+  <br /><br />
+  <%= "&gt;" if current_controller?('users') %>
+  <%= link_to 'Sub-users', :controller => 'users' %>
+
   <% @logged_user.services.each do |service| %>
     <br /><br />
-    <%= "&gt;" if current_page?(:controller => service.controller) %>
+    <%= "&gt;" if current_controller?(service.controller) %>
     <%= link_to service.name, :controller=>service.controller %>
   <% end %>
 

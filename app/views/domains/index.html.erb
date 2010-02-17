@@ -1,10 +1,15 @@
-<%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
+<%= image_tag 'icons/icontexto-webdev-site-map-128x128.png', :alt => '', :class => 'bigicon' %>
 <h1>Domains</h1>
 
-<%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
-<%= render :partial => @logged_user.domains %>
-<p>
+<% if @domains.count == 0 %>
+  <br />You have no domain yet
+<% else %>
+  <br />Domains: <%= print_quota @subdomains_count, @logged_user.max_subdomains, '' %>
+<% end %>
 
-  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '') + 'Add a domain', :controller => 'domains', :action => 'new' %>
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'Add a domain', :controller => 'domains', :action => 'new' %>
 </p>
+
+<%= render :partial => @domains %>
 

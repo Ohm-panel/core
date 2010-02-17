@@ -1,20 +1,23 @@
 <%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
 <h1>Dashboard</h1>
 
-<h2>Disk usage: <small><%= @logged_user.used_space.to_s+'/'+@logged_user.max_space.to_s %>Mb</small></h2>
+<h2>Disk usage: <small><%= print_quota @logged_user.used_space, @logged_user.max_space, 'Mb' %></small></h2>
 
-
-<h2><%= link_to 'Domains', :controller => 'domains' %>: <small><%= @subdomains_count.to_s+'/'+@logged_user.max_subdomains.to_s %></small></h2>
-<%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
-<% @logged_user.domains.each do |dom| %>
-  <h3><%= dom.domain %></h3>
-  <ul class="subdomains">
-  <% dom.subdomains.each do |subdom| %>
-    <li><%= link_to subdom.url+'.'+dom.domain, 'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %></li>
+<h2>Domains <small>(<%= print_quota @logged_user.subdomains_count, @logged_user.max_subdomains, '' %>)</small></h2>
+<p>
+  <%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
+  <% @logged_user.domains.each do |dom| %>
+    <h3><%= link_to dom.domain, dom %></h3>
+    <ul class="subdomains">
+    <% dom.subdomains.each do |subdom| %>
+      <li>
+        <%= subdom.url+'.'+dom.domain %>
+        <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
+      </li>
+    <% end %>
+    </ul>
   <% end %>
-  </ul>
-<% end %>
-
+</p>
 
 <h2>Available services</h2>
 <p>

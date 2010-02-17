@@ -12,6 +12,13 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
+  def subdomains_count
+    subdomains_count = 0
+    self.domains.each do |dom|
+      subdomains_count += dom.subdomains.count
+    end
+    subdomains_count
+  end
 
   # Password change
   def self.digest_password password

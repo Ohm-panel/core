@@ -1,29 +1,36 @@
-<h1>Listing users</h1>
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Your users</h1>
 
-<table>
-  <tr>
-    <th>Username</th>
-    <th>Password</th>
-    <th>Full name</th>
-    <th>Email</th>
-    <th>Parent</th>
-  </tr>
+<% if @users.count == 0 %>
+  <br />You have no user yet
+  <p><%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'New user', new_user_path %></p>
+<% else %>
+  <br />Users: <%= print_quota @users.count, @logged_user.max_subusers, '' %>
+  <p><%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'New user', new_user_path %></p>
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%=h user.username %></td>
-    <td><%=h user.password %></td>
-    <td><%=h user.full_name %></td>
-    <td><%=h user.email %></td>
-    <td><%=h user.parent.full_name + " (" + user.parent.username + ")" %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <table class="subdomains">
+    <tr>
+      <th>Name</th>
+      <th>Domains</th>
+      <th>Space</th>
+      <th>Actions</th>
+    </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= (link_to user.full_name, user) + ' (' + user.username + ')' %></td>
+      <td><%= print_quota user.subdomains_count, user.max_subdomains, '' %></td>
+      <td><%= print_quota user.used_space, user.max_space, 'Mb' %></td>
+
+      <td>
+        <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action'), edit_user_path(user) %>
+        <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => 'Delete', :title => 'Delete', :class => 'action'), user, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+
 <% end %>
-</table>
 
 <br />
-
-<%= link_to 'New user', new_user_path %>
 
