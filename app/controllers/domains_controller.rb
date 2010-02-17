@@ -8,7 +8,6 @@ class DomainsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @domains }
     end
   end
 
@@ -52,31 +51,11 @@ class DomainsController < ApplicationController
 
         if @subdomain.save
           flash[:notice] = 'Domain was successfully added.'
-          format.html { redirect_to :controller => "dashboard" }
+          format.html { redirect_to :controller => 'domains' }
         end
       else
         flash[:error] = 'Error adding domain.'
-        format.html { redirect_to :controller => "dashboard" }
-      end
-    end
-  end
-
-  # GET /domains/1/edit
-  def edit
-    @domain = Domain.find(params[:id])
-  end
-
-  def update
-    @domain = Domain.find(params[:id])
-
-    respond_to do |format|
-      if @domain.update_attributes(params[:domain])
-        flash[:notice] = 'Service was successfully updated.'
-        format.html { redirect_to :controller => "dashboard" }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @service.errors, :status => :unprocessable_entity }
+        format.html { redirect_to :controller => 'domains' }
       end
     end
   end
@@ -92,7 +71,7 @@ class DomainsController < ApplicationController
     @domain.destroy
 
     respond_to do |format|
-      format.html { redirect_to :controller => 'dashboard' }
+      format.html { redirect_to :controller => 'domains' }
     end
   end
 
@@ -106,7 +85,7 @@ class DomainsController < ApplicationController
       redirect_to :controller => ("service_" + @service.name), :action => "addtodomain"
     else
       flash[:notice] = 'Error occured'
-      redirect_to :controller => "dashboard"
+      redirect_to :controller => "domains"
     end
   end
 end

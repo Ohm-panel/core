@@ -1,13 +1,20 @@
 <%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
 <h1>Dashboard</h1>
 
-<h2>Domains</h2>
-<%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
-<%= render :partial => @user.domains %>
-<p>
+<h2>Disk usage: <small><%= @logged_user.used_space.to_s+'/'+@logged_user.max_space.to_s %>Mb</small></h2>
 
-  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '') + 'Add a domain', :controller => 'domains', :action => 'new' %>
-</p>
+
+<h2><%= link_to 'Domains', :controller => 'domains' %>: <small><%= @subdomains_count.to_s+'/'+@logged_user.max_subdomains.to_s %></small></h2>
+<%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
+<% @logged_user.domains.each do |dom| %>
+  <h3><%= dom.domain %></h3>
+  <ul class="subdomains">
+  <% dom.subdomains.each do |subdom| %>
+    <li><%= link_to subdom.url+'.'+dom.domain, 'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 
 <h2>Available services</h2>
 <p>
@@ -15,6 +22,7 @@
     <%=h s.name %><br/>
   <% end %>
 </p>
+
 
 <h2>Users</h2>
 <p>

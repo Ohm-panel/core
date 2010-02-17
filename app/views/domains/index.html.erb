@@ -1,22 +1,10 @@
-<h1>Listing domains</h1>
+<%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Domains</h1>
 
-<table>
-  <tr>
-    <th>Domain</th>
-    <th>User</th>
-  </tr>
+<%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
+<%= render :partial => @logged_user.domains %>
+<p>
 
-<% @domains.each do |domain| %>
-  <tr>
-    <td><%=h domain.domain %></td>
-    <td><%=h domain.user_id %></td>
-    <td><%= link_to 'Show', domain %></td>
-    <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
-    <td><%= link_to 'Destroy', domain, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '') + 'Add a domain', :controller => 'domains', :action => 'new' %>
+</p>
 
-<br />
-
-<%= link_to 'New domain', new_domain_path %>

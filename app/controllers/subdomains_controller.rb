@@ -27,9 +27,9 @@ class SubdomainsController < ApplicationController
     respond_to do |format|
       if @subdomain.save
         flash[:notice] = 'Subdomain was successfully created.'
-        format.html { redirect_to :controller => "dashboard" }
+        format.html { redirect_to :controller => "domains" }
       else
-        format.html { redirect_to :controller => "dashboard" }
+        format.html { redirect_to :controller => "domains" }
       end
     end
   end
@@ -42,10 +42,10 @@ class SubdomainsController < ApplicationController
     respond_to do |format|
       if @subdomain.update_attributes(params[:subdomain])
         flash[:notice] = 'Subdomain was successfully updated.'
-        format.html { redirect_to :controller => "dashboard" }
+        format.html { redirect_to :controller => "domains" }
       else
         flash[:error] = 'Error applying modifications.'
-        format.html { redirect_to :controller => "dashboard" }
+        format.html { redirect_to :controller => "domains" }
       end
     end
   end
@@ -66,12 +66,12 @@ class SubdomainsController < ApplicationController
 
       respond_to do |format|
         flash[:notice] = 'Subdomain was successfully deleted.'
-        format.html { redirect_to :controller => "dashboard" }
+        format.html { redirect_to :controller => "domains" }
       end
     else
       respond_to do |format|
         flash[:error] = 'You must have at least one subdomain.'
-        format.html { redirect_to :controller => "dashboard" }
+        format.html { redirect_to :controller => "domains" }
       end
     end
   end

@@ -18,11 +18,14 @@
   <% if @logged_user.id==1 %>
     <strong>User menu</strong><br /><br />
   <% end %>
-  <%= "&gt;" if controller.controller_name=="dashboard" || controller.controller_name=="domains" || controller.controller_name=="subdomains" %>
-  <%= link_to "Dashboard", :controller=>"dashboard" %>
+  <%= "&gt;" if current_page?(:controller => 'dashboard') %>
+  <%= link_to 'Dashboard', :controller => 'dashboard' %>
+  <br /><br />
+  <%= "&gt;" if current_page?(:controller => 'domains') || current_page?(:controller => 'subdomains') %>
+  <%= link_to 'Domains', :controller => 'domains' %>
   <% @logged_user.services.each do |service| %>
     <br /><br />
-    <%= "&gt;" if controller.controller_name==service.controller %>
+    <%= "&gt;" if current_page?(:controller => service.controller) %>
     <%= link_to service.name, :controller=>service.controller %>
   <% end %>
 
