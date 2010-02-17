@@ -12,15 +12,10 @@ body {
 
 .dark {
     background: #333;
-    color: #fff;
+    color: white;
 }
-.dark a {
-    color: #fff;
-}
-.dark a:hover {
-    color: #000;
-    background-color: #fff;
-}
+.dark a { color: white; }
+.dark a:visited { color: white; }
 
 #content {
     padding: 10px 20px 0 200px;
@@ -69,15 +64,25 @@ img.bigicon {
     opacity: 0.6;
 }
 
-a.image img {
+a {
+    color: black;
+    text-decoration: none;
+}
+a:visited { color: black; }
+a:hover {
+    background: none;
+    color: black;
+    opacity: 0.6;
+    text-decoration: none;
+}
+
+a img {
+    position: relative;
+    top: 3px;
+    padding-right: 2px;
+    border: 0;
     width: 20px;
     height: 20px;
-}
-a.image:hover {
-    background: none;
-}
-a.image:hover img {
-    opacity: 0.4;
 }
 
 .domain {

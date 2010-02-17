@@ -1,11 +1,12 @@
-<%= image_tag "icons/icontexto-webdev-home-128x128.png", :alt=>"", :class=>"bigicon" %>
+<%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
 <h1>Dashboard</h1>
 
 <h2>Domains</h2>
-<%= "You have no domain yet" if @logged_user.domains.count == 0 %>
+<%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
 <%= render :partial => @user.domains %>
 <p>
-  <%= link_to 'Add a domain', :controller => 'domains', :action => 'new' %>
+
+  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '') + 'Add a domain', :controller => 'domains', :action => 'new' %>
 </p>
 
 <h2>Available services</h2>

@@ -1,4 +1,4 @@
-<%= image_tag "icons/icontexto-webdev-file-128x128.png", :alt=>"", :class=>"bigicon" %>
+<%= image_tag "icons/icontexto-webdev-config-128x128.png", :alt=>"", :class=>"bigicon" %>
 <h1>Editing subdomain</h1>
 
 <% form_for(@subdomain) do |f| %>
@@ -20,5 +20,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', :controller => 'dashboard' %>
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '') + 'Back', :controller => 'dashboard' %>
 
