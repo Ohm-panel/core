@@ -41,14 +41,14 @@
 </div>
 
 <div id="content">
-  <p style="color: green"><%= flash[:notice] %></p>
-  <p style="color: red"><%= flash[:error] %></p>
+  <%= "<p class=\"notice\">"+image_tag("icons/icontexto-webdev-ok-032x032.png", :alt=>"", :class=>"messageicon")+flash[:notice]+"</p>" if flash[:notice] %>
+  <%= "<p class=\"error\">"+image_tag("icons/icontexto-webdev-cancel-032x032.png", :alt=>"", :class=>"messageicon")+flash[:error]+"</p>" if flash[:error] %>
 
   <%= yield %>
 </div>
 
-<div id="footer" class="dark">
-  &copy; 2009-2010 <a href="http://www.umons.ac.be" target="_blank">UMons</a> and <a href="http://www.joelcogen.com" target="_blank">Joel Cogen</a><br />
+<div id="footer">
+  Copyright &copy; 2009-2010 <a href="http://www.umons.ac.be" target="_blank">UMons</a> and <a href="http://www.joelcogen.com" target="_blank">Joel Cogen</a><br />
   <strong>Ohm</strong> is <a href="http://www.fsf.org/resources/what-is-fs" target="_blank">free software</a> released under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>
 </div>
 

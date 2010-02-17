@@ -14,8 +14,10 @@
     <td><%= "*" if sub.mainsub %> <%= sub.url %></td>
     <td>/home/<%= @logged_user.username %>/<%= domain.domain %>/<%= sub.path %>/</td>
     <td>
-      <%= link_to 'Edit', edit_subdomain_path(sub) %>
-      <%= link_to 'Delete', sub, :confirm => 'ALL DATA for this subdomain will be destroyed! Are you sure?', :method => :delete %>
+      <%= link_to (image_tag "icons/icontexto-webdev-file-032x032.png", :alt=>"Edit", :title=>"Edit"),
+          edit_subdomain_path(sub), :class=>"image" %>
+      <%= link_to (image_tag "icons/icontexto-webdev-remove-032x032.png", :alt=>"Delete", :title=>"Delete"),
+          sub, :class=>"image", :confirm => 'ALL DATA for this subdomain will be destroyed! Are you sure?', :method => :delete %>
     </td>
   </tr>
 <% end %>
