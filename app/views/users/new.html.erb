@@ -1,3 +1,4 @@
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
 <h1>New user</h1>
 
 <% form_for(@user) do |f| %>
@@ -8,25 +9,37 @@
     <%= f.text_field :username %>
   </p>
   <p>
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
+    <%= f.label :new_password %><br />
+    <%= f.password_field :new_password %>
+  </p>
+  <p>
+    <%= f.label :new_password_confirmation %><br />
+    <%= f.password_field :new_password_confirmation %>
   </p>
   <p>
     <%= f.label :full_name %><br />
     <%= f.text_field :full_name %>
   </p>
   <p>
-    <%= f.label :email %><br />
+    <%= f.label 'E-mail address' %><br />
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label :parent_id %><br />
-    <%= f.collection_select :parent_id, User.all, :id, :full_name %>
+    <%= f.label 'Disk space' %><br />
+    <%= f.text_field :max_space %>
+  </p>
+  <p>
+    <%= f.label 'Maximum subdomains' %><br />
+    <%= f.text_field :max_subdomains %>
+  </p>
+  <p>
+    <%= f.label 'Maximum sub-users' %><br />
+    <%= f.text_field :max_subusers %>
   </p>
   <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', users_path %>
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', :controller => 'users' %>
 

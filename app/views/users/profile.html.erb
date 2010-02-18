@@ -1,0 +1,34 @@
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Edit your profile</h1>
+
+<% form_for @user, :url => { :action => 'profileupdate' } do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </p>
+  <p>
+    <%= f.label 'E-mail address' %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p><br/><strong>Change your password</strong></p>
+  <p>
+    <%= f.label 'Current password' %><br />
+    <%= f.password_field :password, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :new_password %><br />
+    <%= f.password_field :new_password %>
+  </p>
+  <p>
+    <%= f.label :new_password_confirmation %><br />
+    <%= f.password_field :new_password_confirmation %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', :controller => 'dashboard' %>
+

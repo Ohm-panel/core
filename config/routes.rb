@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :domains
 
+  map.connect 'users/profile', :controller => 'users', :action => 'profile'
+  map.connect 'users/profileupdate', :controller => 'users', :action => 'profileupdate'
   map.resources :users
 
   map.resources :services

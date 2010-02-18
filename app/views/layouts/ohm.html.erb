@@ -46,7 +46,9 @@
   <br /><br /><br /><br /><hr /><br />
   <%=h @logged_user.full_name %> (<%=h @logged_user.username %>)
   <br />
-  <%= link_to "Logout", :controller=>"login", :action=>"logout" %>
+  <%= link_to 'Edit profile', :controller => 'users', :action => 'profile' %>
+  <br />
+  <%= link_to 'Logout', :controller => 'login', :action => 'logout' %>
 <% end %>
 </div>
 

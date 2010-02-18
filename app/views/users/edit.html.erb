@@ -1,29 +1,33 @@
-<h1>Editing user</h1>
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Editing user: <%= @user.username %></h1>
 
 <% form_for(@user) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :username %><br />
-    <%=h @user.username %>
-  </p>
-  <p>
-    <%= f.label :password %><br />
-    <%= f.text_field :password, :value => "" %>
-  </p>
-  <p>
     <%= f.label :full_name %><br />
     <%= f.text_field :full_name %>
   </p>
   <p>
-    <%= f.label :email %><br />
+    <%= f.label 'E-mail address' %><br />
     <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label 'Disk space' %> (currently using <%= @user.used_space %> Mb)<br />
+    <%= f.text_field :max_space %>
+  </p>
+  <p>
+    <%= f.label 'Maximum subdomains' %> (currently has <%= @user.subdomains_count %>)<br />
+    <%= f.text_field :max_subdomains %>
+  </p>
+  <p>
+    <%= f.label 'Maximum sub-users' %> (currently has <%= @user.users.count %>)<br />
+    <%= f.text_field :max_subusers %>
   </p>
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', :controller => 'users' %>
 

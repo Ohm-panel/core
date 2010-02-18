@@ -15,23 +15,17 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-    @available_services = @logged_user.services - @user.services
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
-    end
+    @available_services = (@logged_user.root? ? Service.all : @logged_user.services) - @user.services
   end
 
   # GET /users/new
   # GET /users/new.xml
   def new
     @user = User.new
+  end
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
+  def profile
+    @user = @logged_user
   end
 
   # GET /users/1/edit
@@ -43,6 +37,8 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    @user.parent = @logged_user
+    @user.used_space = 0
 
     respond_to do |format|
       if @user.save
@@ -69,6 +65,19 @@ class UsersController < ApplicationController
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def profileupdate
+    @user = @logged_user
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = 'Profile successfully updated.'
+        format.html { redirect_to :controller => 'dashboard' }
+      else
+        format.html { render :action => "profile" }
       end
     end
   end

@@ -1,36 +1,44 @@
 <%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
 <h1>Dashboard</h1>
 
-<h2>Disk usage: <small><%= print_quota @logged_user.used_space, @logged_user.max_space, 'Mb' %></small></h2>
+<h2>Disk usage: <small><%= print_quota @user.used_space, @user.max_space, 'Mb' %></small></h2>
 
-<h2>Domains <small>(<%= print_quota @logged_user.subdomains_count, @logged_user.max_subdomains, '' %>)</small></h2>
+<h2>Domains <small>(<%= print_quota @user.subdomains_count, @user.max_subdomains, '' %>)</small></h2>
 <p>
-  <%= 'You have no domain yet' if @logged_user.domains.count == 0 %>
-  <% @logged_user.domains.each do |dom| %>
-    <h3><%= link_to dom.domain, dom %></h3>
-    <ul class="subdomains">
-    <% dom.subdomains.each do |subdom| %>
-      <li>
-        <%= subdom.url+'.'+dom.domain %>
-        <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
-      </li>
+  <ul>
+    <%= '<li>You have no domain yet</li>' if @user.domains.count == 0 %>
+    <% @user.domains.each do |dom| %>
+      <li><h3><%= link_to dom.domain, dom %></h3>
+      <ul class="subdomains">
+      <% dom.subdomains.each do |subdom| %>
+        <li>
+          <%= subdom.url+'.'+dom.domain %>
+          <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
+        </li>
+      <% end %>
+      </ul></li>
     <% end %>
-    </ul>
-  <% end %>
+  </ul>
 </p>
 
 <h2>Available services</h2>
 <p>
-  <% @logged_user.services.each do |s| %>
-    <%=h s.name %><br/>
-  <% end %>
+  <ul>
+    <%= '<li>You have no additional services</li>' if @user.services.count == 0 %>
+    <% @user.services.each do |s| %>
+      <li><%= link_to s.name, :controller=>s.controller %></li>
+    <% end %>
+  </ul>
 </p>
 
 
-<h2>Users</h2>
+<h2>Users <small>(<%= print_quota @user.users.count, @user.max_subusers, '' %>)</small></h2>
 <p>
-  <% @logged_user.users.each do |u| %>
-    <%=h u.full_name %><br/>
-  <% end %>
+  <ul>
+    <%= '<li>You have no sub-users</li>' if @user.users.count == 0 %>
+    <% @user.users.each do |u| %>
+      <li><%= link_to u.full_name, u %></li>
+    <% end %>
+  <ul>
 </p>
 

@@ -2,6 +2,8 @@ body { margin: 0; }
 
 img { border: 0; }
 
+ul { list-style: square; }
+
 #left {
     float: left;
     clear: none;
@@ -34,7 +36,7 @@ img { border: 0; }
     bottom: 5px;
     right: 5px;
     opacity: 0.6;
-    background: url("/images/icons/icontexto-webdev-info-032x032.png") no-repeat top right #fff;
+    background: url("/images/icons/icontexto-webdev-info-032x032.png") no-repeat top right #eef;
     border: 1px solid #ccc;
     font-size: 10px;
     line-height: 14px;
@@ -43,7 +45,6 @@ img { border: 0; }
 }
 #footer:hover {
     opacity: 1;
-    background-color: #eef;
 }
 
 h1 {
@@ -96,7 +97,7 @@ a:hover {
     color: #66b;
 }
 
-a img.action {
+img.action, input.action {
     position: relative;
     top: 4px;
     padding-right: 2px;

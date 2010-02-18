@@ -10,42 +10,57 @@
 <h2>Disk usage: <small><%= print_quota @user.used_space, @user.max_space, 'Mb' %></small></h2>
 
 <h2>Domains <small>(<%= print_quota @user.subdomains_count, @user.max_subdomains, '' %>)</small></h2>
-<%= 'This user has no domain yet' if @user.domains.count == 0 %>
-<% @user.domains.each do |dom| %>
-  <h3><%= dom.domain %></h3>
-  <ul class="subdomains">
-  <% dom.subdomains.each do |subdom| %>
-    <li>
-      <%= subdom.url+'.'+dom.domain %>
-      <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
-    </li>
+<ul>
+  <%= '<li>This user has no domain yet</li>' if @user.domains.count == 0 %>
+  <% @user.domains.each do |dom| %>
+    <li><h3><%= dom.domain %></h3>
+    <ul class="subdomains">
+    <% dom.subdomains.each do |subdom| %>
+      <li>
+        <%= subdom.url+'.'+dom.domain %>
+        <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
+      </li>
+    <% end %>
+    </ul></li>
   <% end %>
-  </ul>
-<% end %>
+</ul>
 
 <h2>Services:</h2>
 <p>
-  <% @user.services.each do |s| %>
-    <% form_tag '/users/removeservice' do %>
-      <%= hidden_field_tag 'user_id', @user.id %>
-      <%= hidden_field_tag 'service_id', s.id %>
-      <%= label_tag h s.name %>
-      (<%= submit_tag 'remove' %>)
+  <ul>
+    <%= '<li>No additional services</li>' if @user.services.count == 0 %>
+    <% @user.services.each do |s| %>
+      <li>
+        <% form_tag '/users/removeservice' do %>
+          <%= hidden_field_tag 'user_id', @user.id %>
+          <%= hidden_field_tag 'service_id', s.id %>
+          <%= label_tag h s.name %>
+          <%= image_submit_tag 'icons/icontexto-webdev-remove-032x032.png', :class => 'action' %>
+        <% end %>
+      </li>
     <% end %>
-  <% end %>
 
-  <% form_tag '/users/addservice' do %>
-    <%= hidden_field_tag 'user_id', @user.id %>
-    <%= collection_select :service_id, nil, @available_services, :id, :name %>
-    <%= submit_tag 'Add service' %>
-  <% end %>
+    <% if @available_services.count > 0 %>
+      <li>
+        <% form_tag '/users/addservice' do %>
+          <%= hidden_field_tag 'user_id', @user.id %>
+          <%= label_tag 'Add service:' %>
+          <%= collection_select :service_id, nil, @available_services, :id, :name %>
+          <%= image_submit_tag 'icons/icontexto-webdev-add-032x032.png', :class => 'action' %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </p>
 
-<h2>Users</h2>
+<h2>Users <small>(<%= print_quota @user.users.count, @user.max_subusers, '' %>)</small></h2>
 <p>
-  <% @user.users.each do |u| %>
-    <%= u.full_name %><br/>
-  <% end %>
+  <ul>
+    <%= '<li>No sub-users</li>' if @user.users.count == 0 %>
+    <% @user.users.each do |u| %>
+      <li><%= u.full_name %></li>
+    <% end %>
+  </ul>
 </p>
 
 <p>
