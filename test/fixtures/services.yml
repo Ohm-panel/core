@@ -1,9 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  description: MyText
+  name: Service 1
+  tech_name: Tech Service 1
+  description: Test Service 1
+  controller: service_test_1
 
 two:
-  name: MyString
-  description: MyText
+  name: Service 2
+  tech_name: Tech Service 2
+  description: Test Service 2
+  controller: service_test_2
+

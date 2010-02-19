@@ -1,13 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  url: MyString
-  domain: 1
-  path: MyString
-  mainsub: false
+  url: www
+  domain_id: 1
+  path: www
+  mainsub: true
 
 two:
-  url: MyString
-  domain: 1
-  path: MyString
+  url: test
+  domain_id: 1
+  path: test-site
   mainsub: false
+

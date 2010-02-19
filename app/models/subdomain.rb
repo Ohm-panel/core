@@ -1,10 +1,11 @@
 class Subdomain < ActiveRecord::Base
   belongs_to :domain
 
+  validates_presence_of :url, :path, :domain
   validates_uniqueness_of :url, :scope => :domain_id
   validates_uniqueness_of :path, :scope => :domain_id
 
-  validate :max_one_mainsub, :min_one_mainsub, :path_not_empty
+  validate :max_one_mainsub, :min_one_mainsub
 
   def max_one_mainsub
     if self.mainsub
@@ -22,7 +23,8 @@ class Subdomain < ActiveRecord::Base
     end
   end
 
-  def path_not_empty
+  def before_save
+    self.mainsub = false if self.mainsub.nil?
     self.path = self.url if self.path == ""
   end
 end

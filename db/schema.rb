@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100217102855) do
+ActiveRecord::Schema.define(:version => 20100219230544) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20100217102855) do
     t.datetime "updated_at"
     t.boolean  "by_domain"
     t.string   "controller"
+    t.string   "tech_name"
   end
 
   create_table "services_users", :id => false, :force => true do |t|

@@ -2,14 +2,20 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Displayed name</th>
+    <th>Technical name</th>
     <th>Description</th>
+    <th>By domain</th>
+    <th>Controller</th>
   </tr>
 
 <% @services.each do |service| %>
   <tr>
     <td><%=h service.name %></td>
+    <td><%=h service.tech_name %></td>
     <td><%=h service.description %></td>
+    <td><%=h service.by_domain %></td>
+    <td><%=h service.controller %></td>
     <td><%= link_to 'Show', service %></td>
     <td><%= link_to 'Edit', edit_service_path(service) %></td>
     <td><%= link_to 'Destroy', service, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -20,3 +26,4 @@
 <br />
 
 <%= link_to 'New service', new_service_path %>
+
