@@ -7,9 +7,9 @@
 
 <h2>E-mail: <small><%= link_to @user.email, 'mailto:'+@user.email %></small></h2>
 
-<h2>Disk usage: <small><%= print_quota @user.used_space, @user.max_space, 'Mb' %></small></h2>
+<h2>Disk usage: <small><%= print_quota @user.used_space_total, @user.max_space, 'Mb' %></small></h2>
 
-<h2>Domains <small>(<%= print_quota @user.subdomains_count, @user.max_subdomains, '' %>)</small></h2>
+<h2>Domains <small>(<%= print_quota @user.used_subdomains_total, @user.max_subdomains, '' %>)</small></h2>
 <ul>
   <%= '<li>This user has no domain yet</li>' if @user.domains.count == 0 %>
   <% @user.domains.each do |dom| %>
@@ -53,7 +53,7 @@
   </ul>
 </p>
 
-<h2>Users <small>(<%= print_quota @user.users.count, @user.max_subusers, '' %>)</small></h2>
+<h2>Users <small>(<%= print_quota @user.used_subusers_total, @user.max_subusers, '' %>)</small></h2>
 <p>
   <ul>
     <%= '<li>No sub-users</li>' if @user.users.count == 0 %>

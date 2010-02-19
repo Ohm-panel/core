@@ -13,15 +13,15 @@
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label 'Disk space' %> (currently using <%= @user.used_space %> Mb)<br />
+    <%= f.label 'Disk space' %> (currently using <%= @user.used_space_total %> Mb)<br />
     <%= f.text_field :max_space %>
   </p>
   <p>
-    <%= f.label 'Maximum subdomains' %> (currently has <%= @user.subdomains_count %>)<br />
+    <%= f.label 'Maximum subdomains' %> (currently has <%= @user.used_subdomains_total %>)<br />
     <%= f.text_field :max_subdomains %>
   </p>
   <p>
-    <%= f.label 'Maximum sub-users' %> (currently has <%= @user.users.count %>)<br />
+    <%= f.label 'Maximum sub-users' %> (currently has <%= @user.used_subusers_total %>)<br />
     <%= f.text_field :max_subusers %>
   </p>
   <p>

@@ -71,6 +71,11 @@ class UsersController < ApplicationController
 
   def profileupdate
     @user = @logged_user
+    @newatts = params[:user]
+    if @newatts[:password] == ''
+      @newatts[:password_confirmation] = nil
+      @newatts[:password] = @user.password
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

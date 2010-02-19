@@ -18,11 +18,17 @@ class ApplicationController < ActionController::Base
   def loggedin?
     if session[:session]
       @user = User.find_by_session(session[:session])
-      if !@user or Time.new - @user.session_ts > 600
+      if !@user
+        # Bogus session
+        false
+      elsif Time.new - @user.session_ts > 600
+        # Session expired
+        @user.session = nil
+        @user.save false
         false
       else
         @user.session_ts = Time.new
-        @user.save
+        @user.save false
         @logged_user = @user
         true
       end

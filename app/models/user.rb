@@ -8,26 +8,85 @@ class User < ActiveRecord::Base
 
   has_many :domains
 
+
   def root?
     self.id == 1
   end
 
-  def subdomains_count
-    subdomains_count = 0
+
+  def used_subdomains_total
+    # What user uses
+    used = 0
     self.domains.each do |dom|
-      subdomains_count += dom.subdomains.count
+      used += dom.subdomains.count
     end
-    subdomains_count
+    # What's given to sub-users
+    self.users.each do |u|
+      used += u.max_subdomains
+    end
+    used
+  end
+
+  def used_space_total
+    # What user uses
+    used = self.used_space
+    # What's given to sub-users
+    self.users.each do |u|
+      used += u.max_space
+    end
+    used
+  end
+
+  def used_subusers_total
+    # What user uses
+    used = self.users.count
+    # What's given to sub-users
+    self.users.each do |u|
+      used += u.max_subusers
+    end
+    used
   end
 
 
-  validates_presence_of :username
+  def free_space
+    return -1 if self.max_space == -1
+    self.max_space - self.used_space_total
+  end
+
+  def free_subdomains
+    return -1 if self.max_subdomains == -1
+    self.max_subdomains - self.used_subdomains_total
+  end
+
+  def free_subusers
+    return -1 if self.max_subusers == -1
+    self.max_subusers - self.used_subusers_total
+  end
+
+
+  def quota_ok parent_free, to_take
+    if parent_free == -1
+      true
+    elsif to_take == -1
+      false
+    elsif to_take <= parent_free
+      true
+    end
+    false
+  end
+
+
+  validates_presence_of :username, :password
   validates_uniqueness_of :username
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validate :check_quota, :check_services
 
   def check_quota
+    # Skip check on root
+    return if self.root?
+
     # Fill blank quotas
+    self.used_space = 0 if !self.used_space
     self.max_space = -1 if !self.max_space or self.max_space < 0
     self.max_subdomains = -1 if !self.max_subdomains or self.max_subdomains < 0
     self.max_subusers = -1 if !self.max_subusers or self.max_subusers < 0
@@ -37,26 +96,20 @@ class User < ActiveRecord::Base
 
     # Compute quotas to take from parent
     oldme = self.id ? User.find(self.id) : nil
-    space_to_take = self.max_space - (oldme ? oldme.max_space : 0)
-    subdomains_to_take = self.max_subdomains - (oldme ? oldme.max_subdomains : 0)
-    subusers_to_take = self.max_subusers - (oldme ? oldme.max_subusers : 0)
+    space_to_take = self.max_space - ((oldme and self.max_space!=-1) ? oldme.max_space : 0)
+    subdomains_to_take = self.max_subdomains - ((oldme and self.max_subdomains!=-1) ? oldme.max_subdomains : 0)
+    subusers_to_take = self.max_subusers - ((oldme and self.max_subusers!=-1) ? oldme.max_subusers : 0)
 
     # See if we can take that much
-    errors.add(:max_space, "is more than you can give") if self.parent.max_space != -1 \
-      and space_to_take > self.parent.max_space - self.parent.used_space
-    errors.add(:max_subdomains, "is more than you can give") if self.parent.max_subdomains != -1 \
-      and subdomains_to_take > self.parent.max_subdomains - self.parent.subdomains_count
-    errors.add(:max_subusers, "is more than you can give") if self.parent.max_subusers != -1 \
-      and subusers_to_take > self.parent.max_subusers - self.parent.users.count
-
-    # Take it
-    self.parent.max_space -= space_to_take
-    self.parent.max_subdomains -= subdomains_to_take
-    self.parent.max_subusers -= subusers_to_take
-    self.parent.save false
+    errors.add(:max_space, "is more than you can give") unless quota_ok self.parent.free_space, space_to_take
+    errors.add(:max_subdomains, "is more than you can give") unless quota_ok self.parent.free_subdomains, subdomains_to_take
+    errors.add(:max_subusers, "is more than you can give") unless quota_ok self.parent.free_subusers, subusers_to_take
   end
 
   def check_services
+    # Skip check on root
+    return if self.root?
+
     illegal_services = self.services - parent.services
     illegal_services.each do |is|
       errors.add("Can't add service " +is.name+", you don't have it!")
@@ -68,26 +121,16 @@ class User < ActiveRecord::Base
     Digest::SHA512.hexdigest(password)
   end
 
-  attr_accessor :new_password, :new_password_confirmation
+  attr_accessor :old_password, :password_confirmation
 
   validate :passwords_must_match
   def passwords_must_match
-    if self.id and new_password and new_password != ''
-      # We're in password change
-      errors.add(:password, "incorrect") if User.digest_password(password) != User.find(id).password
-      errors.add(:password, "and confirmation don't match") if new_password_confirmation != new_password
-    elsif not self.id and new_password
-      # We're in new user
-      errors.add(:password, "and confirmation don't match") if new_password_confirmation != new_password
-    end
+    errors.add(:old_password, "incorrect") if password_confirmation and old_password and User.digest_password(old_password) != User.find(id).password
+    errors.add(:password_confirmation, "and confirmation don't match") if password_confirmation and password_confirmation != password
   end
 
   def before_save
-    if new_password and new_password != ''
-      self.password = User.digest_password(new_password)
-    else
-      self.password = User.find(id).password
-    end
+    self.password = User.digest_password(password) if password_confirmation
   end
 end
 

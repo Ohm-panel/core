@@ -4,7 +4,7 @@
 <% if @domains.count == 0 %>
   <br />You have no domain yet
 <% else %>
-  <br />Domains: <%= print_quota @subdomains_count, @logged_user.max_subdomains, '' %>
+  <br />Domains: <%= print_quota @logged_user.used_subdomains_total, @logged_user.max_subdomains, '' %>
 <% end %>
 
 <p>

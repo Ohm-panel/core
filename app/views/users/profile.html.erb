@@ -15,15 +15,15 @@
   <p><br/><strong>Change your password</strong></p>
   <p>
     <%= f.label 'Current password' %><br />
+    <%= f.password_field :old_password %>
+  </p>
+  <p>
+    <%= f.label 'New password' %><br />
     <%= f.password_field :password, :value => '' %>
   </p>
   <p>
-    <%= f.label :new_password %><br />
-    <%= f.password_field :new_password %>
-  </p>
-  <p>
-    <%= f.label :new_password_confirmation %><br />
-    <%= f.password_field :new_password_confirmation %>
+    <%= f.label 'Confirm new password' %><br />
+    <%= f.password_field :password_confirmation, :value => '' %>
   </p>
   <p>
     <%= f.submit 'Update' %>
