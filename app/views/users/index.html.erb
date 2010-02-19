@@ -27,6 +27,7 @@
       <td>
         <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action'), edit_user_path(user) %>
         <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => 'Delete', :title => 'Delete', :class => 'action'), user, :confirm => 'Are you sure?', :method => :delete %>
+        <%= link_to (image_tag 'icons/icontexto-webdev-security-032x032.png', :alt => 'Login as this user', :title => 'Login as this user', :class => 'action'), :controller => 'users', :action => :login_as_me, :id => user.id %>
       </td>
     </tr>
   <% end %>

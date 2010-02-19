@@ -36,5 +36,13 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
+  def login_as user
+    # Create session (keep current one if exists, so we can connect from several locations at the same time)
+    user.session_ts = Time.new
+    user.session = Digest::MD5.hexdigest(Time.new.to_f.to_s) unless user.session
+    user.save
+    session[:session] = user.session
+  end
 end
 

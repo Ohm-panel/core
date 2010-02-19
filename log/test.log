@@ -6577,3 +6577,1124 @@ Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
   [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test2' AND "users".id <> 298486374) LIMIT 1[0m
   [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 298486374 ) [0m
   [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:24:19) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:24:19", updated_at: "2010-02-19 23:24:19", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 3) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:24:19) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:24:19", updated_at: "2010-02-19 23:24:19", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:24:19', "session_ts" = '2010-02-19 23:24:19', "session" = '1aec3145b96c65ca8217f4a256f6b0ed' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 61ms (View: 61, DB: 0) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "service_email_mailboxes" [0m
+
+
+Processing ServiceEmailMailboxesController#create (for 0.0.0.0 at 2010-02-20 00:24:19) [POST]
+  Parameters: {"action"=>"create", "controller"=>"service_email_mailboxes", "service_email_mailbox"=>{}}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes?]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "service_email_mailboxes" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "service_email_mailboxes" [0m
+  [4;36;1mServiceEmailMailbox Load (0.2ms)[0m   [0;1mSELECT * FROM "service_email_mailboxes" WHERE ("service_email_mailboxes"."id" = 2053932785) [0m
+
+
+Processing ServiceEmailMailboxesController#destroy (for 0.0.0.0 at 2010-02-20 00:24:19) [DELETE]
+  Parameters: {"action"=>"destroy", "id"=>"2053932785", "controller"=>"service_email_mailboxes"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes/2053932785]
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "service_email_mailboxes" [0m
+  [4;36;1mServiceEmailMailbox Load (0.2ms)[0m   [0;1mSELECT * FROM "service_email_mailboxes" WHERE ("service_email_mailboxes"."id" = 2053932785) [0m
+
+
+Processing ServiceEmailMailboxesController#edit (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"edit", "id"=>"2053932785", "controller"=>"service_email_mailboxes"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes/2053932785/edit]
+
+
+Processing ServiceEmailMailboxesController#index (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"index", "controller"=>"service_email_mailboxes"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes]
+
+
+Processing ServiceEmailMailboxesController#new (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"new", "controller"=>"service_email_mailboxes"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes/new]
+  [4;35;1mServiceEmailMailbox Load (0.3ms)[0m   [0mSELECT * FROM "service_email_mailboxes" WHERE ("service_email_mailboxes"."id" = 2053932785) [0m
+
+
+Processing ServiceEmailMailboxesController#show (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"2053932785", "controller"=>"service_email_mailboxes"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes/2053932785]
+  [4;36;1mServiceEmailMailbox Load (0.2ms)[0m   [0;1mSELECT * FROM "service_email_mailboxes" WHERE ("service_email_mailboxes"."id" = 2053932785) [0m
+
+
+Processing ServiceEmailMailboxesController#update (for 0.0.0.0 at 2010-02-20 00:24:19) [PUT]
+  Parameters: {"action"=>"update", "id"=>"2053932785", "controller"=>"service_email_mailboxes", "service_email_mailbox"=>{}}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/service_email_mailboxes/2053932785?]
+  [4;35;1mSQL (0.5ms)[0m   [0mSELECT count(*) AS count_all FROM "subdomains" [0m
+
+
+Processing SubdomainsController#create (for 0.0.0.0 at 2010-02-20 00:24:19) [POST]
+  Parameters: {"action"=>"create", "subdomain"=>{}, "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 1) | 302 Found [http://test.host/subdomains?]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "subdomains" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "subdomains" [0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+
+
+Processing SubdomainsController#destroy (for 0.0.0.0 at 2010-02-20 00:24:19) [DELETE]
+  Parameters: {"action"=>"destroy", "id"=>"2053932785", "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/subdomains/2053932785]
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "subdomains" [0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+
+
+Processing SubdomainsController#edit (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"edit", "id"=>"2053932785", "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/subdomains/2053932785/edit]
+
+
+Processing SubdomainsController#index (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"index", "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/subdomains]
+
+
+Processing SubdomainsController#new (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"new", "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/subdomains/new]
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+
+
+Processing SubdomainsController#show (for 0.0.0.0 at 2010-02-20 00:24:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"2053932785", "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/subdomains/2053932785]
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+
+
+Processing SubdomainsController#update (for 0.0.0.0 at 2010-02-20 00:24:19) [PUT]
+  Parameters: {"action"=>"update", "id"=>"2053932785", "subdomain"=>{}, "controller"=>"subdomains"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://test.host/subdomains/2053932785?]
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:25:39) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:25:39", updated_at: "2010-02-19 23:25:39", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 3) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:25:39) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:25:39", updated_at: "2010-02-19 23:25:39", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:25:39', "session_ts" = '2010-02-19 23:25:39', "session" = 'f610d856556f827d295edde7a8616dbb' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:25:39) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 48ms (View: 48, DB: 0) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:26:04) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:26:04", updated_at: "2010-02-19 23:26:04", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 3) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:26:04) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:26:04", updated_at: "2010-02-19 23:26:04", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:26:04', "session_ts" = '2010-02-19 23:26:04', "session" = 'a99e8d7d66521932cc686abbddb215f0' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:26:04) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 49ms (View: 48, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:26:56) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:26:56", updated_at: "2010-02-19 23:26:56", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 2) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:26:56) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:26:56", updated_at: "2010-02-19 23:26:56", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:26:56', "session_ts" = '2010-02-19 23:26:56', "session" = 'eda82399e6d7d06fc18d1959811b1e5c' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:26:56) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 49ms (View: 49, DB: 0) | 200 OK [http://test.host/login]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:28:23) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 2) | 302 Found [http://test.host/]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:28:23) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:28:22", updated_at: "2010-02-19 23:28:22", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:28:23) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:28:22", updated_at: "2010-02-19 23:28:22", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (42.3ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:28:23', "session_ts" = '2010-02-19 23:28:23', "session" = 'a21fefad3dba1fc411221995dda0d0c0' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 58ms (DB: 44) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:28:23) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/login]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:30:12) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 2) | 302 Found [http://test.host/]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:30:12) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:30:12", updated_at: "2010-02-19 23:30:12", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:30:12) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:30:12", updated_at: "2010-02-19 23:30:12", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:30:12', "session_ts" = '2010-02-19 23:30:12', "session" = '7537fe482ea588e757633e2df145d9da' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:30:12) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 50ms (View: 49, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mDomain Load (0.6ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mDomain Load (0.4ms)[0m   [0;1mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" = 'test.com') LIMIT 1[0m
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" IS NULL) LIMIT 1[0m
+  [4;36;1mDomain Load (0.5ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" = 'test.com' AND "domains".id <> 1) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'New Service') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_new_service') LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'New Service') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_new_service') LIMIT 1[0m
+  [4;35;1mService Create (0.2ms)[0m   [0mINSERT INTO "services" ("name", "created_at", "updated_at", "by_domain", "description", "controller", "tech_name") VALUES('New Service', '2010-02-19 23:30:19', '2010-02-19 23:30:19', 'f', NULL, 'service_new_service', 'New Service')[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."name" IS NULL) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."controller" IS NULL) LIMIT 1[0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'Service 1') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_test_1') LIMIT 1[0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."name" = 'Service 1' AND "services".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_test_1' AND "services".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 298486374) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'Service 2' AND "services".id <> 298486374) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_test_2' AND "services".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'www' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'www' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'www' AND "subdomains".domain_id = 2) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'www' AND "subdomains".domain_id = 2) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'newsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'newsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" IS NULL AND "subdomains".domain_id IS NULL) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" IS NULL AND "subdomains".domain_id IS NULL) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'test' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'test-site' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'test' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'test-site' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'mainsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'mainsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."mainsub" = 't' AND "subdomains"."domain_id" = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Update (0.2ms)[0m   [0mUPDATE "subdomains" SET "updated_at" = '2010-02-19 23:30:19', "mainsub" = 'f' WHERE "id" = 2053932785[0m
+  [4;36;1mSubdomain Create (0.1ms)[0m   [0;1mINSERT INTO "subdomains" ("created_at", "updated_at", "url", "domain_id", "path", "mainsub") VALUES('2010-02-19 23:30:19', '2010-02-19 23:30:19', 'mainsub', 1, 'mainsub', 't')[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'mainsub' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932786) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'mainsub' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932786) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."mainsub" = 't' AND "subdomains"."domain_id" = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.5ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains".domain_id = 1) [0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'www' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'www' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."mainsub" = 't' AND "subdomains"."domain_id" = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'test' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'test-site' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;35;1mUser Create (0.2ms)[0m   [0mINSERT INTO "users" ("max_bandwidth", "created_at", "session", "max_space", "updated_at", "username", "used_space", "max_subusers", "full_name", "parent_id", "session_ts", "password", "email", "max_subdomains") VALUES(NULL, '2010-02-19 23:30:19', NULL, -1, '2010-02-19 23:30:19', 'test_email', 0, -1, NULL, 1, NULL, 'x', 'valid.with.dots_and-stuff@123.test.co.uk', -1)[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email' AND "users".id <> 2053932786) LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email' AND "users".id <> 2053932786) LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email' AND "users".id <> 2053932786) LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (2.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 298486374) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test2' AND "users".id <> 298486374) LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 298486374) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mDomain Load (0.1ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 298486374 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" IS NULL) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'admin' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 298486374) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test2' AND "users".id <> 298486374) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 298486374 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:30:20) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 2ms (DB: 2) | 302 Found [http://test.host/]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:30:20) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:30:20", updated_at: "2010-02-19 23:30:20", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:30:20) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:30:20", updated_at: "2010-02-19 23:30:20", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Update (0.2ms)[0m   [0;1mUPDATE "users" SET "updated_at" = '2010-02-19 23:30:20', "session_ts" = '2010-02-19 23:30:20', "session" = '17f85807c779d02f9d3f2bcfa12714ac' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:30:20) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 62ms (View: 62, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mDomain Load (0.6ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mUser Load (0.9ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mDomain Load (0.4ms)[0m   [0;1mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" = 'test.com') LIMIT 1[0m
+  [4;35;1mDomain Load (0.1ms)[0m   [0mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" IS NULL) LIMIT 1[0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mDomain Load (0.1ms)[0m   [0;1mSELECT "domains".id FROM "domains" WHERE ("domains"."domain" = 'test.com' AND "domains".id <> 1) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'New Service') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_new_service') LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'New Service') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_new_service') LIMIT 1[0m
+  [4;35;1mService Create (0.2ms)[0m   [0mINSERT INTO "services" ("name", "created_at", "updated_at", "by_domain", "description", "controller", "tech_name") VALUES('New Service', '2010-02-19 23:35:59', '2010-02-19 23:35:59', 'f', NULL, 'service_new_service', 'New Service')[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."name" IS NULL) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."controller" IS NULL) LIMIT 1[0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'Service 1') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_test_1') LIMIT 1[0m
+  [4;35;1mService Load (0.2ms)[0m   [0mSELECT * FROM "services" WHERE ("services"."id" = 2053932785) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."name" = 'Service 1' AND "services".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_test_1' AND "services".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.2ms)[0m   [0;1mSELECT * FROM "services" WHERE ("services"."id" = 298486374) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT "services".id FROM "services" WHERE ("services"."name" = 'Service 2' AND "services".id <> 298486374) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT "services".id FROM "services" WHERE ("services"."controller" = 'service_test_2' AND "services".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'www' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'www' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'www' AND "subdomains".domain_id = 2) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'www' AND "subdomains".domain_id = 2) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'newsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'newsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" IS NULL AND "subdomains".domain_id IS NULL) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" IS NULL AND "subdomains".domain_id IS NULL) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;36;1mDomain Load (0.1ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'test' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'test-site' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'test' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'test-site' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'mainsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'mainsub' AND "subdomains".domain_id = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."mainsub" = 't' AND "subdomains"."domain_id" = 1) LIMIT 1[0m
+  [4;35;1mSubdomain Update (0.2ms)[0m   [0mUPDATE "subdomains" SET "updated_at" = '2010-02-19 23:35:59', "mainsub" = 'f' WHERE "id" = 2053932785[0m
+  [4;36;1mSubdomain Create (0.1ms)[0m   [0;1mINSERT INTO "subdomains" ("created_at", "updated_at", "url", "domain_id", "path", "mainsub") VALUES('2010-02-19 23:35:59', '2010-02-19 23:35:59', 'mainsub', 1, 'mainsub', 't')[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'mainsub' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932786) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'mainsub' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932786) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."mainsub" = 't' AND "subdomains"."domain_id" = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.5ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains".domain_id = 1) [0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 2053932785) [0m
+  [4;36;1mDomain Load (0.2ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'www' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'www' AND "subdomains".domain_id = 1 AND "subdomains".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.2ms)[0m   [0mSELECT * FROM "subdomains" WHERE ("subdomains"."mainsub" = 't' AND "subdomains"."domain_id" = 1) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;35;1mDomain Load (0.2ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains"."id" = 1) [0m
+  [4;36;1mSubdomain Load (0.1ms)[0m   [0;1mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."url" = 'test' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;35;1mSubdomain Load (0.1ms)[0m   [0mSELECT "subdomains".id FROM "subdomains" WHERE ("subdomains"."path" = 'test-site' AND "subdomains".domain_id = 1 AND "subdomains".id <> 298486374) LIMIT 1[0m
+  [4;36;1mSubdomain Load (0.2ms)[0m   [0;1mSELECT * FROM "subdomains" WHERE ("subdomains"."id" = 298486374) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email') LIMIT 1[0m
+  [4;35;1mUser Create (0.2ms)[0m   [0mINSERT INTO "users" ("max_bandwidth", "created_at", "session", "max_space", "updated_at", "username", "used_space", "max_subusers", "full_name", "parent_id", "session_ts", "password", "email", "max_subdomains") VALUES(NULL, '2010-02-19 23:35:59', NULL, -1, '2010-02-19 23:35:59', 'test_email', 0, -1, NULL, 1, NULL, 'x', 'valid.with.dots_and-stuff@123.test.co.uk', -1)[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email' AND "users".id <> 2053932786) LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email' AND "users".id <> 2053932786) LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test_email' AND "users".id <> 2053932786) LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 298486374) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test2' AND "users".id <> 298486374) LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 298486374) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mDomain Load (0.1ms)[0m   [0;1mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 298486374 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" IS NULL) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'admin' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 298486374) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test2' AND "users".id <> 298486374) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 298486374 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:36:00) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 2ms (DB: 3) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:36:00) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:36:00", updated_at: "2010-02-19 23:36:00", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:36:00) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:36:00", updated_at: "2010-02-19 23:36:00", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:36:00) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 6ms (View: 6, DB: 1) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:36:56) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 2ms (DB: 3) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:36:56) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:36:56", updated_at: "2010-02-19 23:36:56", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:36:56) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:36:56", updated_at: "2010-02-19 23:36:56", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:36:56', "session_ts" = '2010-02-19 23:36:56', "session" = '00f7c3df7b0cec26014eea8c41e8004c' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 14ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:36:56) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 49ms (View: 48, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:27', "session_ts" = '2010-02-20 00:13:47', "session" = '6f8e95ecfe166c1095fb06fcc61a26c2' WHERE "id" = 2053932785[0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:40:27) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '6f8e95ecfe166c1095fb06fcc61a26c2') LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:27', "session_ts" = '2010-02-19 23:40:27' WHERE "id" = 2053932785[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '6f8e95ecfe166c1095fb06fcc61a26c2') LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:27', "session_ts" = '2010-02-19 23:40:27' WHERE "id" = 2053932785[0m
+Rendering template within layouts/ohm
+Rendering dashboard/index
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;35;1mDomain Load (0.1ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+Completed in 15ms (View: 9, DB: 5) | 200 OK [http://test.host/]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:40:27) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:40:27) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:40:27", updated_at: "2010-02-19 23:40:27", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:40:27) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:40:27", updated_at: "2010-02-19 23:40:27", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:27', "session_ts" = '2010-02-19 23:40:27', "session" = '1c2f1a9bcc266c1983083380c6697a89' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 5ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:40:27) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mUser Load (1.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:42', "session_ts" = '2010-02-20 00:14:02', "session" = '018c74086a49a9f45e8bfdc090d344cf' WHERE "id" = 2053932785[0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:40:42) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '018c74086a49a9f45e8bfdc090d344cf') LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:42', "session_ts" = '2010-02-19 23:40:42' WHERE "id" = 2053932785[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = '018c74086a49a9f45e8bfdc090d344cf') LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:42', "session_ts" = '2010-02-19 23:40:42' WHERE "id" = 2053932785[0m
+Rendering template within layouts/ohm
+Rendering dashboard/index
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;35;1mDomain Load (0.1ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+Completed in 15ms (View: 9, DB: 5) | 200 OK [http://test.host/]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:40:42) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:40:42) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:40:42", updated_at: "2010-02-19 23:40:42", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:40:42) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:40:42", updated_at: "2010-02-19 23:40:42", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:42', "session_ts" = '2010-02-19 23:40:42', "session" = '25edd77becd92485efd25453e27ac918' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 6ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:40:42) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (1.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:58', "session_ts" = '2010-02-20 00:14:18', "session" = 'de4976283cfbf87268904f18c3cd2983' WHERE "id" = 2053932785[0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:40:58) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'de4976283cfbf87268904f18c3cd2983') LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:58', "session_ts" = '2010-02-19 23:40:58' WHERE "id" = 2053932785[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 'de4976283cfbf87268904f18c3cd2983') LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:58', "session_ts" = '2010-02-19 23:40:58' WHERE "id" = 2053932785[0m
+Rendering template within layouts/ohm
+Rendering dashboard/index
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;35;1mDomain Load (0.1ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+Completed in 15ms (View: 9, DB: 5) | 200 OK [http://test.host/]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:40:58) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:40:58) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:40:58", updated_at: "2010-02-19 23:40:58", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:40:58) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:40:58", updated_at: "2010-02-19 23:40:58", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:40:58', "session_ts" = '2010-02-19 23:40:58', "session" = '6d0eb961d812a1f86ab18e4bc61a3fd0' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 5ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:40:58) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (1.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (1.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:22', "session_ts" = '2010-02-20 00:15:42', "session" = 1 WHERE "id" = 2053932785[0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:42:22) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:22', "session_ts" = '2010-02-19 23:42:22' WHERE "id" = 2053932785[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:22', "session_ts" = '2010-02-19 23:42:22' WHERE "id" = 2053932785[0m
+Rendering template within layouts/ohm
+Rendering dashboard/index
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;35;1mDomain Load (0.1ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+Completed in 16ms (View: 10, DB: 6) | 200 OK [http://test.host/]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:42:23) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:42:23) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:42:22", updated_at: "2010-02-19 23:42:22", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:42:23) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:42:22", updated_at: "2010-02-19 23:42:22", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:23', "session_ts" = '2010-02-19 23:42:23', "session" = 'dd589b778e49c45ae40a1949c5bfa7fc' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 6ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:42:23) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mUser Load (1.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:46', "session_ts" = '2010-02-20 00:16:06', "session" = 1 WHERE "id" = 2053932785[0m
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:42:46) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:46', "session_ts" = '2010-02-19 23:42:46' WHERE "id" = 2053932785[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."session" = 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.1ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:46', "session_ts" = '2010-02-19 23:42:46' WHERE "id" = 2053932785[0m
+Rendering template within layouts/ohm
+Rendering dashboard/index
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;35;1mDomain Load (0.1ms)[0m   [0mSELECT * FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "domains" WHERE ("domains".user_id = 2053932785) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE ("users".parent_id = 2053932785) [0m
+Completed in 15ms (View: 9, DB: 5) | 200 OK [http://test.host/]
+
+
+Processing DashboardController#index (for 0.0.0.0 at 2010-02-20 00:42:46) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Redirected to http://test.host/login
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://test.host/]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:42:46) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "bad password", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:42:46", updated_at: "2010-02-19 23:42:46", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+Redirected to http://test.host/login
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 2053932785) [0m
+
+
+Processing LoginController#login (for 0.0.0.0 at 2010-02-20 00:42:46) [POST]
+  Parameters: {"action"=>"login", "controller"=>"login", "user"=>#<User id: 2053932785, username: "test1", password: "test1", full_name: "Test User 1", email: "test1@test.com", parent_id: 1, created_at: "2010-02-19 23:42:46", updated_at: "2010-02-19 23:42:46", session: nil, session_ts: nil, max_subdomains: 5, max_space: 500, max_bandwidth: nil, max_subusers: 5, used_space: 100>}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'test1') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'test1' AND "users".id <> 2053932785) LIMIT 1[0m
+  [4;35;1mService Load (0.1ms)[0m   [0mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 2053932785 ) [0m
+  [4;36;1mService Load (0.1ms)[0m   [0;1mSELECT * FROM "services" INNER JOIN "services_users" ON "services".id = "services_users".service_id WHERE ("services_users".user_id = 1 ) [0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "updated_at" = '2010-02-19 23:42:46', "session_ts" = '2010-02-19 23:42:46', "session" = '53a8622fd0fa1ab99d7ed69965ea7304' WHERE "id" = 2053932785[0m
+Redirected to http://test.host/
+Completed in 5ms (DB: 1) | 302 Found [http://test.host/login/login?user=2053932785]
+
+
+Processing LoginController#index (for 0.0.0.0 at 2010-02-20 00:42:46) [GET]
+  Parameters: {"action"=>"index", "controller"=>"login"}
+Rendering template within layouts/ohm
+Rendering login/index
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/login]

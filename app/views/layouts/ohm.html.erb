@@ -33,14 +33,14 @@
   <% @logged_user.services.each do |service| %>
     <br /><br />
     <%= "&gt;" if current_controller?(service.controller) %>
-    <%= link_to service.name, :controller=>service.controller %>
+    <%= link_to service.name, :controller => service.controller %>
   <% end %>
 
   <% if @logged_user.id==1 %>
     <br /><br /><hr /><br />
     <strong>Admin menu</strong><br /><br />
-    <%= "&gt;" if controller.controller_name=="services" %>
-    <%= link_to "Services", :controller=>"services" %>
+    <%= "&gt;" if current_controller?('services') %>
+    <%= link_to "Services", :controller => "services" %>
   <% end %>
 
   <br /><br /><br /><br /><hr /><br />

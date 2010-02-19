@@ -132,5 +132,17 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def login_as_me
+    @user = User.find(params[:id])
+    if @user.parent == @logged_user or @logged_user.root?
+      login_as @user
+      flash[:notice] = 'Logged in as ' + @user.full_name
+      redirect_to :controller => 'dashboard', :action => 'index'
+    else
+      flash[:error] = @user.full_name + ' is not your sub-user!'
+      redirect_to :controller => 'users', :action => 'index'
+    end
+  end
 end
 

@@ -12,7 +12,7 @@ class LoginControllerTest < ActionController::TestCase
     user = users(:one)
     user.password = "test1"
     post :login, :user => user
-    assert_redirected_to users_path
+    assert_redirected_to :controller => 'dashboard', :action => 'index'
   end
 
   test "bad login" do
