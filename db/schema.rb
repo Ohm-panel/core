@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100219230544) do
+ActiveRecord::Schema.define(:version => 20100220132225) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(:version => 20100219230544) do
   create_table "domains_services", :id => false, :force => true do |t|
     t.integer "domain_id"
     t.integer "service_id"
+  end
+
+  create_table "logged_users", :force => true do |t|
+    t.string   "session"
+    t.datetime "session_ts"
+    t.string   "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "service_email_mailboxes", :force => true do |t|
@@ -67,8 +76,6 @@ ActiveRecord::Schema.define(:version => 20100219230544) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "session"
-    t.datetime "session_ts"
     t.integer  "max_subdomains"
     t.integer  "max_space"
     t.integer  "max_bandwidth"

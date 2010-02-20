@@ -36,12 +36,15 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
-  # This is basically the same as in ApplicationController, with bigger time and simpler session
+  # This comes from ApplicationController, without checks and tester ip
   def login_as user
-    user.session_ts = Time.new + 2000
-    user.session = 1
-    user.save
-    session[:session] = user.session
+    lu = LoggedUser.new
+    lu.user = user
+    lu.session_ts = Time.new
+    lu.session = "test session"
+    lu.ip = "0.0.0.0"
+    lu.save
+    session[:session] = lu.session
   end
 end
 

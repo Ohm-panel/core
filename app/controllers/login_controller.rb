@@ -2,8 +2,8 @@ class LoginController < ApplicationController
   before_filter :authenticate, :except => [:index, :login]
 
   def index
-    if loggedin?
-      redirect_to :controller => "dashboard", :action => "index"
+    if findsession
+      redirect_to :controller => 'dashboard', :action => 'index'
     end
     @user = User.new
   end
@@ -22,8 +22,9 @@ class LoginController < ApplicationController
   end
 
   def logout
-    if session[:session]
-      session[:session] = nil
+    lu = findsession
+    if lu
+      lu.destroy
       flash[:notice] = 'Logout successful'
     end
     redirect_to :action => "index"
