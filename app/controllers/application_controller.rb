@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
+  @@timeout = 600
+
   def authenticate
     unless loggedin?
       redirect_to :controller => "Login", :action => "index"
@@ -21,7 +23,7 @@ class ApplicationController < ActionController::Base
       if !@user
         # Bogus session
         false
-      elsif Time.new - @user.session_ts > 600
+      elsif Time.new - @user.session_ts > @@timeout
         # Session expired
         @user.session = nil
         @user.save false
@@ -40,7 +42,9 @@ class ApplicationController < ActionController::Base
   def login_as user
     # Create session (keep current one if exists, so we can connect from several locations at the same time)
     user.session_ts = Time.new
-    user.session = Digest::MD5.hexdigest(Time.new.to_f.to_s) unless user.session
+    unless user.session and Time.new - user.session_ts <= @@timeout
+      user.session = Digest::MD5.hexdigest(Time.new.to_f.to_s + user.full_name + user.used_space.to_s)
+    end
     user.save
     session[:session] = user.session
   end

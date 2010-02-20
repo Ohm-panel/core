@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-#  before_filter :authenticate, :except => [:index, :login]
+  before_filter :authenticate, :except => [:index, :login]
 
   def index
     if loggedin?
