@@ -8,7 +8,8 @@
   <br />Users: <%= print_quota @logged_user.used_subusers_total, @logged_user.max_subusers, '' %>
   <p><%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'New user', new_user_path %></p>
 
-  <table class="subdomains">
+  <div class="frame">
+  <table class="indextable">
     <tr>
       <th>Name</th>
       <th>Domains</th>
@@ -32,7 +33,7 @@
     </tr>
   <% end %>
   </table>
-
+  </div>
 <% end %>
 
 <br />

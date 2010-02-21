@@ -25,6 +25,7 @@ class LoginController < ApplicationController
     lu = findsession
     if lu
       lu.destroy
+      reset_session
       flash[:notice] = 'Logout successful'
     end
     redirect_to :action => "index"

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :service_email_mailboxes
+#  map.resources :service_email_mailboxes
 
   map.resources :subdomains
 

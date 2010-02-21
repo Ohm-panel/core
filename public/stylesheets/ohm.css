@@ -4,12 +4,14 @@ img { border: 0; }
 
 ul { list-style: square; }
 
-#left {
-    float: left;
-    clear: none;
-    padding: 20px 15px;
-    width: 145px;
-    margin: 0;
+a {
+    color: #338;
+    text-decoration: none;
+}
+a:visited { color: #338; }
+a:hover {
+    background: none;
+    color: #66b;
 }
 
 .dark {
@@ -23,35 +25,45 @@ ul { list-style: square; }
 .dark a:visited { color: white; }
 .dark a:hover { color: #bbb; }
 
+#left {
+    float: left;
+    clear: none;
+    padding: 20px 15px;
+    width: 145px;
+    margin: 0;
+    border-right: 1px solid #666;
+    border-bottom: 1px solid #666;
+}
+
 #content {
     padding: 50px 20px 50px 200px;
 }
 
 #footer {
-/*    float: right;*/
-/*    clear: both;*/
-/*    margin: 10px;*/
-/*    margin-top: 50px;*/
     position: fixed;
     bottom: 5px;
     right: 5px;
     opacity: 0.6;
-    background: url("/images/icons/icontexto-webdev-info-032x032.png") no-repeat top right #eef;
-    border: 1px solid #ccc;
+    background: url("/images/icons/icontexto-webdev-info-032x032.png") no-repeat top right #888;
+    border: 1px solid #666;
     font-size: 10px;
     line-height: 14px;
     padding: 2px 35px 2px 4px;
     text-align: right;
+    color: white;
 }
-#footer:hover {
-    opacity: 1;
+#footer:hover { opacity: 1; }
+#footer a {
+    color: white;
+    text-decoration: underline;
 }
 
 h1 {
-    border: 1px solid #ccc;
+    border: 1px solid #666;
     border-top: 0;
-    background: #eef;
-    padding: 10px 50px;
+    background: #333;
+    color: #f3a214;
+    padding: 12px 50px;
     position: absolute;
     margin-top: 0;
     top: 0;
@@ -87,16 +99,6 @@ img.bigicon {
     z-index: 1;
 }
 
-a {
-    color: #338;
-    text-decoration: none;
-}
-a:visited { color: #338; }
-a:hover {
-    background: none;
-    color: #66b;
-}
-
 img.action, input.action {
     position: relative;
     top: 4px;
@@ -122,27 +124,50 @@ ul.subdomains {
     list-style: none;
 }
 
-.domain {
-    border: 1px solid #ccc;
-    background: #cfc;
+.frame {
+    background: #eee;
+    border: 1px solid #333;
     padding: 5px;
     margin: 0;
-    margin-top: 49px;
+    margin-top: 35px;
+    color: black;
 }
+.frametitle {
+    background: #eee;
+    border: 1px solid #333;
+    padding: 5px;
+    border-bottom: 0;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    top: 29px;
+    color: black;
+}
+.frame a { color: #338 !important; }
 
-h2.domain {
+.darkframe {
+    background: #888;
+    border: 1px solid #666;
+    padding: 5px;
     margin: 0;
-    margin-top: 20px;
-    position: absolute;
-    border-bottom: 1px solid #cfc;
+    margin-top: 35px;
+    color: white;
 }
-
-.innerdomain {
-    border: 1px solid #ccc;
-    background: #ccf;
+.darkframetitle {
+    background: #888;
+    border: 1px solid #666;
+    padding: 5px;
+    border-bottom: 0;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    top: 29px;
+    color: white;
 }
+.darkframe a { color: white; }
+.darkframetitle a { color: white; }
 
-table.subdomains td, th {
+table.indextable td, th {
     text-align: left;
     padding-right: 50px;
 }

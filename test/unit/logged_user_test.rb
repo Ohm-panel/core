@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class LoggedUserTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  test "valid fixtures" do
+    assert logged_users(:one).valid?, "fixtures: one is invalid"
   end
+
+  # TO BE CONINUED...
 end
+

@@ -1,9 +1,9 @@
-<h2 class="domain"><%= link_to domain.domain, domain %></h2>
-<div class="domain">
+<span class="darkframetitle"><%= link_to_unless_current domain.domain, domain %></span>
+<div class="darkframe">
 
-<h3>Subdomains</h3>
-<div class="innerdomain">
-<table class="subdomains">
+<span class="frametitle">Subdomains</span>
+<div class="frame">
+<table class="indextable">
 <tr>
   <th>Subdomain</th>
   <th>Path</th>
@@ -27,8 +27,8 @@
 <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'Add a subdomain', :controller => 'subdomains', :action => 'new', :domain => domain %>
 </div>
 
-<h3>Active services</h3>
-<div class="innerdomain">
+<span class="frametitle">Active services</span>
+<div class="frame">
 <p>
 <%= "No service active on this domain" if domain.services.count == 0 %>
 <% domain.services.each do |service| %>

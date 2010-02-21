@@ -1,32 +1,43 @@
-<h1>Listing service_email_mailboxes</h1>
+<%= image_tag "icons/icontexto-webdev-contact-128x128.png", :alt=>"", :class=>"bigicon" %>
+<h1>Your mailboxes</h1>
 
-<table>
-  <tr>
-    <th>Address</th>
-    <th>Domain</th>
-    <th>Full name</th>
-    <th>Size</th>
-    <th>Password</th>
-    <th>Forward</th>
-    <th>Forward only</th>
-  </tr>
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'New mailbox',
+              :controller => 'service_email_mailboxes', :action => 'new' %>
+</p>
 
-<% @service_email_mailboxes.each do |service_email_mailbox| %>
-  <tr>
-    <td><%=h service_email_mailbox.address %></td>
-    <td><%=h service_email_mailbox.domain_id %></td>
-    <td><%=h service_email_mailbox.full_name %></td>
-    <td><%=h service_email_mailbox.size %></td>
-    <td><%=h service_email_mailbox.password %></td>
-    <td><%=h service_email_mailbox.forward %></td>
-    <td><%=h service_email_mailbox.forward_only %></td>
-    <td><%= link_to 'Show', service_email_mailbox %></td>
-    <td><%= link_to 'Edit', edit_service_email_mailbox_path(service_email_mailbox) %></td>
-    <td><%= link_to 'Destroy', service_email_mailbox, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% @logged_user.domains.each do |domain| %>
+  <span class="frametitle"><%=h domain.domain %></span>
+  <div class="frame">
+  <% if @mailboxes.select {|m| m.domain==domain}.count > 0 %>
+    <table class="indextable">
+      <tr>
+        <th>Address</th>
+        <th>Full name</th>
+        <th>Size</th>
+        <th>Forward to</th>
+        <th>Actions</th>
+      </tr>
+
+    <% @mailboxes.select {|m| m.domain==domain}.each do |mailbox| %>
+      <tr>
+        <td><%= '<em>' if mailbox.forward_only %><%= mailbox.full_address %><%= '</em>' if mailbox.forward_only %></td>
+        <td><%=h mailbox.full_name %></td>
+        <td><%= mailbox.forward_only ? '<em>alias</em>' : (mailbox.size==-1 ? 'Unlimited' : mailbox.size.to_s + ' Mb') %></td>
+        <td><%= mailbox.forward.split("\n").join("<br />") %></td>
+        <td>
+          <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action'),
+                      :controller => 'service_email_mailboxes', :id => mailbox.id, :action => 'edit' %>
+          <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => 'Delete', :title => 'Delete', :class => 'action'),
+                      {:controller => 'service_email_mailboxes', :id => mailbox.id, :action => 'destroy'}, :confirm => 'Are you sure?' %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    <br />
+  <% else %>
+    No mailbox on this domain
+  <% end %>
+  </div>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New service_email_mailbox', new_service_email_mailbox_path %>
