@@ -5,16 +5,18 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     @users = @logged_user.users
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
   end
 
   # GET /users/1
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
+
+    if @user.parent != @logged_user
+      flash[:error] = "Invalid user"
+      redirect_to :controller => 'users', :action => 'index'
+    end
+
     @available_services = (@logged_user.root? ? Service.all : @logged_user.services) - @user.services
   end
 
@@ -31,6 +33,11 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+
+    if @user.parent != @logged_user
+      flash[:error] = "Invalid user"
+      redirect_to :controller => 'users', :action => 'index'
+    end
   end
 
   # POST /users
@@ -40,15 +47,11 @@ class UsersController < ApplicationController
     @user.parent = @logged_user
     @user.used_space = 0
 
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = 'User was successfully created.'
-        format.html { redirect_to(@user) }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
+    if @user.save
+      flash[:notice] = 'User was successfully created.'
+      redirect_to(@user)
+    else
+      render :action => "new"
     end
   end
 
@@ -57,15 +60,14 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        flash[:notice] = 'User was successfully updated.'
-        format.html { redirect_to(@user) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
+    if @user.parent != @logged_user
+      flash[:error] = "Invalid user"
+      redirect_to :controller => 'users', :action => 'index'
+    elsif @user.update_attributes(params[:user])
+      flash[:notice] = 'User was successfully updated.'
+      redirect_to @user
+    else
+      render :action => "edit"
     end
   end
 
@@ -77,13 +79,11 @@ class UsersController < ApplicationController
       @newatts[:password] = @user.password
     end
 
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        flash[:notice] = 'Profile successfully updated.'
-        format.html { redirect_to :controller => 'dashboard' }
-      else
-        format.html { render :action => "profile" }
-      end
+    if @user.update_attributes(params[:user])
+      flash[:notice] = 'Profile successfully updated.'
+      redirect_to :controller => 'dashboard'
+    else
+      render :action => "profile"
     end
   end
 
@@ -91,45 +91,53 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
+    if @user.parent == @logged_user
+      @user.destroy
+    else
+      flash[:error] = "Invalid user"
     end
+
+    redirect_to(users_url)
   end
 
   def addservice
     @user = User.find(params[:user_id])
-    @user.services << Service.find(params[:service_id])
+    @service = Service.find(params[:service_id])
 
-    respond_to do |format|
+    if @user.parent == @logged_user and @logged_user.services.include? @service
+      @user.services << @service
+
       if @user.save
         flash[:notice] = 'Service successfully added'
-        format.html { redirect_to(@user) }
-        format.xml  { head :ok }
+        redirect_to @user
       else
-        flash[:notice] = 'Error occured'
-        format.html { redirect_to(@user) }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        flash[:error] = 'Error occured'
+        redirect_to @user
       end
+    else
+      flash[:error] = 'Invalid user'
+      redirect_to users_path
     end
   end
 
   def removeservice
     @user = User.find(params[:user_id])
-    @user.services.delete(Service.find(params[:service_id]))
+    @service = Service.find(params[:service_id])
 
-    respond_to do |format|
+    if @user.parent == @logged_user and @logged_user.services.include? @service
+      @user.services.delete(@service)
+
       if @user.save
         flash[:notice] = 'Service successfully removed'
-        format.html { redirect_to(@user) }
-        format.xml  { head :ok }
+        redirect_to @user
       else
-        flash[:notice] = 'Error occured'
-        format.html { redirect_to(@user) }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        flash[:error] = 'Error occured'
+        redirect_to @user
       end
+    else
+      flash[:error] = 'Invalid user'
+      redirect_to users_path
     end
   end
 
@@ -138,10 +146,10 @@ class UsersController < ApplicationController
     if @user.parent == @logged_user or @logged_user.root?
       login_as @user
       flash[:notice] = 'Logged in as ' + @user.full_name
-      redirect_to :controller => 'dashboard', :action => 'index'
+      redirect_to :controller => 'dashboard'
     else
       flash[:error] = @user.full_name + ' is not your sub-user!'
-      redirect_to :controller => 'users', :action => 'index'
+      redirect_to users_path
     end
   end
 end

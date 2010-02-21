@@ -6,17 +6,21 @@ class SubdomainsController < ApplicationController
   def new
     @subdomain = Subdomain.new
     @subdomain.domain = Domain.find(params[:domain])
-    @domains = @logged_user.domains
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @subdomain }
+    if @subdomain.domain.user != @logged_user
+      flash[:error] = 'Invalid subdomain'
+      redirect_to :controller => 'domains'
     end
   end
 
   # GET /subdomains/1/edit
   def edit
     @subdomain = Subdomain.find(params[:id])
+
+    if @subdomain.domain.user != @logged_user
+      flash[:error] = 'Invalid subdomain'
+      redirect_to :controller => 'domains'
+    end
   end
 
   # POST /subdomains
@@ -24,13 +28,15 @@ class SubdomainsController < ApplicationController
   def create
     @subdomain = Subdomain.new(params[:subdomain])
 
-    respond_to do |format|
-      if @subdomain.save
-        flash[:notice] = 'Subdomain was successfully created.'
-        format.html { redirect_to :controller => "domains" }
-      else
-        format.html { redirect_to :controller => "domains" }
-      end
+    if @subdomain.domain.user != @logged_user
+      flash[:error] = 'Invalid domain'
+      redirect_to :controller => 'domains'
+    elsif @subdomain.save
+      flash[:notice] = 'Subdomain was successfully created.'
+      redirect_to @subdomain.domain
+    else
+      flash[:error] = 'Error occured.'
+      redirect_to @subdomain.domain
     end
   end
 
@@ -39,40 +45,40 @@ class SubdomainsController < ApplicationController
   def update
     @subdomain = Subdomain.find(params[:id])
 
-    respond_to do |format|
-      if @subdomain.update_attributes(params[:subdomain])
-        flash[:notice] = 'Subdomain was successfully updated.'
-        format.html { redirect_to :controller => "domains" }
-      else
-        flash[:error] = 'Error applying modifications.'
-        format.html { redirect_to :controller => "domains" }
-      end
+    if @subdomain.domain.user != @logged_user or params[:subdomain][:domain_id] or params[:subdomain][:domain]
+      flash[:error] = 'Invalid domain'
+      redirect_to :controller => "domains"
+    elsif @subdomain.update_attributes(params[:subdomain])
+      flash[:notice] = 'Subdomain was successfully updated.'
+      redirect_to @subdomain.domain
+    else
+      flash[:error] = 'Error applying modifications.'
+      redirect_to @subdomain.domain
     end
   end
 
   # DELETE /subdomains/1
   # DELETE /subdomains/1.xml
   def destroy
-    if Subdomain.find(:all).count > 1
-      @subdomain = Subdomain.find(params[:id])
-      @subdomain.destroy
+    @subdomain = Subdomain.find(params[:id])
+    if @subdomain.domain.subdomains.count > 1
+      if @subdomain.domain.user == @logged_user
+        # If deleted mainsub, we need to set another one
+        if @subdomain.mainsub
+          newmain = @subdomain.domain.subdomains.select {|s| s != @subdomain}.first
+          newmain.update_attribute(:mainsub, true)
+        end
+        @subdomain.destroy
 
-      # If deleted mainsub, we need to set another one
-      if @subdomain.mainsub
-        newmain = Subdomain.find(:first)
-        newmain.mainsub = true
-        newmain.save
-      end
-
-      respond_to do |format|
         flash[:notice] = 'Subdomain was successfully deleted.'
-        format.html { redirect_to :controller => "domains" }
+        redirect_to @subdomain.domain
+      else
+        flash[:error] = 'Invalid subdomain'
+        redirect_to :controller => "domains"
       end
     else
-      respond_to do |format|
-        flash[:error] = 'You must have at least one subdomain.'
-        format.html { redirect_to :controller => "domains" }
-      end
+      flash[:error] = 'Cannot delete last subdomain'
+      redirect_to @subdomain.domain
     end
   end
 end

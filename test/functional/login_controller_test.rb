@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class LoginControllerTest < ActionController::TestCase
-  fixtures :users
-
   test "index" do
     get :index
     assert_response :success
@@ -20,6 +18,7 @@ class LoginControllerTest < ActionController::TestCase
     user.password = "bad password"
     post :login, :user => user
     assert_redirected_to :action => :index
+    assert flash[:error]
   end
 end
 

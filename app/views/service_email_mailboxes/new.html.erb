@@ -6,7 +6,7 @@
 
   <p>
     <%= f.label :address %><br />
-    <%= f.text_field :address, :size => 15 %>@<%= f.collection_select :domain_id, Domain.all, :id, :domain %>
+    <%= f.text_field :address, :size => 15 %>@<%= f.collection_select :domain_id, @logged_user.domains, :id, :domain %>
   </p>
   <p>
     <%= f.label :full_name %><br />

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class DomainTest < ActiveSupport::TestCase
-
   test "valid fixtures" do
     assert domains(:one).valid?, "fixtures: one is invalid"
   end

@@ -16,6 +16,11 @@ class ServiceEmailMailboxesController < ApplicationController
   # GET /service_email_mailboxes/1/edit
   def edit
     @mailbox = ServiceEmailMailbox.find(params[:id])
+
+    unless @logged_user.domains.include? @mailbox.domain
+      flash[:error] = 'Invalid mailbox'
+      redirect_to :action => 'index'
+    end
   end
 
   # POST /service_email_mailboxes
@@ -44,7 +49,10 @@ class ServiceEmailMailboxesController < ApplicationController
       @newatts[:password] = @mailbox.password
     end
 
-    if @mailbox.update_attributes(params[:service_email_mailbox])
+    if not @logged_user.domains.include? @mailbox.domain
+      flash[:error] = 'Invalid mailbox'
+      redirect_to :action => 'index'
+    elsif @mailbox.update_attributes(params[:service_email_mailbox])
       flash[:notice] = @mailbox.full_address + ' was successfully updated.'
       redirect_to :action => 'index'
     else
@@ -56,10 +64,16 @@ class ServiceEmailMailboxesController < ApplicationController
   # DELETE /service_email_mailboxes/1.xml
   def destroy
     @mailbox = ServiceEmailMailbox.find(params[:id])
-    @mailbox.destroy
 
-    flash[:notice] = @mailbox.full_address + ' was successfully deleted.'
-    redirect_to :action => 'index'
+    if @logged_user.domains.include? @mailbox.domain
+      @mailbox.destroy
+
+      flash[:notice] = @mailbox.full_address + ' was successfully deleted.'
+      redirect_to :action => 'index'
+    else
+      flash[:error] = 'Invalid mailbox'
+      redirect_to :action => 'index'
+    end
   end
 end
 

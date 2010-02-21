@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-
   test "valid fixtures" do
     assert users(:root).valid?, "fixtures: root is invalid"
     assert users(:root).root?, "fixtures: root is not root"

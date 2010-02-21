@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class DashboardControllerTest < ActionController::TestCase
-  fixtures :users
-
   test "should get login" do
     get :index
     assert_redirected_to :controller => 'login', :action => 'index'

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
-
   test "valid fixtures" do
     assert services(:one).valid?, "fixtures: one is invalid"
     assert services(:two).valid?, "fixtures: two is invalid"

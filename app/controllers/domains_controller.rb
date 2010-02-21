@@ -55,7 +55,7 @@ class DomainsController < ApplicationController
 
         if @subdomain.save
           flash[:notice] = 'Domain was successfully added.'
-          format.html { redirect_to :controller => 'domains' }
+          format.html { redirect_to @domain }
         end
       else
         flash[:error] = 'Error adding domain.'
@@ -68,28 +68,34 @@ class DomainsController < ApplicationController
   # DELETE /domains/1.xml
   def destroy
     @domain = Domain.find(params[:id])
-    @domain.subdomains.each do |sub|
-      sub.destroy
+    if @domain.user == @logged_user
+      @domain.subdomains.each do |sub|
+        sub.destroy
+      end
+      @domain.destroy
+    else
+      flash[:error] = "Invalid domain"
     end
-
-    @domain.destroy
-
-    respond_to do |format|
-      format.html { redirect_to :controller => 'domains' }
-    end
+    redirect_to :controller => 'domains'
   end
 
   def addservice
     @domain = Domain.find(params[:domain_id])
     @service = Service.find(params[:service_id])
-    @domain.services << @service
 
-    if @domain.save
-      flash[:notice] = 'Service successfully added'
-      redirect_to :controller => ("service_" + @service.name), :action => "addtodomain"
+    if @domain.user == @logged_user and @service.users.include? @logged_user
+      @domain.services << @service
+
+      if @domain.save
+        flash[:notice] = 'Service successfully added'
+        redirect_to :controller => (@service.controller), :action => "addtodomain"
+      else
+        flash[:error] = 'Error occured'
+        redirect_to @domain
+      end
     else
-      flash[:notice] = 'Error occured'
-      redirect_to :controller => "domains"
+      flash[:error] = "Invalid domain or service"
+      redirect_to :controller => 'domains'
     end
   end
 end

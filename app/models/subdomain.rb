@@ -1,7 +1,7 @@
 class Subdomain < ActiveRecord::Base
   belongs_to :domain
 
-  validates_presence_of :url, :path, :domain
+  validates_presence_of :url, :domain
   validates_uniqueness_of :url, :scope => :domain_id
   validates_uniqueness_of :path, :scope => :domain_id
 

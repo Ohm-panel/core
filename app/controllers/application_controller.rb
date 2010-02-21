@@ -16,9 +16,20 @@ class ApplicationController < ActionController::Base
       @logged_user = lu.user
       true
     else
-      flash[:error] = "Your session has expired"
       redirect_to :controller => "Login", :action => "index"
       false
+    end
+  end
+
+  def authenticate_root
+    if authenticate
+      if @logged_user.root?
+        true
+      else
+        flash[:error] = 'You are not authorized to access this page'
+        redirect_to :controller => 'dashboard'
+        false
+      end
     end
   end
 
@@ -50,6 +61,7 @@ class ApplicationController < ActionController::Base
         lu
       else
         lu.destroy
+        flash[:error] = "Your session has expired"
         nil
       end
     else

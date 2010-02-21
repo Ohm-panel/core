@@ -12,7 +12,7 @@ class ServiceEmailMailbox < ActiveRecord::Base
   end
 
   validates_presence_of :domain_id, :password
-  validates_format_of :address, :with => /\A([^@\s]+)/i
+  validates_format_of :address, :with => /\A([^@\s]+)\Z/i
   validates_uniqueness_of :address, :scope => :domain_id
   validate :passwords_match
 
