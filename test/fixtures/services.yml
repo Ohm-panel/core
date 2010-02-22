@@ -5,10 +5,12 @@ one:
   tech_name: Tech Service 1
   description: Test Service 1
   controller: service_test_1
+  by_domain: true
 
 two:
   name: Service 2
   tech_name: Tech Service 2
   description: Test Service 2
   controller: service_test_2
+  by_domain: false
 

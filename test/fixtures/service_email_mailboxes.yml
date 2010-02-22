@@ -6,7 +6,7 @@ local:
   full_name: Mr Test
   size: 200
   password: password
-  forward:
+  forward: ""
   forward_only: false
 
 alias:

@@ -81,14 +81,14 @@ class DomainsController < ApplicationController
 
   def addservice
     @domain = Domain.find(params[:domain_id])
-    @service = Service.find(params[:service_id])
+    @service = Service.find(params[:service_id][0])
 
-    if @domain.user == @logged_user and @service.users.include? @logged_user
+    if @domain.user == @logged_user and @service.users.include? @logged_user and @service.by_domain
       @domain.services << @service
 
       if @domain.save
         flash[:notice] = 'Service successfully added'
-        redirect_to :controller => (@service.controller), :action => "addtodomain"
+        redirect_to :controller => (@service.controller), :action => "addtodomain", :domain_id => @domain.id, :service_id => @service.id
       else
         flash[:error] = 'Error occured'
         redirect_to @domain

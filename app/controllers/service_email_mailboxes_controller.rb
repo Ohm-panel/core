@@ -1,5 +1,5 @@
-class ServiceEmailMailboxesController < ApplicationController
-  before_filter :authenticate
+class ServiceEmailMailboxesController < ServiceEmailController
+  before_filter :authenticate_email_user
 
   # GET /service_email_mailboxes
   # GET /service_email_mailboxes.xml

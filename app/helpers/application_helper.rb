@@ -2,14 +2,14 @@
 module ApplicationHelper
   def current_controller? *names
     names.each do |name|
-      return true if controller.controller_name.rindex name
+      return true if controller.controller_name.rindex(name) == 0
     end
     false
   end
 
   def print_quota usage, limit, unit
     qs = (limit!=-1 && usage>limit) ? '<span class="overquota">' : ''
-    qs += usage.to_s
+    qs += usage>0 ? usage.to_s : '0'
     qs += (limit!=-1 && usage>limit) ? '</span>' : ''
     qs += ' / ' + (limit==-1 ? 'Unlimited' : limit.to_s )
     qs += ' ' + unit unless unit == ''

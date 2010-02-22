@@ -1,0 +1,12 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 2
+  max_mailboxes: 5
+  max_aliases: -1
+
+two:
+  user_id: 3
+  max_mailboxes: 1
+  max_aliases: 5
+

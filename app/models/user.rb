@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
 
   def root?
-    self.id == 1
+    self.id and self.id == 1
   end
 
 
@@ -64,15 +64,16 @@ class User < ActiveRecord::Base
   end
 
 
-  def quota_ok parent_free, to_take
+  def self.quota_ok parent_free, to_take
     if parent_free == -1
       true
     elsif to_take == -1
       false
     elsif to_take <= parent_free
       true
+    else
+      false
     end
-    false
   end
 
 
@@ -83,9 +84,6 @@ class User < ActiveRecord::Base
   validate :check_quota, :check_services
 
   def check_quota
-    # Skip check on root
-    return if self.root?
-
     # Fill blank quotas
     self.used_space = 0 if !self.used_space
     self.max_space = -1 if !self.max_space or self.max_space < 0
@@ -93,6 +91,7 @@ class User < ActiveRecord::Base
     self.max_subusers = -1 if !self.max_subusers or self.max_subusers < 0
 
     # Root can do anything
+    return if self.root?
     return if self.parent.root?
 
     # Compute quotas to take from parent
@@ -102,9 +101,9 @@ class User < ActiveRecord::Base
     subusers_to_take = self.max_subusers - ((oldme and self.max_subusers!=-1) ? oldme.max_subusers : 0)
 
     # See if we can take that much
-    errors.add(:max_space, "is more than you can give") unless quota_ok self.parent.free_space, space_to_take
-    errors.add(:max_subdomains, "is more than you can give") unless quota_ok self.parent.free_subdomains, subdomains_to_take
-    errors.add(:max_subusers, "is more than you can give") unless quota_ok self.parent.free_subusers, subusers_to_take
+    errors.add(:max_space, "is more than you can give") unless User.quota_ok self.parent.free_space, space_to_take
+    errors.add(:max_subdomains, "is more than you can give") unless User.quota_ok self.parent.free_subdomains, subdomains_to_take
+    errors.add(:max_subusers, "is more than you can give") unless User.quota_ok self.parent.free_subusers, subusers_to_take
   end
 
   def check_services

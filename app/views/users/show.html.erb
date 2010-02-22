@@ -2,7 +2,8 @@
 <h1><%=h @user.full_name + ' (' + @user.username + ')' %></h1>
 
 <p>
-  <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => '', :class => 'action') + 'Edit', edit_user_path(@user) %>
+  <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => '', :class => 'action') + 'Edit', edit_user_path(@user) %><br/>
+  <%= link_to (image_tag 'icons/icontexto-webdev-security-032x032.png', :alt => '', :class => 'action') + 'Login as this user', :controller => 'users', :action => :login_as_me, :id => @user.id %>
 </p>
 
 <h2>E-mail: <small><%= link_to @user.email, 'mailto:'+@user.email %></small></h2>
@@ -34,7 +35,7 @@
         <% form_tag '/users/removeservice' do %>
           <%= hidden_field_tag 'user_id', @user.id %>
           <%= hidden_field_tag 'service_id', s.id %>
-          <%= label_tag h s.name %>
+          <%= link_to s.name, :controller => s.controller, :action => 'showuser', :user_id => @user.id %>
           <%= image_submit_tag 'icons/icontexto-webdev-remove-032x032.png', :class => 'action' %>
         <% end %>
       </li>

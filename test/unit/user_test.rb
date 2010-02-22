@@ -74,11 +74,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "invalid quotas" do
-    user = users(:two)
-    user.parent = users(:one)
-    user.max_space = users(:one).max_space
-    user.max_subdomains = users(:one).max_subdomains
-    user.max_bandwidth = users(:two).max_bandwidth
+    user = User.new(:username       => "quota tester",
+                    :password       => "x",
+                    :email          => "valid@email.com",
+                    :parent         => users(:one),
+                    :max_space      => users(:one).free_space + 1,
+                    :max_subdomains => users(:one).free_subdomains + 1,
+                    :max_subusers   => users(:one).free_subusers + 1)
     user.save
     assert user.errors.invalid?(:max_space), "Accepted too big max_space"
     assert user.errors.invalid?(:max_subdomains), "Accepted too big max_subdomains"

@@ -2,6 +2,11 @@
 <h1>Your mailboxes</h1>
 
 <p>
+  Mailboxes: <%= print_quota @logged_email_user.used_mailboxes_total, @logged_email_user.max_mailboxes, '' %><br/>
+  Aliases: <%= print_quota @logged_email_user.used_aliases_total, @logged_email_user.max_aliases, '' %>
+</p>
+
+<p>
   <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'New mailbox',
               :controller => 'service_email_mailboxes', :action => 'new' %>
 </p>

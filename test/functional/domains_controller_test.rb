@@ -66,10 +66,10 @@ class DomainsControllerTest < ActionController::TestCase
     services(:one).users << users(:root)
     services(:one).save
     assert_difference('domains(:one).services.count') do
-      post :addservice, :domain_id => domains(:one).id, :service_id => services(:one).id
+      post :addservice, :domain_id => domains(:one).id, :service_id => [services(:one).id]
     end
 
-    assert_redirected_to :controller => services(:one).controller, :action => 'addtodomain'
+    assert_redirected_to :controller => services(:one).controller, :action => 'addtodomain', :domain_id => domains(:one).id, :service_id => services(:one).id
   end
 
   test "should refuse to add service" do
@@ -77,7 +77,7 @@ class DomainsControllerTest < ActionController::TestCase
     services(:one).users << users(:one)
     services(:one).save
     assert_difference('domains(:one).services.count', 0) do
-      post :addservice, :domain_id => domains(:one).id, :service_id => services(:one).id
+      post :addservice, :domain_id => domains(:one).id, :service_id => [services(:one).id]
     end
 
     assert_redirected_to domains_path

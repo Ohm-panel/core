@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @service_email_user.user_id %>
+</p>
+
+<p>
+  <b>Max mailboxes:</b>
+  <%=h @service_email_user.max_mailboxes %>
+</p>
+
+<p>
+  <b>Max aliases:</b>
+  <%=h @service_email_user.max_aliases %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_email_user_path(@service_email_user) %> |
+<%= link_to 'Back', service_email_users_path %>

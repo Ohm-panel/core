@@ -14,6 +14,7 @@ root:
   used_space: 100
 
 one:
+  id: 2
   username: test1
   # password is "test1" in SHA512
   password: <%= User.digest_password("test1") %>
@@ -26,6 +27,7 @@ one:
   used_space: 100
 
 two:
+  id: 3
   username: test2
   # password is "test2" in SHA512
   password: <%= User.digest_password("test2") %>

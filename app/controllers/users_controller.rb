@@ -103,14 +103,14 @@ class UsersController < ApplicationController
 
   def addservice
     @user = User.find(params[:user_id])
-    @service = Service.find(params[:service_id])
+    @service = Service.find(params[:service_id][0])
 
     if @logged_user.root? or (@user.parent == @logged_user and @logged_user.services.include? @service)
       @user.services << @service
 
       if @user.save
         flash[:notice] = 'Service successfully added'
-        redirect_to @user
+        redirect_to :controller => @service.controller, :action => 'addtouser', :user_id => @user.id
       else
         flash[:error] = 'Error occured'
         redirect_to @user
@@ -130,7 +130,7 @@ class UsersController < ApplicationController
 
       if @user.save
         flash[:notice] = 'Service successfully removed'
-        redirect_to @user
+        redirect_to :controller => @service.controller, :action => 'removefromuser', :user_id => @user.id
       else
         flash[:error] = 'Error occured'
         redirect_to @user

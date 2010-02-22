@@ -114,10 +114,10 @@ class UsersControllerTest < ActionController::TestCase
     services(:one).save
 
     assert_difference('users(:one).services.count') do
-      post :addservice, :user_id => users(:one).id, :service_id => services(:one).id
+      post :addservice, :user_id => users(:one).id, :service_id => [services(:one).id]
     end
 
-    assert_redirected_to user_path(users(:one))
+    assert_redirected_to :controller => services(:one).controller, :action => 'addtouser', :user_id => users(:one).id
     assert flash[:error].nil?
   end
 
@@ -127,7 +127,7 @@ class UsersControllerTest < ActionController::TestCase
     services(:one).save
 
     assert_difference('users(:one).services.count', 0) do
-      post :addservice, :user_id => users(:one).id, :service_id => services(:one).id
+      post :addservice, :user_id => users(:one).id, :service_id => [services(:one).id]
     end
 
     assert_redirected_to users_path
@@ -144,7 +144,7 @@ class UsersControllerTest < ActionController::TestCase
       post :removeservice, :user_id => users(:one).id, :service_id => services(:one).id
     end
 
-    assert_redirected_to user_path(users(:one))
+    assert_redirected_to :controller => services(:one).controller, :action => 'removefromuser', :user_id => users(:one).id
     assert flash[:error].nil?
   end
 

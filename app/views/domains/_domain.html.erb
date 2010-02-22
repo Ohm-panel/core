@@ -39,7 +39,7 @@
 <% addable_services = @logged_user.services.select { |s| s.by_domain } - domain.services %>
 <% if not addable_services.empty? %>
   <% form_tag '/domains/addservice' do %>
-    <%= hidden_field_tag 'domain_id', domain.id %>
+    <%= hidden_field_tag :domain_id, domain.id %>
     <%= collection_select :service_id, nil, addable_services, :id, :name %>
     <%= submit_tag 'Add service' %>
   <% end %>
