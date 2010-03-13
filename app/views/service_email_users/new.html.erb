@@ -1,23 +1,19 @@
-<h1>New service_email_user</h1>
+<h1>Adding e-mail service to <%= @service_email_user.user.full_name %></h1>
 
 <% form_for(@service_email_user) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
     <%= f.label :max_mailboxes %><br />
-    <%= f.text_field :max_mailboxes %>
+    <%= f.text_field :max_mailboxes, :size => 15 %>
   </p>
   <p>
     <%= f.label :max_aliases %><br />
-    <%= f.text_field :max_aliases %>
+    <%= f.text_field :max_aliases, :size => 15 %>
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.hidden_field :user_id %>
+    <%= f.submit 'Add' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', service_email_users_path %>

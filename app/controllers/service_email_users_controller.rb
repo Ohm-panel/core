@@ -1,17 +1,6 @@
 class ServiceEmailUsersController < ServiceEmailController
   before_filter :authenticate_email_user
 
-  # GET /service_email_users
-  # GET /service_email_users.xml
-  def index
-    @service_email_users = ServiceEmailUser.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @service_email_users }
-    end
-  end
-
   # GET /service_email_users/1
   # GET /service_email_users/1.xml
   def show
@@ -20,17 +9,13 @@ class ServiceEmailUsersController < ServiceEmailController
     elsif params[:id]
       @service_email_user = ServiceEmailUser.find(params[:id])
     end
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @service_email_user }
-    end
   end
 
   # GET /service_email_users/new
   # GET /service_email_users/new.xml
   def new
     @service_email_user = ServiceEmailUser.new(:user_id => params[:user_id])
+    @user = User.find(params[:user_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,15 +33,11 @@ class ServiceEmailUsersController < ServiceEmailController
   def create
     @service_email_user = ServiceEmailUser.new(params[:service_email_user])
 
-    respond_to do |format|
-      if @service_email_user.save
-        flash[:notice] = 'ServiceEmailUser was successfully created.'
-        format.html { redirect_to(@service_email_user) }
-        format.xml  { render :xml => @service_email_user, :status => :created, :location => @service_email_user }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @service_email_user.errors, :status => :unprocessable_entity }
-      end
+    if @service_email_user.save
+      flash[:notice] = 'E-mail service successfully added.'
+      redirect_to @service_email_user.user
+    else
+      render :action => "new"
     end
   end
 

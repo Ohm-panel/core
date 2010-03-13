@@ -8,8 +8,8 @@ class ServiceEmailController < ApplicationController
     elsif @logged_user.root?
       # Create an unlimited account for root and return it
       @logged_email_user = ServiceEmailUser.new(:user_id       => @logged_user.id,
-                                               :max_mailboxes => -1,
-                                               :max_aliases   => -1)
+                                                :max_mailboxes => -1,
+                                                :max_aliases   => -1)
       @logged_email_user.save
       true
     else
@@ -38,7 +38,9 @@ class ServiceEmailController < ApplicationController
   end
 
   def removefromuser
-    ServiceEmailUser.find(:first, :conditions => { :user_id => params[:user_id] }).destroy
+    usertodel = ServiceEmailUser.find(:first, :conditions => { :user_id => params[:user_id] })
+    usertodel.destroy unless usertodel.nil?
+
     flash[:notice] = "Service removed"
     redirect_to User.find(params[:user_id])
   end

@@ -1,18 +1,18 @@
+<h1>E-mail service for <%= @service_email_user.user.full_name %></h1>
+
 <p>
-  <b>User:</b>
-  <%=h @service_email_user.user_id %>
+  <b>Mailboxes:</b>
+  <%= print_quota @service_email_user.used_mailboxes_total, @service_email_user.max_mailboxes, '' %>
 </p>
 
 <p>
-  <b>Max mailboxes:</b>
-  <%=h @service_email_user.max_mailboxes %>
+  <b>Aliases:</b>
+  <%= print_quota @service_email_user.used_aliases_total, @service_email_user.max_aliases, '' %>
 </p>
 
 <p>
-  <b>Max aliases:</b>
-  <%=h @service_email_user.max_aliases %>
+  <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => '', :class => 'action') + 'Edit',
+              edit_service_email_user_path(@service_email_user) %><br/>
+  <%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', @service_email_user.user %>
 </p>
 
-
-<%= link_to 'Edit', edit_service_email_user_path(@service_email_user) %> |
-<%= link_to 'Back', service_email_users_path %>
