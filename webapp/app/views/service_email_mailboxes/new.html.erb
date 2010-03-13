@@ -1,0 +1,41 @@
+<%= image_tag "icons/icontexto-webdev-contact-128x128.png", :alt=>"", :class=>"bigicon" %>
+<h1>New mailbox</h1>
+
+<% form_for(@mailbox, :url => { :controller => 'service_email_mailboxes', :action => 'create' }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :address %><br />
+    <%= f.text_field :address, :size => 15 %>@<%= f.collection_select :domain_id, @logged_user.domains, :id, :domain %>
+  </p>
+  <p>
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </p>
+  <p>
+    <%= f.label :size %> <%= '(max ' + @logged_user.max_space.to_s + ' Mb)' unless @logged_user.max_space==-1 %><br />
+    <%= f.text_field :size %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, :value => '' %>
+  </p>
+  <p>
+    <%= f.label "Forward message to <small>(one per line)</small>" %><br />
+    <%= f.text_area :forward, :cols => 30, :rows => 5 %>
+  </p>
+  <p>
+    <%= f.check_box :forward_only %> Alias: Don't keep messages on server, only forward to above addresses
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back',
+            :controller => 'service_email_mailboxes', :action => 'index' %>
+

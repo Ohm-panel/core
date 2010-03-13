@@ -1,0 +1,20 @@
+<h1>Editing e-mail service for <%= @service_email_user.user.full_name %></h1>
+
+<% form_for(@service_email_user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :max_mailboxes %><br />
+    <%= f.text_field :max_mailboxes, :size => 15 %>
+  </p>
+  <p>
+    <%= f.label :max_aliases %><br />
+    <%= f.text_field :max_aliases, :size => 15 %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', @service_email_user.user %>
+

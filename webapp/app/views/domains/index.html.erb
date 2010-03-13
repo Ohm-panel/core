@@ -1,0 +1,17 @@
+<%= image_tag 'icons/icontexto-webdev-site-map-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Domains</h1>
+
+<p>
+<% if @domains.count == 0 %>
+  You have no domain yet
+<% else %>
+  Domains: <%= print_quota @logged_user.used_subdomains_total, @logged_user.max_subdomains, '' %>
+<% end %>
+</p>
+
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'Add a domain', :controller => 'domains', :action => 'new' %>
+</p>
+
+<%= render :partial => @domains %>
+

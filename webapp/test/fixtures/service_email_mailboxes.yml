@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+local:
+  address: test
+  domain_id: 1
+  full_name: Mr Test
+  size: 200
+  password: password
+  forward: ""
+  forward_only: false
+
+alias:
+  address: aliastest
+  domain_id: 1
+  full_name: Mr Aliaser
+  size: -1
+  password: aliaspassword
+  forward: test@test.com
+  forward_only: true
+

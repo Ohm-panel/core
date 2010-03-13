@@ -1,0 +1,17 @@
+<%= image_tag "icons/icontexto-webdev-site-map-128x128.png", :alt=>"", :class=>"bigicon" %>
+<h1>Add a domain</h1>
+
+<% form_for(@domain) do |f| %>
+  <%= f.error_messages %>
+  <%= hidden_field_tag 'user_id', 0 %>
+
+  <p>
+    www.<%= f.text_field :domain %>
+  </p>
+  <p>
+    <%= f.submit 'Add' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', :controller => 'domains' %>
+

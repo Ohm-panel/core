@@ -1,0 +1,45 @@
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>New user</h1>
+
+<% form_for(@user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </p>
+  <p>
+    <%= f.label 'E-mail address' %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label 'Disk space' %> <%= '(max ' + @logged_user.free_space.to_s + ' Mb)' unless @logged_user.free_space==-1 %><br />
+    <%= f.text_field :max_space %>
+  </p>
+  <p>
+    <%= f.label 'Maximum subdomains' %> <%= '(max ' + @logged_user.free_subdomains.to_s + ')' unless @logged_user.free_subdomains==-1 %><br />
+    <%= f.text_field :max_subdomains %>
+  </p>
+  <p>
+    <%= f.label 'Maximum sub-users' %> <%= '(max ' + @logged_user.free_subusers.to_s + ')' unless @logged_user.free_subusers==-1 %><br />
+    <%= f.text_field :max_subusers %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', :controller => 'users' %>
+

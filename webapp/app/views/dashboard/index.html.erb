@@ -1,0 +1,44 @@
+<%= image_tag 'icons/icontexto-webdev-home-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Dashboard</h1>
+
+<h2>Disk usage: <small><%= print_quota @user.used_space_total, @user.max_space, 'Mb' %></small></h2>
+
+<h2>Domains <small>(<%= print_quota @user.used_subdomains_total, @user.max_subdomains, '' %>)</small></h2>
+<p>
+  <ul>
+    <%= '<li>You have no domain yet</li>' if @user.domains.count == 0 %>
+    <% @user.domains.each do |dom| %>
+      <li><h3><%= link_to dom.domain, dom %></h3>
+      <ul class="subdomains">
+      <% dom.subdomains.each do |subdom| %>
+        <li>
+          <%= subdom.url+'.'+dom.domain %>
+          <%= link_to (image_tag 'icons/external.png', :alt => 'Visit', :title => 'Visit'),'http://'+subdom.url+'.'+dom.domain, :target => '_blank' %>
+        </li>
+      <% end %>
+      </ul></li>
+    <% end %>
+  </ul>
+</p>
+
+<h2>Available services</h2>
+<p>
+  <ul>
+    <%= '<li>You have no additional services</li>' if @user.services.count == 0 %>
+    <% @user.services.each do |s| %>
+      <li><%= link_to s.name, :controller=>s.controller %></li>
+    <% end %>
+  </ul>
+</p>
+
+
+<h2>Users <small>(<%= print_quota @user.used_subusers_total, @user.max_subusers, '' %>)</small></h2>
+<p>
+  <ul>
+    <%= '<li>You have no sub-users</li>' if @user.users.count == 0 %>
+    <% @user.users.each do |u| %>
+      <li><%= link_to u.full_name, u %></li>
+    <% end %>
+  <ul>
+</p>
+

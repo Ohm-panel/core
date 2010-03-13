@@ -1,2 +1,0 @@
-module SubdomainsHelper
-end

@@ -1,0 +1,54 @@
+<span class="darkframetitle"><%= link_to_unless_current domain.domain, domain %></span>
+<div class="darkframe">
+
+<span class="frametitle">Subdomains</span>
+<div class="frame">
+<table class="indextable">
+<tr>
+  <th>Subdomain</th>
+  <th>Path</th>
+  <th>Actions</th>
+</tr>
+<% domain.subdomains.each do |sub| %>
+  <tr>
+    <td><%= "*" if sub.mainsub %> <%= sub.url %></td>
+    <td>/home/<%= @logged_user.username %>/<%= domain.domain %>/<%= sub.path %>/</td>
+    <td>
+      <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action'), edit_subdomain_path(sub) %>
+      <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => 'Delete', :title => 'Delete', :class => 'action'), sub, :confirm => 'ALL DATA for this subdomain will be destroyed! Are you sure?', :method => :delete %>
+      <%= link_to (image_tag 'icons/icontexto-webdev-arrow-right-032x032.png', :alt => 'Visit', :title => 'Visit', :class => 'action'),
+          'http://'+sub.url+'.'+domain.domain, :target => '_blank' %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<small>*http://<%=h domain.domain %> redirects here</small><br /><br />
+<%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'Add a subdomain', :controller => 'subdomains', :action => 'new', :domain => domain %>
+</div>
+
+<span class="frametitle">Active services</span>
+<div class="frame">
+<p>
+<%= "No service active on this domain" if domain.services.count == 0 %>
+<% domain.services.each do |service| %>
+  <%= link_to (h service.name), '/service_' + service.name.downcase + '/manage/' + domain.id.to_s %>
+  <br/>
+<% end %>
+
+<% addable_services = @logged_user.services.select { |s| s.by_domain } - domain.services %>
+<% if not addable_services.empty? %>
+  <% form_tag '/domains/addservice' do %>
+    <%= hidden_field_tag :domain_id, domain.id %>
+    <%= collection_select :service_id, nil, addable_services, :id, :name %>
+    <%= submit_tag 'Add service' %>
+  <% end %>
+<% end %>
+</p>
+</div>
+
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => '', :class => 'action') + 'Delete this domain completely', domain, :method => 'delete', :confirm => 'ALL DATA stored for this domain and ALL subdomains will be destroyed! Are you sure?' %>
+</p>
+</div>
+

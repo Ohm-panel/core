@@ -1,8 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  session: a session
-  session_ts: 2010-02-20 14:17:10
-  ip: 1.2.3.4
-  user_id: 1
-

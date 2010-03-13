@@ -1,0 +1,36 @@
+<%= image_tag 'icons/icontexto-webdev-user-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Editing user: <%= @user.username %></h1>
+
+<% form_for(@user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </p>
+  <p>
+    <%= f.label 'E-mail address' %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label 'Disk space' %> (currently using <%= @user.used_space_total %> Mb
+                                <%= ', add max ' + @logged_user.free_space.to_s + ' Mb' unless @logged_user.free_space==-1 %>)<br />
+    <%= f.text_field :max_space %>
+  </p>
+  <p>
+    <%= f.label 'Maximum subdomains' %> (currently has <%= @user.used_subdomains_total %>
+                                        <%= ', add max ' + @logged_user.free_subdomains.to_s unless @logged_user.free_subdomains==-1 %>)<br />
+    <%= f.text_field :max_subdomains %>
+  </p>
+  <p>
+    <%= f.label 'Maximum sub-users' %> (currently has <%= @user.used_subusers_total %>
+                                       <%= ', add max ' + @logged_user.free_subusers.to_s unless @logged_user.free_subusers==-1 %>)<br />
+    <%= f.text_field :max_subusers %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', :controller => 'users' %>
+
