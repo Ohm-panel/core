@@ -1,0 +1,31 @@
+#ohm# ACTION [OPTIONS]: TARGET
+[DATA]
+
+
+ACTIONS
+-------
+
+file
+  Replace the file in TARGET with given DATA.
+
+OPTIONS: append: Append DATA to TARGET rather than replacing
+         ohmblock: Put DATA inside a special Ohm block. If the block is present
+                   in target, its content is replaced by DATA. If not, the block
+                   is added.
+                   This allows to control only a subset of a configuration file.
+
+TARGET: Path of the file to alter
+
+DATA: Content to place in TARGET
+
+
+exec
+  Execute TARGET command
+
+OPTIONS: onchanges: Only execute if at least "file" action caused changes to its
+                    target
+
+TARGET: Command to execute
+
+DATA: None
+
