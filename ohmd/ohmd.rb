@@ -19,6 +19,10 @@ class OhmAction
   def do
     raise NotImplementedError, "'do' must be overridden"
   end
+
+  def undo
+    raise NotImplementedError, "'undo' must be overridden"
+  end
 end
 
 
@@ -49,8 +53,9 @@ class OhmFileAction < OhmAction
 
   def do
     if append then
-      # Write to temp
       @changes = true
+      @newfile = false
+      # Write to temp
       File.open(tempname, "w") { |f|
         f.print File.read(@target)
         f.print @data
@@ -60,6 +65,8 @@ class OhmFileAction < OhmAction
       # Overwrite
       File.move(tempname, @target)
     elsif block then
+      @newfile = false
+
       blockstart = "\n### OHM GENERATED CONFIG ### DO NOT REMOVE THIS LINE ###\n"
       blockend   = "### END OF OHM CONFIG ### DO NOT REMOVE THIS LINE ###\n"
       currentblock = File.read(@target).slice(/#{blockstart}.*#{blockend}/m)
@@ -81,13 +88,14 @@ class OhmFileAction < OhmAction
         File.move(tempname, @target)
       end
     else
+      @newfile = !File.exists?(@target)
       # Compare current file and new version
-      @changes = Digest::MD5.file(@target).digest != Digest::MD5.digest(@data)
+      @changes = @newfile || Digest::MD5.file(@target).digest != Digest::MD5.digest(@data)
       if @changes then
         # Write to temp
         File.open(tempname, "w") { |f| f.print @data }
         # Copy to backup
-        File.copy(@target, bakname)
+        File.copy(@target, bakname) unless @newfile
         # Overwrite
         File.move(tempname, @target)
       end
@@ -96,9 +104,12 @@ class OhmFileAction < OhmAction
     @changes
   end
 
-  def restore
-    if @changes then
+  def undo
+    if @newfile then
+      File.delete(@target)
+    elsif @changes then
       File.copy(bakname, @target)
+      File.delete(bakname)
     end
   end
 end
@@ -110,8 +121,24 @@ class OhmExecAction < OhmAction
     @options.include? "onchanges"
   end
 
-  def do
-    system(@target)
+  def rollback
+    @options.include? "rollback"
+  end
+
+  def do(changes)
+    unless rollback || (onchanges && !changes)
+      system(@target)
+    else
+      true # report no error
+    end
+  end
+
+  def undo
+    if rollback
+      system(@target)
+    else
+      true
+    end
   end
 end
 
@@ -126,8 +153,12 @@ class OhmParser
       if isOhmLine line then
         actions << currentAction unless currentAction.nil?
         currentAction = parseLine line
-      elsif currentAction.is_a? OhmFileAction then
-        currentAction.data << line
+      else
+        begin
+          currentAction.data << line
+        rescue
+          raise RuntimeError, "Invalid file (doesn't start with an action)"
+        end
       end
     }
     actions << currentAction unless currentAction.nil?
@@ -156,7 +187,7 @@ class OhmParser
     when "file"
       OhmFileAction.new(action, options, target, "")
     when "exec"
-      OhmExecAction.new(action, options, target, nil)
+      OhmExecAction.new(action, options, target, "")
     else raise RuntimeError, "Unknown action: #{action}"
     end
   end
@@ -181,16 +212,34 @@ end
 
 
 # Get Ohm actions file from URL, parse and apply
-def dourl(url)
-  # Get URL
-  # TODO
+def dourl(url, passphrase)
+  # Get action file
+  log "Downloading actions from URL: #{url}"
+  tempfile = "/tmp/ohm-actions"
+  wgot = system("wget -q -t 5 --post-data 'pp=#{passphrase}' #{url} -O #{tempfile}")
+  unless wgot
+    logerror "Could not retreive actions from #{url}"
+    return
+  end
+  file = File.read(tempfile)
+  File.delete(tempfile)
+
+  # TESTING
   file = "#ohm#file ohmblock: test\n"
-  file << "ohm new line 1\nohm new line 2\n"
-  file << "#ohm# exec onchanges :echo homo\n"
+  file << "ohm new olol line 1\nohm new line 2\n"
+  file << "#ohm# file: test2\n"
+  file << "vive les tests\n"
+  file << "#ohm# exec onchanges :homo\n"
+  file << "#ohm# exec rollback: echo homo\n"
 
   # Parse file
   log "Applying actions from #{url}"
-  fileactions, execactions = OhmParser.parseFile file
+  begin
+    fileactions, execactions = OhmParser.parseFile file
+  rescue Exception => e
+    logerror e.message
+    return
+  end
 
   # Apply file actions
   log "#{fileactions.count} file actions"
@@ -199,38 +248,56 @@ def dourl(url)
     changes += fa.do ? 1 : 0
   end
   log "#{changes} files modified"
+  changes = (changes > 0)
 
   # Apply exec actions
   log "#{execactions.count} exec actions"
-  execdone = 0
   error = nil
   execactions.each do |ea|
-    if error.nil? && ea.onchanges != (changes==0)
-      execdone += 1
-      error = ea unless ea.do
+    if error.nil?
+      error = ea unless ea.do(changes)
     end
   end
-  log "#{execdone} commands executed"
 
   unless error.nil?
     logerror "Error executing: #{error.target} (#{url})"
 
     log "Restoring modified files"
     fileactions.each do |fa|
-      fa.restore
+      fa.undo
     end
 
-    log "Executing actions on restored files"
-    error = false
+    log "Executing rollback actions"
     execactions.each do |ea|
-      if !error && ea.onchanges
-        error = ea.do
-      end
+      ea.undo
     end
   end
 
   log "Finished actions from #{url}"
 end
 
-dourl("kikoo.com")
+
+# Get URLs to Ohm actions file from URL, parse and apply
+def domasterurl(masterurl, passphrase)
+  # Get URL list
+  log "Downloading URLs from master: #{masterurl}"
+  tempfile = "/tmp/ohm-urls"
+  wgot = system("wget -q -t 5 --post-data 'pp=#{passphrase}' #{masterurl} -O #{tempfile}")
+  unless wgot
+    logerror "Could not retreive URLs from #{masterurl}"
+    return
+  end
+  file = File.read(tempfile)
+  File.delete(tempfile)
+
+  file = "perdu.com\n"
+
+  # Do all URLs
+  file.each_line do |url|
+    dourl(url.chomp, passphrase)
+  end
+end
+
+
+domasterurl("perdu.com", "olol")
 

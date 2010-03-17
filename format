@@ -22,8 +22,10 @@ DATA: Content to place in TARGET
 exec
   Execute TARGET command
 
-OPTIONS: onchanges: Only execute if at least "file" action caused changes to its
-                    target
+OPTIONS: onchanges: Only execute if at least one "file" action caused changes to
+                    its target
+         rollback: Execute if an error was encountered (allmost every "exec"
+                   action should have a sister "exec rollback" action)
 
 TARGET: Command to execute
 
