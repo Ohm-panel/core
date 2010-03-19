@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+require "yaml"
 require "ftools"
 require 'digest/md5'
 
@@ -117,28 +118,60 @@ end
 
 # Exec action
 class OhmExecAction < OhmAction
+  attr_reader :docommand, :undocommand, :done
+
+  def initialize(action, options, target, data)
+    super
+    @done = false
+  end
+
   def onchanges
     @options.include? "onchanges"
   end
 
-  def rollback
-    @options.include? "rollback"
+  def onchangesto
+    @options.include? "onchangesto"
   end
 
-  def do(changes)
-    unless rollback || (onchanges && !changes)
-      system(@target)
+  def do(changedfiles)
+    splitdata = @data.split("\n###\n")
+    if splitdata.count > 2
+      raise RuntimeError, "Invalid 'exec' action data:\n#{data}"
+    elsif splitdata.count == 2
+      @docommand = splitdata[0]
+      @undocommand = splitdata[1]
+    else
+      @docommand = @data
+    end
+
+    @done = (onchanges && changedfiles.count > 0) ||
+            (onchangesto && changedfiles.select {|cf| cf.target==@target && cf.changes}.count > 0) ||
+            (!onchanges && !onchangesto)
+    if @done
+      system(@docommand)
     else
       true # report no error
     end
   end
 
   def undo
-    if rollback
-      system(@target)
+    if @done && @undocommand
+      system(@undocommand)
     else
       true
     end
+  end
+end
+
+
+# URL action
+class OhmURLAction < OhmAction
+  def do
+    raise NotImplementedError, "'do' is not implemented for 'url' action"
+  end
+
+  def undo
+    raise NotImplementedError, "'undo' is not implemented for 'url' action"
   end
 end
 
@@ -163,10 +196,7 @@ class OhmParser
     }
     actions << currentAction unless currentAction.nil?
 
-    fileactions = actions.select { |a| a.is_a? OhmFileAction }
-    execactions = actions.select { |a| a.is_a? OhmExecAction }
-
-    [fileactions, execactions]
+    actions
   end
 
   def self.isOhmLine(line)
@@ -188,6 +218,8 @@ class OhmParser
       OhmFileAction.new(action, options, target, "")
     when "exec"
       OhmExecAction.new(action, options, target, "")
+    when "url"
+      OhmURLAction.new(action, options, target, "")
     else raise RuntimeError, "Unknown action: #{action}"
     end
   end
@@ -212,7 +244,13 @@ end
 
 
 # Get Ohm actions file from URL, parse and apply
-def dourl(url, passphrase)
+def dourl(url, passphrase, options = {})
+  options[:done] ||= []
+  if options[:done].include? url
+    log "Already did actions from #{url}, skipping"
+    return
+  end
+
   # Get action file
   log "Downloading actions from URL: #{url}"
   tempfile = "/tmp/ohm-actions"
@@ -225,42 +263,44 @@ def dourl(url, passphrase)
   File.delete(tempfile)
 
   # TESTING
-  file = "#ohm#file ohmblock: test\n"
-  file << "ohm new olol line 1\nohm new line 2\n"
-  file << "#ohm# file: test2\n"
-  file << "vive les tests\n"
-  file << "#ohm# exec onchanges :homo\n"
-  file << "#ohm# exec rollback: echo homo\n"
+#  file = "#ohm# file ohmblock: test\n"
+#  file << "ohm line 1\nohm line 2\n"
+#  file << "#ohm# file append: test2\n"
+#  file << "vive les tests\n"
+#  file << "#ohm# exec onchangesto: test2\necho homo\n###\necho bedo\n"
+#  file << "#ohm# exec onchanges:\nkikoo\n"
 
   # Parse file
   log "Applying actions from #{url}"
   begin
-    fileactions, execactions = OhmParser.parseFile file
+    actions = OhmParser.parseFile file
   rescue Exception => e
     logerror e.message
     return
   end
 
   # Apply file actions
+  fileactions = actions.select { |a| a.is_a? OhmFileAction }
   log "#{fileactions.count} file actions"
   changes = 0
   fileactions.each do |fa|
     changes += fa.do ? 1 : 0
   end
   log "#{changes} files modified"
-  changes = (changes > 0)
+  changedfiles = fileactions.select { |fa| fa.changes }
 
   # Apply exec actions
+  execactions = actions.select { |a| a.is_a? OhmExecAction }
   log "#{execactions.count} exec actions"
   error = nil
   execactions.each do |ea|
     if error.nil?
-      error = ea unless ea.do(changes)
+      error = ea unless ea.do(changedfiles)
     end
   end
 
   unless error.nil?
-    logerror "Error executing: #{error.target} (#{url})"
+    logerror "Error executing: #{error.docommand} (#{url})"
 
     log "Restoring modified files"
     fileactions.each do |fa|
@@ -274,30 +314,23 @@ def dourl(url, passphrase)
   end
 
   log "Finished actions from #{url}"
-end
+  options[:done] << url
 
-
-# Get URLs to Ohm actions file from URL, parse and apply
-def domasterurl(masterurl, passphrase)
-  # Get URL list
-  log "Downloading URLs from master: #{masterurl}"
-  tempfile = "/tmp/ohm-urls"
-  wgot = system("wget -q -t 5 --post-data 'pp=#{passphrase}' #{masterurl} -O #{tempfile}")
-  unless wgot
-    logerror "Could not retreive URLs from #{masterurl}"
-    return
-  end
-  file = File.read(tempfile)
-  File.delete(tempfile)
-
-  file = "perdu.com\n"
-
-  # Do all URLs
-  file.each_line do |url|
-    dourl(url.chomp, passphrase)
+  # Parse new URLs
+  urlactions = actions.select { |a| a.is_a? OhmURLAction }
+  urlactions.each do |ua|
+    dourl(ua.target, passphrase, :done => options[:done])
   end
 end
 
 
-domasterurl("perdu.com", "olol")
+# Parse config and run with master url
+def run
+  cfg = YAML.load_file("ohmd.conf")
+  masterurl = cfg["panel_url"] + "/ohmd"
+  dourl(masterurl, cfg["passphrase"])
+#  dourl("perdu.com", cfg["passphrase"])
+end
+
+run
 

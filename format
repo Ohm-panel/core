@@ -1,4 +1,4 @@
-#ohm# ACTION [OPTIONS]: TARGET
+#ohm# ACTION [OPTIONS]: [TARGET]
 [DATA]
 
 
@@ -18,16 +18,33 @@ TARGET: Path of the file to alter
 
 DATA: Content to place in TARGET
 
+-----
 
 exec
-  Execute TARGET command
+  Execute command in DATA
 
-OPTIONS: onchanges: Only execute if at least one "file" action caused changes to
+OPTIONS: onchangesto: Only execute if TARGET file was changed
+         onchanges: Only execute if at least one "file" action caused changes to
                     its target
-         rollback: Execute if an error was encountered (allmost every "exec"
-                   action should have a sister "exec rollback" action)
 
-TARGET: Command to execute
+TARGET: None unless 'onchangesto' option is present
+
+DATA: Command to execute, then revert command (executed only if an error was
+      encoutered and the real command was executed), seperated by a line
+      containing only "###"
+      e.g.:
+        a2ensite some-site
+        ###
+        a2dissite some-site
+
+-----
+
+url
+  Fetch new actions file from TARGET URL
+
+OPTIONS: None
+
+TARGET: URL of new actions file
 
 DATA: None
 
