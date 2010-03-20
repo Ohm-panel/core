@@ -4,6 +4,11 @@
 # Installer for Ubuntu Server 9.10
 #
 
+DOWNLOAD_URL= ""
+PANEL_PATH=   "/home/joel/ohm/webpanel"
+DAEMON_PATH=  "/home/joel/ohm/ohmd"
+APACHE_SITES= "/etc/apache2/sites-available"
+
 # Must run as root
 if ((`id -u` != 0)); then
     echo "Must run as root"
@@ -24,4 +29,16 @@ apt-get install \
 # Install requires Gems
 gem install rails -v 2.3.4 --no-rdoc --no-ri
 gem install fastthread --no-rdoc --no-ri
+
+# Configure Apache
+echo "<VirtualHost *:80>" > "$APACHE_SITES/ohm"
+echo "  DocumentRoot $PANEL_PATH" >> "$APACHE_SITES/ohm"
+echo "  <Directory $PANEL_PATH>" >> "$APACHE_SITES/ohm"
+echo "    Allow from all" >> "$APACHE_SITES/ohm"
+echo "    Options FollowSymLinks -MultiViews" >> "$APACHE_SITES/ohm"
+echo "  </Directory>" >> "$APACHE_SITES/ohm"
+echo "</VirtualHost>" >> "$APACHE_SITES/ohm"
+a2ensite ohm
+a2dissite default
+service apache2 restart
 
