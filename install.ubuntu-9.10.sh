@@ -9,6 +9,7 @@ PANEL_PATH="/home/joel/ohm/webpanel"
 DAEMON_PATH="/home/joel/ohm/ohmd"
 APACHE_SITES="/etc/apache2/sites-available"
 
+
 # Must run as root
 if ((`id -u` != 0)); then
     echo "Must run as root"
