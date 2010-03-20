@@ -1,4 +1,4 @@
-#ohm# ACTION [OPTIONS]: [TARGET]
+#ohm# ACTION [OPTIONS]: [TARGET] [REPORT_VALUE]
 [DATA]
 
 
@@ -45,6 +45,17 @@ url
 OPTIONS: None
 
 TARGET: URL of new actions file
+
+DATA: None
+
+-----
+
+badlogin
+  Indicate an incorrect passphrase to the daemon
+
+OPTIONS: None
+
+TARGET: None
 
 DATA: None
 

@@ -1,0 +1,8 @@
+<%=
+@users.collect { |user|
+  add_cmd = "usermod -U #{user.username} || " +
+  "useradd --create-home --user-group --comment \"#{user.full_name}\" --password \"#{user.password}\" #{user.username}"
+  del_cmd = "userdel #{user.username}"
+  ohmd_exec_action add_cmd, del_cmd, nil, nil
+  }.join("\n") %>
+
