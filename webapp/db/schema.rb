@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100222122842) do
+ActiveRecord::Schema.define(:version => 20100320104907) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(:version => 20100222122842) do
     t.integer  "max_bandwidth"
     t.integer  "max_subusers"
     t.integer  "used_space"
+    t.integer  "ohmd_status"
+    t.string   "ohmd_password"
   end
 
 end

@@ -197,7 +197,9 @@ class OhmParser
     currentAction = nil
 
     file.each_line { |line|
-      if isOhmLine line then
+      if line == "\n" then
+        # Skip blank lines
+      elsif isOhmLine line then
         actions << currentAction unless currentAction.nil?
         currentAction = parseLine line
       else
@@ -273,15 +275,29 @@ class OhmPanelConnection
     @os = os
   end
 
+  def array_for_post(array_name, array)
+    post = {}
+    0.upto(array.count-1) do |i|
+      post["#{array_name}[#{i}]"] = array[i]
+    end
+    post
+  end
+
   def url(ctrlurl)
     URI.parse("#{@panel_url}/#{ctrlurl}")
   end
 
   def get(ctrlurl, options = {})
+    options.each do |key, val|
+      if val.is_a? Array
+        options.delete(key)
+        options.merge!(array_for_post(key, val))
+      end
+    end
     options[:passphrase] = @passphrase
     options[:os] = @os
     res = Net::HTTP.post_form(url(ctrlurl), options)
-    res.body.chomp
+    res.body
   end
 
   def getactions(ctrlurl)

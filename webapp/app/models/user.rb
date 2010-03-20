@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
   has_many :domains
 
 
+  # Statuses in Ohmd
+  OHMD_OK     = 0
+  OHMD_TO_ADD = 1
+  OHMD_TO_MOD = 2
+  OHMD_TO_DEL = 3
+
+
   def root?
     self.id and self.id == 1
   end
@@ -116,6 +123,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Crypt password in shadow format
+  SALT_CHARS = [('a'..'z'),('A'..'Z'),(0..9),'.','/'].inject([]) {|s,r| s+Array(r)}
+  def self.shadow_password password
+    salt = Array.new(8) { SALT_CHARS[ rand(SALT_CHARS.size) ] }
+    password.crypt("$6$#{salt}").split("$").join("\\$")
+  end
+
   # Password change
   def self.digest_password password
     Digest::SHA512.hexdigest(password)
@@ -130,7 +144,15 @@ class User < ActiveRecord::Base
   end
 
   def before_save
-    self.password = User.digest_password(password) if password_confirmation
+    # If new user, mark as to be added in Ohmd
+    self.ohmd_status = OHMD_TO_ADD if self.ohmd_status.nil? || self.ohmd_status == ""
+
+    # If password was changed, update hashes
+    if password_confirmation
+      self.ohmd_password = User.shadow_password(password)
+      self.ohmd_status = OHMD_TO_MOD unless self.ohmd_status == OHMD_TO_ADD
+      self.password = User.digest_password(password)
+    end
   end
 end
 

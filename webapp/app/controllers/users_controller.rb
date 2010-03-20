@@ -93,7 +93,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.parent == @logged_user
-      @user.destroy
+      # Don't destroy now, we have to delete it from Ohmd
+      #@user.destroy
+      @user.password = nil
+      @user.parent = nil
+      @user.ohmd_status = User::OHMD_TO_DEL
+      @user.save false
     else
       flash[:error] = "Invalid user"
     end
