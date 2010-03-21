@@ -6,16 +6,16 @@ distro: "Ubuntu Server 9.10"
 panel_path: /home/joel/ohm/webpanel
 daemon_path: /home/joel/ohm/ohmd
 
-mod_rails: "echo \"deb http://apt.brightbox.net hardy main\" > /etc/apt/sources.list.d/brightbox.list
+mod_rails: "echo \"deb http://apt.brightbox.net hardy main\" > /etc/apt/sources.list.d/brightbox.list\n
             wget -q -O - http://apt.brightbox.net/release.asc | apt-key add -"
 
-packages: "apt-get update
-           apt-get -y --force-yes install \
-             ruby-dev rubygems rails quota \
-             apache2 php5 libapache2-mod-passenger \
+packages: "apt-get update\n
+           apt-get -y --force-yes install \\\n
+             ruby-dev rubygems rails quota \\\n
+             apache2 php5 libapache2-mod-passenger \\\n
              mysql-server php5-mysql libmysql-ruby"
 
-gems: "gem install rails -v 2.3.4 --no-rdoc --no-ri
+gems: "gem install rails -v 2.3.4 --no-rdoc --no-ri\n
        gem install fastthread --no-rdoc --no-ri"
 
 apache_conf: "/etc/apache2/apache2.conf"

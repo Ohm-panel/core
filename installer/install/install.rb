@@ -16,8 +16,9 @@ class Dialog
     "dialog --title \"Ohm - Open Hosting Manager\" --#{action} \"\n#{text}\n\n\" 0 0 #{options}"
   end
 
-  def progress(pc, text=nil)
+  def progress(step, text=nil)
     @text = text if text
+    pc = (step*100/STEPS).to_i
     system("#{dialog "gauge", @text, pc} &")
   end
 
@@ -39,7 +40,6 @@ class Dialog
   end
 end
 
-
 def exec(cmd)
   system("(#{cmd}) >> #{LOG}")
 end
@@ -56,17 +56,15 @@ dialog.progress(0, "Preparing Phusion Passenger (mod_rail)")
 exec(cfg["mod_rails"])
 
 # Update and install packages
-dialog.progress((1/STEPS).to_i, "Installing required packages")
+dialog.progress(1, "Installing required packages")
 exec(cfg["packages"])
 
-
 # Install requires Gems
-dialog.progress((2/STEPS).to_i, "Installing required gems")
+dialog.progress(2, "Installing required gems")
 exec(cfg["gems"])
 
-
 # Configure Apache
-dialog.progress((3/STEPS).to_i, "Configuring Apache")
+dialog.progress(3, "Configuring Apache")
 vhost = "<VirtualHost *:80>
   RailsEnv development                                                          ### LIGNE A ENLEVER APRES TESTS !!!
   DocumentRoot $PANEL_PATH/public
@@ -76,15 +74,17 @@ vhost = "<VirtualHost *:80>
   </Directory>
 </VirtualHost>"
 File.open("#{cfg["apache_sites"]}/ohm", "w") { |f| f.print vhost }
+apacheconf = File.read(cfg["apache_conf"])
 File.open(cfg["apache_conf"], "w") { |f|
-  f.print File.read(cfg["apache_conf"])
-  f.print "ServerName 0.0.0.0\n"
+  f.print apacheconf
+  f.print "\nServerName 0.0.0.0\n"
   f.print "NameVirtualHost *:80\n"
 }
 exec("a2ensite ohm")
 exec("a2dissite default")
 exec(cfg["apache_restart"])
 
-dialog.progress((4/STEPS).to_i, "Configuring Apache")
+# Finished
+dialog.progress(4, "Finished")
 dialog.exit
 
