@@ -57,16 +57,16 @@ exec(cfg["mod_rails"])
 
 # Update and install packages
 dialog.progress(1, "Installing required packages")
-exec(cfg["packages"])
+system cfg["packages"] # We don't use exec because input might be needed
 
 # Install requires Gems
 dialog.progress(2, "Installing required gems")
 exec(cfg["gems"])
 
 # Configure Apache
-dialog.progress(3, "Configuring Apache")
+dialog.progress(3, "Configuring Apache")                                        ### LIGNE RailsEnv A ENLEVER APRES TESTS !!!
 vhost = "<VirtualHost *:80>
-  RailsEnv development                                                          ### LIGNE A ENLEVER APRES TESTS !!!
+  RailsEnv development
   DocumentRoot $PANEL_PATH/public
   <Directory $PANEL_PATH/public>
     Allow from all
