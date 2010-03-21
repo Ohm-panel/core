@@ -1,0 +1,7 @@
+# Ohm - Open Hosting Manager
+# Installer configuration for Ubuntu Server 9.10
+
+panel_path: /home/joel/ohm/webpanel
+daemon_path: /home/joel/ohm/ohmd
+apache_etc: /etc/apache2/sites-available
+
