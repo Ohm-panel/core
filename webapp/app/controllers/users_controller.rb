@@ -59,6 +59,7 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
+    params[:user][:ohmd_status] = User::OHMD_TO_MOD
 
     if @user.parent != @logged_user
       flash[:error] = "Invalid user"
@@ -77,6 +78,7 @@ class UsersController < ApplicationController
     if @newatts[:password] == ''
       @newatts[:password_confirmation] = nil
       @newatts[:password] = @user.password
+      @newatts[:ohmd_status] = User::OHMD_TO_MOD
     end
 
     if @user.update_attributes(params[:user])

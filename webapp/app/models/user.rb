@@ -70,6 +70,15 @@ class User < ActiveRecord::Base
     self.max_subusers - self.used_subusers_total
   end
 
+  # Quota usable by this user (not taken by sub-users)
+  def space_for_me
+    return -1 if self.max_space == -1
+    space = self.max_space
+    self.users.each do |u|
+      space -= u.max_space
+    end
+    space
+  end
 
   def self.quota_ok parent_free, to_take
     if parent_free == -1
@@ -144,7 +153,7 @@ class User < ActiveRecord::Base
   end
 
   def before_save
-    # If new user, mark as to be added in Ohmd
+    # If new user, mark as to be added in Ohmd, else mark as to modify
     self.ohmd_status = OHMD_TO_ADD if self.ohmd_status.nil? || self.ohmd_status == ""
 
     # If password was changed, update hashes

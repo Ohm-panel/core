@@ -26,6 +26,8 @@ exec
 OPTIONS: onchangesto: Only execute if TARGET file was changed
          onchanges: Only execute if at least one "file" action caused changes to
                     its target
+         ignorefail: Don't undo everything if the command fails (errors will
+                     still be logged)
 
 TARGET: None unless 'onchangesto' option is present
 

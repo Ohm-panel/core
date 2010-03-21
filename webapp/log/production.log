@@ -1,0 +1,429 @@
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:06:12) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:07:55) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:13:49) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:13:52) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:13:52) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:13:53) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:13:52) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:14:14) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:14:15) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:14:15) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:14:16) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 18:14:16) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '5ef36f195bd316fe80431da2ecc681ed' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)
+
+
+Processing DashboardController#index (for 192.168.56.1 at 2010-03-20 23:28:05) [GET]
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: logged_users: SELECT * FROM "logged_users" WHERE ("logged_users"."session" = '18eecc224089032835dd8a2804906eb9' AND "logged_users"."ip" = '192.168.56.1')  LIMIT 1):
+  app/controllers/application_controller.rb:56:in `findsession'
+  app/controllers/application_controller.rb:14:in `authenticate'
+  /usr/lib/ruby/1.8/phusion_passenger/rack/request_handler.rb:92:in `process_request'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:418:in `start_request_handler'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:358:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/utils.rb:184:in `safe_fork'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:354:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:163:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `__send__'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  /usr/lib/ruby/1.8/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  /usr/lib/phusion_passenger/passenger-spawn-server:61
+
+Rendering /home/joel/ohm/webapp/public/500.html (500 Internal Server Error)

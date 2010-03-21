@@ -147,6 +147,10 @@ class OhmExecAction < OhmAction
     @options.include? "onchangesto"
   end
 
+  def ignorefail
+    @options.include? "ignorefail"
+  end
+
   def do(changedfiles)
     splitdata = @data.split("\n###\n")
     if splitdata.count > 2
@@ -162,7 +166,7 @@ class OhmExecAction < OhmAction
             (onchangesto && changedfiles.select {|cf| cf.target==@target && cf.changes}.count > 0) ||
             (!onchanges && !onchangesto)
     if @done
-      system(@docommand)
+      system(@docommand) || ignorefail
     else
       true # report no error
     end
@@ -170,7 +174,7 @@ class OhmExecAction < OhmAction
 
   def undo
     if @done && @undocommand
-      system(@undocommand)
+      system(@undocommand) || ignorefail
     else
       true
     end
