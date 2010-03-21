@@ -1,7 +1,7 @@
 <%=
 @users_to_add.collect { |user|
   add_cmd = "useradd --create-home --user-group --shell /bin/bash --comment \"#{user.full_name},,,\" --password \"#{user.ohmd_password}\" #{user.username}"
-  lock_cmd = "usermod --lock #{user.username} || true"   # Only lock on errors, so we don't delete an existing user
+  lock_cmd = "usermod --lock #{user.username}"   # Only lock on errors, so we don't delete an existing user
   ohmd_exec_action add_cmd, lock_cmd, nil, nil, user.id
   }.join("\n") if @users_to_add
 %>
@@ -15,8 +15,9 @@
 
 <%=
 @users_to_del.collect { |user|
-  del_cmd = "userdel #{user.username} || true"   # User might be deleted from panel before Ohmd created him
-  ohmd_exec_action del_cmd, nil, nil, nil, user.id
+  del_cmd = "userdel #{user.username}"
+  options = "ignorefail"   # User might be deleted from panel before Ohmd created him
+  ohmd_exec_action del_cmd, nil, options, nil, user.id
   }.join("\n") if @users_to_del
 %>
 
