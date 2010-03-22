@@ -2,8 +2,10 @@
 # Installer
 
 require 'yaml'
+
+
 LOG = "ohm-install.log"
-STEPS = 4
+STEPS = 5
 
 # Load distribution configuration
 @args = ARGV
@@ -67,8 +69,8 @@ exec(cfg["gems"])
 dialog.progress(3, "Configuring Apache")                                        ### LIGNE RailsEnv A ENLEVER APRES TESTS !!!
 vhost = "<VirtualHost *:80>
   RailsEnv development
-  DocumentRoot $PANEL_PATH/public
-  <Directory $PANEL_PATH/public>
+  DocumentRoot #{cfg["panel_path"]}/public
+  <Directory #{cfg["panel_path"]}/public>
     Allow from all
     Options FollowSymLinks -MultiViews
   </Directory>
@@ -84,7 +86,17 @@ exec("a2ensite ohm")
 exec("a2dissite default")
 exec(cfg["apache_restart"])
 
+# Copy files
+dialog.progress(4, "Copying Ohm files")
+exec("mkdir #{cfg["panel_path"]}
+      cp -rp webapp/* #{cfg["panel_path"]}/")
+exec("mkdir #{cfg["daemon_bin_path"]}
+      mkdir #{cfg["daemon_conf_path"]}
+      cp ohmd/ohmd.rb #{cfg["daemon_bin_path"]}/
+      cp ohmd/ohmd.conf #{cfg["daemon_conf_path"]}/
+      chmod u+x #{cfg["daemon_bin_path"]}/ohmd.rb")
+
 # Finished
-dialog.progress(4, "Finished")
+dialog.progress(STEPS, "Finished")
 dialog.exit
 

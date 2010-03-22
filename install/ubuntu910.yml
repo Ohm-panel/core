@@ -3,8 +3,10 @@
 
 distro: "Ubuntu Server 9.10"
 
-panel_path: /home/joel/ohm/webpanel
-daemon_path: /home/joel/ohm/ohmd
+panel_path: /var/www/ohm
+daemon_bin_path: /usr/bin
+daemon_conf_path: /etc/ohm
+
 
 mod_rails: "echo \"deb http://apt.brightbox.net hardy main\" > /etc/apt/sources.list.d/brightbox.list\n
             wget -q -O - http://apt.brightbox.net/release.asc | apt-key add -"
