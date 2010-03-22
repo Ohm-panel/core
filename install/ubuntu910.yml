@@ -24,3 +24,5 @@ apache_conf: "/etc/apache2/apache2.conf"
 apache_sites: "/etc/apache2/sites-available"
 apache_restart: "service apache2 restart"
 
+reboot: "reboot"
+

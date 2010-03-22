@@ -2,10 +2,11 @@
 # Installer
 
 require 'yaml'
+require 'ftools'
 
 
 LOG = "ohm-install.log"
-STEPS = 5
+STEPS = 6
 
 # Load distribution configuration
 @args = ARGV
@@ -61,12 +62,31 @@ exec(cfg["mod_rails"])
 dialog.progress(1, "Installing required packages")
 system cfg["packages"] # We don't use exec because input might be needed
 
+# Configure mount points for quota
+dialog.progress(2, "Configuring the quota manager")
+fstab = File.read("/etc/fstab")
+newfstab = ""
+fstab.each_line do |line|
+  if line.strip.start_with?("#") || line == "\n"
+    newfstab << line
+  else
+    fields = line.squeeze(" ").split(" ")
+    if fields[1].start_with?("/") && fields[0] != "proc"
+      fields[3] += ",usrquota,grpquota"
+      newfstab << fields.join("   ") + "\n"
+    else
+      newfstab << line
+    end
+  end
+end
+File.open("/etc/fstab", "w") { |f| f.print newfstab }
+
 # Install requires Gems
-dialog.progress(2, "Installing required gems")
+dialog.progress(3, "Installing required gems")
 exec(cfg["gems"])
 
 # Configure Apache
-dialog.progress(3, "Configuring Apache")                                        ### LIGNE RailsEnv A ENLEVER APRES TESTS !!!
+dialog.progress(4, "Configuring Apache")                                        ### LIGNE RailsEnv A ENLEVER APRES TESTS !!!
 vhost = "<VirtualHost *:80>
   RailsEnv development
   DocumentRoot #{cfg["panel_path"]}/public
@@ -87,16 +107,18 @@ exec("a2dissite default")
 exec(cfg["apache_restart"])
 
 # Copy files
-dialog.progress(4, "Copying Ohm files")
-exec("mkdir #{cfg["panel_path"]}
-      cp -rp webapp/* #{cfg["panel_path"]}/")
-exec("mkdir #{cfg["daemon_bin_path"]}
-      mkdir #{cfg["daemon_conf_path"]}
-      cp ohmd/ohmd.rb #{cfg["daemon_bin_path"]}/
+dialog.progress(5, "Copying Ohm files")
+File.makedirs cfg["panel_path"]
+exec("cp -rp webapp/* #{cfg["panel_path"]}/")
+File.makedirs cfg["daemon_bin_path"]
+File.makedirs cfg["daemon_conf_path"]
+exec("cp ohmd/ohmd.rb #{cfg["daemon_bin_path"]}/
       cp ohmd/ohmd.conf #{cfg["daemon_conf_path"]}/
       chmod u+x #{cfg["daemon_bin_path"]}/ohmd.rb")
 
-# Finished
+# Finished, reboot
 dialog.progress(STEPS, "Finished")
+dialog.message("Installation is complete. Your computer will now reboot.")
 dialog.exit
+system(cfg["reboot"])
 
