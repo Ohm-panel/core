@@ -4,8 +4,7 @@
 distro: "Ubuntu Server 9.10"
 
 panel_path: /var/www/ohm
-daemon_bin_path: /usr/bin
-daemon_conf_path: /etc/ohm
+ohmd_path: /usr/lib/ohmd
 
 
 mod_rails: "echo \"deb http://apt.brightbox.net hardy main\" > /etc/apt/sources.list.d/brightbox.list\n
@@ -22,7 +21,6 @@ gems: "gem install rails -v 2.3.4 --no-rdoc --no-ri\n
 
 apache_conf: "/etc/apache2/apache2.conf"
 apache_sites: "/etc/apache2/sites-available"
-apache_restart: "service apache2 restart"
 
 reboot: "reboot"
 

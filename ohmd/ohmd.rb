@@ -1,442 +1,72 @@
 #!/usr/bin/ruby
 
+require 'rubygems'
+require 'active_record'
 require 'yaml'
-require 'ftools'
-require 'digest/md5'
-require 'net/http'
-require 'uri'
 
+# Load Ohmd config
+cfg = YAML.load_file("ohmd.yml")
+os = cfg["os"]
+panel_path = cfg["panel_path"]
 
-# Action
-class OhmAction
-  attr_reader :action, :options, :target, :data, :report_value
-  attr_writer :data
-
-  def initialize(action, options, target, report_value, data)
-    @action = action
-    @options = (options.is_a? Array) ? options : (OhmParser.parseOptions options)
-    @target = target
-    @report_value = report_value
-    @data = data
-  end
-
-  def do
-    raise NotImplementedError, "'do' must be overridden"
-  end
-
-  def undo
-    raise NotImplementedError, "'undo' must be overridden"
-  end
-end
-
-
-# File action
-class OhmFileAction < OhmAction
-  attr_reader :changes
-
-  def initialize(action, options, target, report_value, data)
-    super
-    @changes = false
-  end
-
-  def tempname
-    "/tmp/ohm-" + Digest::MD5.hexdigest(@target) + ".tmp"
-  end
-
-  def bakname
-    @target + ".ohm-backup"
-  end
-
-  def append
-    @options.include? "append"
-  end
-
-  def block
-    @options.include? "ohmblock"
-  end
-
-  def do
-    if append then
-      @changes = true
-      @newfile = !File.exists?(@target)
-
-      # Create dummy file if new
-      if @newfile
-        File.open(@target, "w") { |f| f.print "" }
-      end
-
-      # Write to temp
-      File.open(tempname, "w") { |f|
-        f.print File.read(@target)
-        f.print @data
-      }
-      # Copy to backup
-      File.copy(@target, bakname)
-      # Overwrite
-      File.move(tempname, @target)
-    elsif block then
-      @newfile = !File.exists?(@target)
-
-      # Create dummy file if new
-      if @newfile
-        File.open(@target, "w") { |f| f.print "" }
-      end
-
-      blockstart = "\n### OHM GENERATED CONFIG ### DO NOT REMOVE THIS LINE ###\n"
-      blockend   = "### END OF OHM CONFIG ### DO NOT REMOVE THIS LINE ###\n"
-      currentblock = File.read(@target).slice(/#{blockstart}.*#{blockend}/m)
-      newblock = blockstart + @data + blockend
-
-      # Compare current and new version
-      @changes = currentblock.nil? || currentblock != newblock
-      if @changes then
-        # Write to temp
-        currentfile = currentblock.nil? ? [File.read(@target)] : File.read(@target).split(currentblock)
-        File.open(tempname, "w") { |f|
-          f.print currentfile[0]
-          f.print newblock
-          f.print currentfile[1] unless currentfile[1].nil?
-        }
-        # Copy to backup
-        File.copy(@target, bakname)
-        # Overwrite
-        File.move(tempname, @target)
-      end
-    else
-      @newfile = !File.exists?(@target)
-      # Compare current file and new version
-      @changes = @newfile || Digest::MD5.file(@target).digest != Digest::MD5.digest(@data)
-      if @changes then
-        # Write to temp
-        File.open(tempname, "w") { |f| f.print @data }
-        # Copy to backup
-        File.copy(@target, bakname) unless @newfile
-        # Overwrite
-        File.move(tempname, @target)
-      end
-    end
-
-    @changes
-  end
-
-  def undo
-    if @newfile then
-      File.delete(@target)
-    elsif @changes then
-      File.copy(bakname, @target)
-      File.delete(bakname)
-    end
-  end
-end
-
-
-# Exec action
-class OhmExecAction < OhmAction
-  attr_reader :docommand, :undocommand, :done
-
-  def initialize(action, options, target, report_value, data)
-    super
-    @done = false
-  end
-
-  def onchanges
-    @options.include? "onchanges"
-  end
-
-  def onchangesto
-    @options.include? "onchangesto"
-  end
-
-  def ignorefail
-    @options.include? "ignorefail"
-  end
-
-  def do(changedfiles)
-    splitdata = @data.split("\n###\n")
-    if splitdata.count > 2
-      raise RuntimeError, "Invalid 'exec' action data:\n#{data}"
-    elsif splitdata.count == 2
-      @docommand = splitdata[0]
-      @undocommand = splitdata[1]
-    else
-      @docommand = @data
-    end
-
-    @done = (onchanges && changedfiles.count > 0) ||
-            (onchangesto && changedfiles.select {|cf| cf.target==@target && cf.changes}.count > 0) ||
-            (!onchanges && !onchangesto)
-    if @done
-      system(@docommand) || ignorefail
-    else
-      true # report no error
-    end
-  end
-
-  def undo
-    if @done && @undocommand
-      system(@undocommand) || ignorefail
-    else
-      true
-    end
-  end
-end
-
-
-# URL action
-class OhmURLAction < OhmAction
-  def do
-    raise NotImplementedError, "'do' is not implemented for 'url' action"
-  end
-
-  def undo
-    raise NotImplementedError, "'undo' is not implemented for 'url' action"
-  end
-end
-
-
-# Parser
-class OhmParser
-  def self.parseFile(file)
-    actions = []
-    currentAction = nil
-
-    file.each_line { |line|
-      if line == "\n" then
-        # Skip blank lines
-      elsif isOhmLine line then
-        actions << currentAction unless currentAction.nil?
-        currentAction = parseLine line
-      else
-        begin
-          currentAction.data << line
-        rescue
-          raise RuntimeError, "Invalid file (doesn't start with an action)"
-        end
-      end
-    }
-    actions << currentAction unless currentAction.nil?
-
-    actions
-  end
-
-  def self.isOhmLine(line)
-    line.start_with?("#ohm#")
-  end
-
-  def self.parseLine(line)
-    unless isOhmLine line then
-      raise RuntimeError, "Trying to parse an invalid line"
-    end
-
-    action = line.slice /\A#ohm#\s*([^\s:]+)(\s|:)/, 1
-    options = line.slice /#{action}([^:]*):/, 1
-    report_value = line.slice /\s+(\d+)\Z/, 1
-    target = line.slice /#{options}:(.*)\s*#{report_value}/, 1
-    target.strip!
-
-    case action
-    when "badlogin"
-      raise RuntimeError, "Passphrase rejected by panel"
-    when "file"
-      OhmFileAction.new(action, options, target, report_value, "")
-    when "exec"
-      OhmExecAction.new(action, options, target, report_value, "")
-    when "url"
-      OhmURLAction.new(action, options, target, report_value, "")
-    else raise RuntimeError, "Unknown action: #{action}"
-    end
-  end
-
-  def self.parseOptions(options)
-    options.squeeze!(" ")
-    options.strip!
-    options.split(" ")
-  end
-end
-
-
-# Get current time for display (for logging functions)
+# Logging
 def timestamp
-  "[" + Time.new.strftime("%Y-%m-%d %H:%M:%S") + "]"
+  Time.new.strftime("%Y-%m-%d %H:%M:%S")
 end
-
-# Log given message
 def log(message)
-  puts "#{timestamp} #{message}"
+  puts "#{timestamp} | #{message}"
 end
-
-# Log given error message
 def logerror(message)
-  puts "#{timestamp}   !!!   #{message}   !!!"
+  puts "#{timestamp} !!! #{message}"
 end
 
+log "Ohmd start"
+begin
 
-# This class must be used for communication with the panel
-class OhmPanelConnection
-  def initialize(panel_url, passphrase, os)
-    @panel_url = panel_url
-    @passphrase = passphrase
-    @os = os
-  end
+# Load DB config from panel
+log "Loading configuration from panel"
+dbcfg = YAML.load_file("#{panel_path}/config/database.yml")["development"]      ### A CHANGER EN PRODUCTION
+dbcfg["database"] = "#{panel_path}/#{dbcfg["database"]}" if dbcfg["adapter"]=="sqlite3"
+log "Connecting to database"
+ActiveRecord::Base.establish_connection(dbcfg)
 
-  def array_for_post(array_name, array)
-    post = {}
-    0.upto(array.count-1) do |i|
-      post["#{array_name}[#{i}]"] = array[i]
-    end
-    post
-  end
-
-  def url(ctrlurl)
-    URI.parse("#{@panel_url}/#{ctrlurl}")
-  end
-
-  def get(ctrlurl, options = {})
-    options.each do |key, val|
-      if val.is_a? Array
-        options.delete(key)
-        options.merge!(array_for_post(key, val))
-      end
-    end
-    options[:passphrase] = @passphrase
-    options[:os] = @os
-    res = Net::HTTP.post_form(url(ctrlurl), options)
-    res.body
-  end
-
-  def getactions(ctrlurl)
-    get(ctrlurl)
-  end
-
-  def report(ctrlurl, success, report_values = [])
-    get(ctrlurl, :done => true, :success => success, :report_values => report_values)
-  end
+# Include all models from panel
+log "Loading models"
+Dir.new("#{panel_path}/app/models").each do |model|
+  model_path = "#{panel_path}/app/models/#{model}"
+  require "#{model_path}" if File.file?(model_path)
 end
 
-
-# Get Ohm actions file from URL, parse and apply
-def dourl(connection, options = {})
-  options[:ctrlurl] ||= "ohmd"
-  options[:done] ||= []
-  url = connection.url(options[:ctrlurl])
-
-  if options[:done].include? url
-    log "Already did actions from #{url}, skipping"
-    return
-  end
-
-  # Get action file
-  log "Downloading actions from URL: #{url}"
+# Load modules
+log "Loading modules"
+modules = ["users", "apache"]
+modules.concat Service.all.collect { |s| s.controller }
+modtoexec = []
+modules.each do |mod|
   begin
-    file = connection.getactions(options[:ctrlurl])
-  rescue Exception => e
-    logerror "Could not retreive actions from #{url}: #{e.message}"
-    return
-  end
-
-  # Parse file
-  log "Applying actions from #{url}"
-  begin
-    actions = OhmParser.parseFile file
-  rescue Exception => e
-    logerror "#{e.message} (from #{url})"
-    return
-  end
-
-  # Apply file actions
-  fileactions = actions.select { |a| a.is_a? OhmFileAction }
-  log "#{fileactions.count} file actions"
-  fileactions.each do |fa|
-    fa.do
-  end
-  changedfiles = fileactions.select { |fa| fa.changes }
-  log "#{changedfiles.count} files modified"
-
-  # Apply exec actions
-  execactions = actions.select { |a| a.is_a? OhmExecAction }
-  log "#{execactions.count} exec actions"
-  error = nil
-  execactions.each do |ea|
-    if error.nil?
-      error = ea unless ea.do(changedfiles)
+    # Try to load OS-specific module first
+    require "#{mod}/#{os}"
+    modtoexec << mod
+  rescue MissingSourceFile
+    begin
+      # Try to load default module
+      require "#{mod}/default"
+      modtoexec << mod
+    rescue MissingSourceFile
+      # Ignore modules with no daemon
+      log " - No daemon found for #{mod}"
     end
-  end
-
-  # Success or error
-  if error.nil?
-    # Success, report with values
-    report_values = actions.collect { |a| a.report_value }.compact
-    connection.report(options[:ctrlurl], true, report_values)
-  else
-    # Error, rollback and report
-    logerror "Error executing: #{error.docommand} (#{url})"
-
-    log "Restoring modified files"
-    fileactions.each do |fa|
-      fa.undo
-    end
-
-    log "Executing rollback actions"
-    execactions.each do |ea|
-      ea.undo
-    end
-
-    connection.report(options[:ctrlurl], false)
-  end
-
-  # Report end
-
-  log "Finished actions from #{url}"
-  options[:done] << url
-
-  # Parse new URLs
-  urlactions = actions.select { |a| a.is_a? OhmURLAction }
-  urlactions.each do |ua|
-    dourl(connection, :ctrlurl => ua.target, :done => options[:done])
   end
 end
 
-
-# Parse config and run with master url
-def run
-  cfg = YAML.load_file("ohmd.conf")
-  conn = OhmPanelConnection.new(cfg["panel_url"], cfg["passphrase"], cfg["os"])
-  dourl(conn)
+# Exec modules
+modtoexec.each do |m|
+  log "Executing #{m}"
+  Object.const_get("Ohmd_#{m}").exec
 end
 
-run
 
-
-
-<% quota_hard_mult = 1.2 %>
-
-<%=
-@users_to_add.collect { |user|
-  add_cmd = "useradd --create-home --user-group --shell /bin/bash --comment \"#{user.full_name},,,\" --password \"#{user.ohmd_password}\" #{user.username}"
-  add_cmd += "\nsetquota #{user.username} #{user.space_for_me*1024} #{(user.space_for_me*1024*quota_hard_mult).to_i} 0 0 -a"
-  lock_cmd = "usermod --lock #{user.username}"   # Only lock on errors, so we don't delete an existing user
-  ohmd_exec_action add_cmd, lock_cmd, nil, nil, user.id
-  }.join("\n") if @users_to_add
-%>
-
-<%=
-@users_to_mod.collect { |user|
-  mod_cmd = "usermod --comment \"#{user.full_name},,,\" "
-  # New password
-  if user.ohmd_password && user.ohmd_password!=""
-    mod_cmd += "--password \"#{user.ohmd_password}\" "
-  end
-  mod_cmd += "#{user.username}"
-  mod_cmd += "\nsetquota #{user.username} #{user.space_for_me*1024} #{(user.space_for_me*1024*quota_hard_mult).to_i} 0 0 -a"
-  ohmd_exec_action mod_cmd, nil, nil, nil, user.id
-  }.join("\n") if @users_to_mod
-%>
-
-<%=
-@users_to_del.collect { |user|
-  del_cmd = "userdel #{user.username}"
-  options = "ignorefail"   # User might be deleted from panel before Ohmd created him
-  ohmd_exec_action del_cmd, nil, options, nil, user.id
-  }.join("\n") if @users_to_del
-%>
+rescue Exception => e
+  logerror e
+end
 

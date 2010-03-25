@@ -104,17 +104,14 @@ File.open(cfg["apache_conf"], "w") { |f|
 }
 exec("a2ensite ohm")
 exec("a2dissite default")
-exec(cfg["apache_restart"])
 
 # Copy files
 dialog.progress(5, "Copying Ohm files")
 File.makedirs cfg["panel_path"]
 exec("cp -rp webapp/* #{cfg["panel_path"]}/")
-File.makedirs cfg["daemon_bin_path"]
-File.makedirs cfg["daemon_conf_path"]
-exec("cp ohmd/ohmd.rb #{cfg["daemon_bin_path"]}/
-      cp ohmd/ohmd.conf #{cfg["daemon_conf_path"]}/
-      chmod u+x #{cfg["daemon_bin_path"]}/ohmd.rb")
+File.makedirs cfg["ohmd_path"]
+exec("cp -rp ohmd/* #{cfg["ohmd_path"]}/
+      chmod u+x #{cfg["ohmd_path"]}/ohmd.rb")
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
