@@ -9,13 +9,6 @@ class User < ActiveRecord::Base
   has_many :domains
 
 
-  # Statuses in Ohmd
-  OHMD_OK     = 0
-  OHMD_TO_ADD = 1
-  OHMD_TO_MOD = 2
-  OHMD_TO_DEL = 3
-
-
   def root?
     self.id and self.id == 1
   end
@@ -153,13 +146,9 @@ class User < ActiveRecord::Base
   end
 
   def before_save
-    # If new user, mark as to be added in Ohmd, else mark as to modify
-    self.ohmd_status = OHMD_TO_ADD if self.ohmd_status.nil? || self.ohmd_status == ""
-
     # If password was changed, update hashes
     if password_confirmation
       self.ohmd_password = User.shadow_password(password)
-      self.ohmd_status = OHMD_TO_MOD unless self.ohmd_status == OHMD_TO_ADD
       self.password = User.digest_password(password)
     end
   end

@@ -59,7 +59,6 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
-    params[:user][:ohmd_status] = User::OHMD_TO_MOD
 
     if @user.parent != @logged_user
       flash[:error] = "Invalid user"
@@ -78,7 +77,6 @@ class UsersController < ApplicationController
     if @newatts[:password] == ''
       @newatts[:password_confirmation] = nil
       @newatts[:password] = @user.password
-      @newatts[:ohmd_status] = User::OHMD_TO_MOD
     end
 
     if @user.update_attributes(params[:user])
@@ -95,12 +93,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.parent == @logged_user
-      # Don't destroy now, we have to delete it from Ohmd
-      #@user.destroy
-      @user.password = nil
-      @user.parent = nil
-      @user.ohmd_status = User::OHMD_TO_DEL
-      @user.save false
+      @user.destroy
     else
       flash[:error] = "Invalid user"
     end
@@ -122,7 +115,7 @@ class UsersController < ApplicationController
         flash[:error] = 'Error occured'
         redirect_to @user
       end
-    else
+  else
       flash[:error] = 'Invalid user'
       redirect_to users_path
     end
