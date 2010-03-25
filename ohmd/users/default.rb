@@ -14,8 +14,8 @@ class Ohmd_users
       log "[users] Creating user: #{u.username}"
       system "useradd --create-home --user-group --shell /bin/bash --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
         or raise RuntimeError.new "Error adding user: #{u.username}"
-      system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" unless u.max_space == -1 \
-        or raise RuntimeError.new "Error setting quota for #{u.username}"
+      (system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" \
+        or raise RuntimeError.new "Error setting quota for #{u.username}") unless u.max_space == -1
     end
 
     # Find users to del
@@ -33,8 +33,8 @@ class Ohmd_users
       log "[users] Modify user: #{u.username}"
       system "usermod --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
         or raise RuntimeError.new "Error modifying user: #{u.username}"
-      system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" unless u.max_space == -1 \
-        or raise RuntimeError.new "Error setting quota for #{u.username}"
+      (system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" \
+        or raise RuntimeError.new "Error setting quota for #{u.username}") unless u.max_space == -1
     end
 
   end

@@ -6,11 +6,12 @@ require 'ftools'
 
 
 LOG = "ohm-install.log"
-STEPS = 6
+STEPS = 7
 
 # Load distribution configuration
-@args = ARGV
-cfg = YAML.load_file("install/#{@args.last}.yml")
+args = ARGV
+distro = args.last
+cfg = YAML.load_file("install/#{distro}.yml")
 
 
 # Class to print progress
@@ -23,6 +24,7 @@ class Dialog
     @text = text if text
     pc = (step*100/STEPS).to_i
     system("#{dialog "gauge", @text, pc} &")
+    sleep 0.5
   end
 
   def message(text)
@@ -112,6 +114,13 @@ exec("cp -rp webapp/* #{cfg["panel_path"]}/")
 File.makedirs cfg["ohmd_path"]
 exec("cp -rp ohmd/* #{cfg["ohmd_path"]}/
       chmod u+x #{cfg["ohmd_path"]}/ohmd.rb")
+
+# Generate Ohmd config
+dialog.progress(6, "Generating Ohmd configuration")
+File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
+  f.print "panel_path: #{cfg["panel_path"]}\n"
+  f.print "os: #{distro}\n"
+}
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
