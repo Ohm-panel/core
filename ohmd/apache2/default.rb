@@ -7,7 +7,7 @@ class Ohmd_apache2
       next if domain.user.nil?
       site = "#{PREFIX}#{domain.domain}"
       user = domain.user.username
-      path = "/home/#{user}/#{domain.domain}
+      path = "/home/#{user}/#{domain.domain}"
 
       File.open("/etc/apache2/sites-available/#{site}", "w") do |f|
         domain.subdomains.each do |sub|
