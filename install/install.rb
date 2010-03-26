@@ -39,6 +39,10 @@ class Dialog
     `#{dialog "inputbox", text, "--stdout"}`
   end
 
+  def passwordbox(text)
+    `#{dialog "passwordbox", text, "--stdout"}`
+  end
+
   def select(text, options)
     items = options.collect { |o| "#{o} \"\"" }.join(" ")
     `#{dialog "menu", text, "0 "+items, "--stdout --no-cancel"}`
@@ -127,9 +131,10 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
   f.print "os: #{distro}\n"
 }
 
+
 # Generate panel config
 # Create db and user
-dbpwd = dialog.inputbox "Please enter the master password for mysql (root@localhost)"
+dbpwd = dialog.passwordbox "Please enter the master password for mysql (root@localhost)"
 dialog.progress(7, "Configuring the Ohm panel")
 PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
 dbohmpwd = Array.new(16) { PWD_CHARS[ rand(PWD_CHARS.size) ] }
@@ -137,16 +142,31 @@ mysql_cmds = "CREATE USER 'ohm'@'localhost' IDENTIFIED BY '#{dbohmpwd}'; "
 mysql_cmds += "CREATE DATABASE ohm; "
 mysql_cmds += "GRANT ALL PRIVILEGES ON ohm.* TO 'ohm'@'localhost'; "
 exec "mysql -u root -p#{dbpwd} -e \"#{mysql_cmds}\""
+
 # Put details in rails and migrate
-File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f|
-  f.print "production:\n"
-  f.print "  adapter: mysql\n"
-  f.print "  host: localhost\n"
-  f.print "  database: ohm\n"
-  f.print "  username: ohm\n"
-  f.print "  password: #{dbohmpwd}\n"
-}
+dbyml = "production:
+           adapter: mysql
+           host: localhost
+           database: ohm
+           username: ohm
+           password: #{dbohmpwd}"
+File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f| f.print dbyml }
 exec "cd #{cfg["panel_path"]}; rake db:migrate RAILS_ENV=production"
+
+# Add admin user
+users_on_system = File.read("/etc/passwd").split("\n").
+                  select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
+                  collect { |u| u.split(":")[0] }
+admin_username = dialog.select("Select user to use as administrator:", users_on_system)
+admin_password = dialog.passwordbox "Enter password for #{admin_username}"
+require 'rubygems'
+require 'active_record'
+ActiveRecord::Base.establish_connection(YAML.load(dbyml)["production"])
+require "#{cfg["panel_path"]}/app/models/user"
+admin = User.new(:username => admin_username,
+                 :password => admin_password,
+                 :password_confirmation => admin_password)
+admin.save false
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
