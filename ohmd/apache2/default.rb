@@ -30,6 +30,11 @@ class Ohmd_apache2
 
           # Create directory
           File.makedirs subpath
+
+          # Add placeholder if empty
+          if Dir.entries(subpath) == 2
+            system "cp apache2/placeholder/* #{subpath}/"
+          end
         end
       end # Close file
 
