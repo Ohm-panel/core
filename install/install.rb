@@ -5,7 +5,7 @@ require 'yaml'
 require 'ftools'
 
 
-LOG = "ohm-install.log"
+LOG = "install.log"
 STEPS = 8
 
 # Load distribution configuration
@@ -51,7 +51,7 @@ class Dialog
 end
 
 def exec(cmd)
-  system("(#{cmd}) >> #{LOG}")
+  system "(#{cmd}) >> #{LOG}"
 end
 
 # Welcome
@@ -63,10 +63,11 @@ exit 1 unless go
 
 # Phusion Passenger (mod_rails)
 dialog.progress(0, "Preparing Phusion Passenger (mod_rail)")
-exec(cfg["mod_rails"])
+exec cfg["mod_rails"]
 
 # Update and install packages
 dialog.progress(1, "Installing required packages")
+exec cfg["packages_update"]
 system cfg["packages"] # We don't use exec because input might be needed
 
 # Configure mount points for quota
@@ -90,12 +91,11 @@ File.open("/etc/fstab", "w") { |f| f.print newfstab }
 
 # Install requires Gems
 dialog.progress(3, "Installing required gems")
-exec(cfg["gems"])
+exec cfg["gems"]
 
 # Configure Apache
-dialog.progress(4, "Configuring Apache")                                        ### LIGNE RailsEnv A ENLEVER APRES TESTS !!!
+dialog.progress(4, "Configuring Apache")                                        ### LIGNE "RailsEnv development" A ENLEVER APRES TESTS !!!
 vhost = "<VirtualHost *:80>
-  RailsEnv development
   DocumentRoot #{cfg["panel_path"]}/public
   <Directory #{cfg["panel_path"]}/public>
     Allow from all
@@ -109,16 +109,16 @@ File.open(cfg["apache_conf"], "w") { |f|
   f.print "\nServerName 0.0.0.0\n"
   f.print "NameVirtualHost *:80\n"
 }
-exec("a2ensite ohm")
-exec("a2dissite default")
+exec "a2ensite ohm"
+exec "a2dissite default"
 
 # Copy files
 dialog.progress(5, "Copying Ohm files")
 File.makedirs cfg["panel_path"]
-exec("cp -rp webapp/* #{cfg["panel_path"]}/")
+exec "cp -rp webapp/* #{cfg["panel_path"]}/"
 File.makedirs cfg["ohmd_path"]
-exec("cp -rp ohmd/* #{cfg["ohmd_path"]}/
-      chmod u+x #{cfg["ohmd_path"]}/ohmd.rb")
+exec "cp -rp ohmd/* #{cfg["ohmd_path"]}/
+      chmod u+x #{cfg["ohmd_path"]}/ohmd.rb"
 
 # Generate Ohmd config
 dialog.progress(6, "Generating Ohmd configuration")
@@ -136,9 +136,9 @@ dbohmpwd = Array.new(16) { PWD_CHARS[ rand(PWD_CHARS.size) ] }
 mysql_cmds = "CREATE USER 'ohm'@'localhost' IDENTIFIED BY '#{dbohmpwd}'; "
 mysql_cmds += "CREATE DATABASE ohm; "
 mysql_cmds += "GRANT ALL PRIVILEGES ON ohm.* TO 'ohm'@'localhost'; "
-exec("mysql -u root -p#{dbpwd} -e \"#{mysql_cmds}\"")
+exec "mysql -u root -p#{dbpwd} -e \"#{mysql_cmds}\""
 # Put details in rails and migrate
-File.open("#{cfg["panel_path"]}/config/database.yml") { |f|
+File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f|
   f.print "production:\n"
   f.print "  adapter: mysql\n"
   f.print "  host: localhost\n"
@@ -146,11 +146,11 @@ File.open("#{cfg["panel_path"]}/config/database.yml") { |f|
   f.print "  username: ohm\n"
   f.print "  password: #{dbohmpwd}\n"
 }
-exec("cd #{cfg["panel_path"]}; rake db:migrate")
+exec "cd #{cfg["panel_path"]}; rake db:migrate RAILS_ENV=production"
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
 rb = dialog.yesno("Installation is complete, but you MUST reboot before using Ohm.\n\nReboot now?")
 dialog.exit
-system(cfg["reboot"]) if rb
+system cfg["reboot"] if rb
 

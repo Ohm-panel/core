@@ -11,7 +11,9 @@ if ((`id -u` != 0)); then
 fi
 
 echo "Checking installer dependencies..."
-apt-get -y --force-yes install ruby dialog
+if [[ ! `which dialog` || ! `which ruby` ]]; then
+    apt-get -y --force-yes install ruby dialog
+fi
 
 echo "Launching installer..."
 ruby install/install.rb ubuntu910
