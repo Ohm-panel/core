@@ -1,0 +1,33 @@
+<%= image_tag 'icons/icontexto-webdev-config-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Welcome to Ohm</h1>
+
+<p>Please enter the details for the server administrator<p>
+
+<% form_for(@user, :url => { :controller => 'login', :action => 'dosetup' }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </p>
+  <p>
+    <%= f.label 'E-mail address' %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.submit 'Install' %>
+  </p>
+<% end %>
+

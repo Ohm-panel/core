@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
 
   def root?
-    self.id and self.id == 1
+    self.id && self.id == 1
   end
 
 

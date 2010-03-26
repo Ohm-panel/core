@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Ohmd_users
   QUOTA_HARD_MULT = 1.2
 
@@ -6,6 +8,12 @@ class Ohmd_users
     users_on_system = File.read("/etc/passwd").split("\n").
                       select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
                       collect { |u| u.split(":")[0] }
+    protected_users = []
+    begin
+      cfg = YAML.load_file("users/config.yml")
+      protected_users = cfg["protected_users"]
+    rescue Exception
+    end
 
     # Find users to add
     users_to_add = users.select { |u| ! users_on_system.include? u.username }
@@ -19,7 +27,7 @@ class Ohmd_users
     end
 
     # Find users to del
-    users_to_del = users_on_system - users.collect { |u| u.username }
+    users_to_del = users_on_system - users.collect { |u| u.username } - protected_users
     users_to_del.each do |u|
       log "[users] Removing user: #{u}"
       system "userdel #{u}" \

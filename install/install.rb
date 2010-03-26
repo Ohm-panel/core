@@ -130,6 +130,13 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
   f.print "panel_path: #{cfg["panel_path"]}\n"
   f.print "os: #{distro}\n"
 }
+# Config for ohmd user module
+users_on_system = File.read("/etc/passwd").split("\n").
+                  select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
+                  collect { |u| u.split(":")[0] }
+File.open("#{cfg["ohmd_path"]}/users/config.yml", "w") { |f|
+  f.puts "protected_users: [#{users_on_system.join(", ")}]"
+}
 
 
 # Generate panel config
@@ -152,29 +159,6 @@ dbyml = "production:
            password: #{dbohmpwd}"
 File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f| f.print dbyml }
 exec "cd #{cfg["panel_path"]}; rake db:migrate RAILS_ENV=production"
-
-# Add admin user
-users_on_system = File.read("/etc/passwd").split("\n").
-                  select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
-                  collect { |u| u.split(":")[0] }
-admin_username = dialog.select("Select user to use as administrator:", users_on_system)
-admin_password = dialog.passwordbox "Enter password for #{admin_username}"
-admin_email = dialog.inputbox "Enter e-mail address for #{admin_username}"
-require 'rubygems'
-require 'active_record'
-ActiveRecord::Base.establish_connection(YAML.load(dbyml)["production"])
-require "#{cfg["panel_path"]}/app/models/user"
-admin = User.new(:id => 1,
-                 :username => admin_username,
-                 :email => admin_email,
-                 :password => admin_password,
-                 :password_confirmation => admin_password,
-                 :parent_id => nil,
-                 :max_space => -1,
-                 :max_subdomains => -1,
-                 :max_subusers => -1,
-                 :used_space => 0)
-admin.save
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
