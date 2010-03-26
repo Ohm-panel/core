@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       lu = LoggedUser.new
       lu.user = user
       lu.session_ts = Time.new
-      lu.session = Digest::MD5.hexdigest(Time.new.to_f.to_s + user.full_name + user.used_space.to_s)
+      lu.session = Digest::MD5.hexdigest(Time.new.to_f.to_s + user.username + user.used_space.to_s)
       lu.ip = request.remote_ip
       lu.save
       session[:session] = lu.session
