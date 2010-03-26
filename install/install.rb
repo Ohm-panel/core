@@ -40,7 +40,7 @@ class Dialog
   end
 
   def passwordbox(text)
-    `#{dialog "passwordbox", text, "--stdout"}`
+    `#{dialog "passwordbox", text, "--stdout", "--insecure"}`
   end
 
   def select(text, options)
@@ -159,14 +159,16 @@ users_on_system = File.read("/etc/passwd").split("\n").
                   collect { |u| u.split(":")[0] }
 admin_username = dialog.select("Select user to use as administrator:", users_on_system)
 admin_password = dialog.passwordbox "Enter password for #{admin_username}"
+admin_email = dialog.inputbox "Enter e-mail address for #{admin_username}"
 require 'rubygems'
 require 'active_record'
 ActiveRecord::Base.establish_connection(YAML.load(dbyml)["production"])
 require "#{cfg["panel_path"]}/app/models/user"
 admin = User.new(:username => admin_username,
+                 :email => admin_email,
                  :password => admin_password,
                  :password_confirmation => admin_password)
-admin.save false
+admin.save
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
