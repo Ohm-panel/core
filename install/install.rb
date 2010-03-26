@@ -164,10 +164,16 @@ require 'rubygems'
 require 'active_record'
 ActiveRecord::Base.establish_connection(YAML.load(dbyml)["production"])
 require "#{cfg["panel_path"]}/app/models/user"
-admin = User.new(:username => admin_username,
+admin = User.new(:id => 1,
+                 :username => admin_username,
                  :email => admin_email,
                  :password => admin_password,
-                 :password_confirmation => admin_password)
+                 :password_confirmation => admin_password,
+                 :parent_id => nil,
+                 :max_space => -1,
+                 :max_subdomains => -1,
+                 :max_subusers => -1,
+                 :used_space => 0)
 admin.save
 
 # Finished, reboot
