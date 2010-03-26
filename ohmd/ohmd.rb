@@ -39,7 +39,7 @@ end
 
 # Load modules
 log "Loading modules"
-modules = ["users", "apache"]
+modules = ["users", "apache2"] # Default modules
 modules.concat Service.all.collect { |s| s.controller }
 modtoexec = []
 modules.each do |mod|
