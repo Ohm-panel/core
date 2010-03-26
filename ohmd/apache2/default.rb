@@ -4,8 +4,9 @@ class Ohmd_apache2
   def self.exec
     # Add/edit all sites from panel
     Domain.all.each do |domain|
+      next if domain.user.nil?
       site = "#{PREFIX}#{domain.domain}"
-      File.open("/etc/apache2/sites-available/#{site}") do |f|
+      File.open("/etc/apache2/sites-available/#{site}", "w") do |f|
         domain.subdomains.each do |sub|
           url = "#{sub.url}.#{domain.domain}"
           path = "/home/#{domain.user.username}/#{domain.domain}/#{sub.path}"
@@ -27,7 +28,8 @@ class Ohmd_apache2
     # Disable sites not in panel
     psites = Domain.all.collect { |d| "#{PREFIX}#{d.domain}" }
     Dir.new("/etc/apache2/sites-enabled").each do |asite|
-      unless psites.inlude? asite
+      next unless asite.start_with? PREFIX
+      unless psites.include? asite
         system "a2dissite #{asite}"
       end
     end
