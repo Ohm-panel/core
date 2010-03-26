@@ -10,15 +10,16 @@ class Ohmd_apache2
         domain.subdomains.each do |sub|
           url = "#{sub.url}.#{domain.domain}"
           path = "/home/#{domain.user.username}/#{domain.domain}/#{sub.path}"
-          vhost =  "<VirtualHost *:80>"
-          vhost += "  ServerName #{url}"
-          vhost += "  ServerAlias #{domain.domain}" if sub.mainsub
-          vhost += "  DocumentRoot #{path}"
-          vhost += "  <Directory #{path}>"
-          vhost += "    Allow from all"
-          vhost += "    Options FollowSymLinks -Indexes"
-          vhost += "  </Directory>"
-          vhost += "</VirtualHost>"
+          vhost =  "<VirtualHost *:80>\n"
+          vhost += "  ServerName #{url}\n"
+          vhost += "  ServerAlias #{domain.domain}\n" if sub.mainsub
+          vhost += "  DocumentRoot #{path}\n"
+          vhost += "  <Directory #{path}>\n"
+          vhost += "    Allow from all\n"
+          vhost += "    Options FollowSymLinks -Indexes\n"
+          vhost += "  </Directory>\n"
+          vhost += "</VirtualHost>\n"
+          f.print vhost
         end
       end # Close file
 
