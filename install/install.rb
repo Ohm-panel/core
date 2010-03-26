@@ -98,7 +98,7 @@ dialog.progress(3, "Installing required gems")
 exec cfg["gems"]
 
 # Configure Apache
-dialog.progress(4, "Configuring Apache")                                        ### LIGNE "RailsEnv development" A ENLEVER APRES TESTS !!!
+dialog.progress(4, "Configuring Apache")
 vhost = "<VirtualHost *:80>
   DocumentRoot #{cfg["panel_path"]}/public
   <Directory #{cfg["panel_path"]}/public>

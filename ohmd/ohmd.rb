@@ -25,7 +25,7 @@ begin
 
 # Load DB config from panel
 log "Loading configuration from panel"
-dbcfg = YAML.load_file("#{panel_path}/config/database.yml")["development"]      ### A CHANGER EN PRODUCTION
+dbcfg = YAML.load_file("#{panel_path}/config/database.yml")["production"]
 dbcfg["database"] = "#{panel_path}/#{dbcfg["database"]}" if dbcfg["adapter"]=="sqlite3"
 log "Connecting to database"
 ActiveRecord::Base.establish_connection(dbcfg)
