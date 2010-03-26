@@ -1,3 +1,5 @@
+require 'ftools'
+
 class Ohmd_apache2
   PREFIX = "ohm-"
 

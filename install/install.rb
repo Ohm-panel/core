@@ -124,7 +124,7 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
-dialog.message("Installation is complete. Your computer will now reboot.")
+rb = dialog.yesno("Installation is complete, but you MUST reboot before using Ohm.\n\nReboot now?")
 dialog.exit
-system(cfg["reboot"])
+system(cfg["reboot"]) if rb
 
