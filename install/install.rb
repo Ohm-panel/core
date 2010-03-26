@@ -6,7 +6,7 @@ require 'ftools'
 
 
 LOG = "ohm-install.log"
-STEPS = 7
+STEPS = 8
 
 # Load distribution configuration
 args = ARGV
@@ -16,8 +16,8 @@ cfg = YAML.load_file("install/#{distro}.yml")
 
 # Class to print progress
 class Dialog
-  def dialog(action, text, options="")
-    "dialog --title \"Ohm - Open Hosting Manager\" --#{action} \"\n#{text}\n\n\" 0 0 #{options}"
+  def dialog(action, text, params="", options="")
+    "dialog --title \"Ohm - Open Hosting Manager\" #{options} --#{action} \"\n#{text}\n\n\" 0 0 #{params}"
   end
 
   def progress(step, text=nil)
@@ -37,6 +37,11 @@ class Dialog
 
   def inputbox(text)
     `#{dialog "inputbox", text, "--stdout"}`
+  end
+
+  def select(text, options)
+    items = options.collect { |o| "#{o} \"\"" }.join(" ")
+    `#{dialog "menu", text, "0 "+items, "--stdout --no-cancel"}`
   end
 
   def exit
@@ -121,6 +126,27 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
   f.print "panel_path: #{cfg["panel_path"]}\n"
   f.print "os: #{distro}\n"
 }
+
+# Generate panel config
+# Create db and user
+dbpwd = dialog.inputbox "Please enter the master password for mysql (root@localhost)"
+dialog.progress(7, "Configuring the Ohm panel")
+PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
+dbohmpwd = Array.new(16) { PWD_CHARS[ rand(PWD_CHARS.size) ] }
+mysql_cmds = "CREATE USER 'ohm'@'localhost' IDENTIFIED BY '#{dbohmpwd}'; "
+mysql_cmds += "CREATE DATABASE ohm; "
+mysql_cmds += "GRANT ALL PRIVILEGES ON ohm.* TO 'ohm'@'localhost'; "
+exec("mysql -u root -p#{dbpwd} -e \"#{mysql_cmds}\"")
+# Put details in rails and migrate
+File.open("#{cfg["panel_path"]}/config/database.yml") { |f|
+  f.print "production:\n"
+  f.print "  adapter: mysql\n"
+  f.print "  host: localhost\n"
+  f.print "  database: ohm\n"
+  f.print "  username: ohm\n"
+  f.print "  password: #{dbohmpwd}\n"
+}
+exec("cd #{cfg["panel_path"]}; rake db:migrate")
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")

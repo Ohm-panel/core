@@ -36,7 +36,7 @@ class Ohmd_apache2
       system "a2ensite #{site}"
 
       # Check permissions are correct
-      system "chown -r #{user}:#{user} #{path}"
+      system "chown -R #{user}:#{user} #{path}"
       #system "setfacl -m u:www-data:rwx #{path}"
     end
 
