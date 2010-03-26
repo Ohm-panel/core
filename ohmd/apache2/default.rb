@@ -6,24 +6,36 @@ class Ohmd_apache2
     Domain.all.each do |domain|
       next if domain.user.nil?
       site = "#{PREFIX}#{domain.domain}"
+      user = domain.user.username
+      path = "/home/#{user}/#{domain.domain}
+
       File.open("/etc/apache2/sites-available/#{site}", "w") do |f|
         domain.subdomains.each do |sub|
           url = "#{sub.url}.#{domain.domain}"
-          path = "/home/#{domain.user.username}/#{domain.domain}/#{sub.path}"
+          subpath = "#{path}/#{sub.path}"
+
+          # Apache VHost
           vhost =  "<VirtualHost *:80>\n"
           vhost += "  ServerName #{url}\n"
           vhost += "  ServerAlias #{domain.domain}\n" if sub.mainsub
-          vhost += "  DocumentRoot #{path}\n"
-          vhost += "  <Directory #{path}>\n"
+          vhost += "  DocumentRoot #{subpath}\n"
+          vhost += "  <Directory #{subpath}>\n"
           vhost += "    Allow from all\n"
           vhost += "    Options FollowSymLinks -Indexes\n"
           vhost += "  </Directory>\n"
           vhost += "</VirtualHost>\n"
           f.print vhost
+
+          # Create directory
+          File.makedirs subpath
         end
       end # Close file
 
       system "a2ensite #{site}"
+
+      # Check permissions are correct
+      system "chown -r #{user}:#{user} #{path}"
+      #system "setfacl -m u:www-data:rwx #{path}"
     end
 
     # Disable sites not in panel

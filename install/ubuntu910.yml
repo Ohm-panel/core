@@ -12,9 +12,11 @@ mod_rails: "echo \"deb http://apt.brightbox.net hardy main\" > /etc/apt/sources.
 
 packages: "apt-get update\n
            apt-get -y --force-yes install \\\n
-             ruby-dev rubygems rails quota \\\n
+             ruby-dev rubygems rails \\\n
              apache2 php5 libapache2-mod-passenger \\\n
-             mysql-server php5-mysql libmysql-ruby"
+             mysql-server php5-mysql libmysql-ruby \\\n
+             quota"
+             # Ajouter le packet acl si il faut...
 
 gems: "gem install rails -v 2.3.4 --no-rdoc --no-ri\n
        gem install fastthread --no-rdoc --no-ri"

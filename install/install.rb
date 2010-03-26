@@ -65,7 +65,7 @@ dialog.progress(1, "Installing required packages")
 system cfg["packages"] # We don't use exec because input might be needed
 
 # Configure mount points for quota
-dialog.progress(2, "Configuring the quota manager")
+dialog.progress(2, "Configuring packages")
 fstab = File.read("/etc/fstab")
 newfstab = ""
 fstab.each_line do |line|
@@ -74,7 +74,7 @@ fstab.each_line do |line|
   else
     fields = line.squeeze(" ").split(" ")
     if fields[1].start_with?("/") && fields[0] != "proc"
-      fields[3] += ",usrquota,grpquota"
+      fields[3] += ",usrquota,grpquota"                                         ### Ajouter acl si il faut..
       newfstab << fields.join("   ") + "\n"
     else
       newfstab << line
