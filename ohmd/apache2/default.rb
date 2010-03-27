@@ -4,14 +4,25 @@ class Ohmd_apache2
   PREFIX = "ohm-"
 
   def self.exec
+    changes = false
+
     # Add/edit all sites from panel
     Domain.all.each do |domain|
       next if domain.user.nil?
       site = "#{PREFIX}#{domain.domain}"
       user = domain.user.username
       path = "/home/#{user}/#{domain.domain}"
+      file = "/etc/apache2/sites-available/#{site}"
 
-      File.open("/etc/apache2/sites-available/#{site}", "w") do |f|
+      # Do a backup
+      newfile = true
+      if File.file? file
+        File.copy(file, "/tmp/#{site}.bak")
+        newfile = false
+      end
+
+      # Write new config
+      File.open(file, "w") do |f|
         domain.subdomains.each do |sub|
           url = "#{sub.url}.#{domain.domain}"
           subpath = "#{path}/#{sub.path}"
@@ -38,11 +49,29 @@ class Ohmd_apache2
         end
       end # Close file
 
-      system "a2ensite #{site}"
+      # Enable new site
+      if newfile
+        system "a2ensite #{site}"
+        log "[apache2] Adding site #{domain.domain}"
+      end
+
+      # Check the configuration and revert if error
+      unless system "apache2ctl configtest"
+        if newfile
+          logerror "[apache2] Error adding #{domain.domain}, removing"
+          system "a2dissite #{site}"
+        else
+          logerror "[apache2] Error modifying #{domain.domain}, restoring"
+          File.copy("/tmp/#{site}.bak", file)
+        end
+      end
 
       # Check permissions are correct
       system "chown -R #{user}:#{user} #{path}"
       #system "setfacl -m u:www-data:rwx #{path}"
+
+      # Did we do anything?
+      changes ||= newfile || File.read(file) == File.read("/tmp/#{site}.bak")
     end
 
     # Disable sites not in panel
@@ -55,7 +84,7 @@ class Ohmd_apache2
     end
 
     # Reload Apache
-    system "service apache2 force-reload"
+    system "service apache2 force-reload" if changes
 
   end
 end

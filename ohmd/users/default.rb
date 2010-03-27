@@ -18,7 +18,7 @@ class Ohmd_users
     # Find users to add
     users_to_add = users.select { |u| ! users_on_system.include? u.username }
     users_to_add.each do |u|
-      next if u.root?
+      #next if u.root?
       log "[users] Creating user: #{u.username}"
       system "useradd --create-home --user-group --shell /bin/bash --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
         or logerror "Error adding user: #{u.username}"
@@ -37,7 +37,7 @@ class Ohmd_users
     # Modify all other users, just in case
     users_to_mod = users.select { |u| !users_to_add.include?(u) && !users_to_del.include?(u.username) }
     users_to_mod.each do |u|
-      next if u.root?
+      #next if u.root?
       log "[users] Modify user: #{u.username}"
       system "usermod --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
         or logerror "Error modifying user: #{u.username}"
