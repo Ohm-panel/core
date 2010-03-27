@@ -16,7 +16,7 @@ class Ohmd_apache2
 
       # Do a backup
       newfile = true
-      if File.file? file
+      if File.file? "/etc/apache2/sites-enabled/#{site}"
         File.copy(file, "/tmp/#{site}.bak")
         newfile = false
       end
@@ -43,7 +43,7 @@ class Ohmd_apache2
           File.makedirs subpath
 
           # Add placeholder if empty
-          if Dir.entries(subpath) == 2
+          if Dir.entries(subpath).count == 2
             system "cp apache2/placeholder/* #{subpath}/"
           end
         end
@@ -71,7 +71,7 @@ class Ohmd_apache2
       #system "setfacl -m u:www-data:rwx #{path}"
 
       # Did we do anything?
-      changes ||= newfile || File.read(file) == File.read("/tmp/#{site}.bak")
+      changes ||= newfile || File.read(file) != File.read("/tmp/#{site}.bak")
     end
 
     # Disable sites not in panel

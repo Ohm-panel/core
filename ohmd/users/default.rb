@@ -45,6 +45,11 @@ class Ohmd_users
         or logerror "Error setting quota for #{u.username}") unless u.max_space == -1
     end
 
+    # Upload disk usage for all users
+    users.each do |u|
+      u.used_space = `du -s /home/#{u.username}/`.split("\t")[0].to_i / 1024
+      u.save
+    end
   end
 end
 
