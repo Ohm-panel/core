@@ -10,7 +10,7 @@ class Ohmd_users
                       collect { |u| u.split(":")[0] }
 
     # Find users to add
-    users_to_add = users.select { |u| ! users_on_system.include? u.username }
+    users_to_add = users.select { |u| ! u.deleted? && ! users_on_system.include? u.username }
     users_to_add.each do |u|
       #next if u.root?
       log "[users] Creating user: #{u.username}"
@@ -21,8 +21,10 @@ class Ohmd_users
     end
 
     # Find users to del
-    users_to_del = users.select { |u| u.parent_id == -1 }
+    users_to_del = users.select { |u| u.deleted }
     users_to_del.each do |u|
+      next unless users_on_system.include? u.username
+
       log "[users] Removing user: #{u.username}"
       delok = system "userdel #{u.username}"
       if delok

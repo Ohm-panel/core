@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
     self.id && self.id == 1
   end
 
+  def deleted?
+    self.parent_id == -1
+  end
 
   def used_subdomains_total
     # What user uses
@@ -104,7 +107,7 @@ class User < ActiveRecord::Base
                   collect { |u| u.split(":")[0] }
 
     if reserved_names.include? self.username
-      errors.add(:username, "is taken or reserved on the system") unless self.root? && ok_for_root.include? (self.username)
+      errors.add(:username, "is taken or reserved on the system") unless self.root? && ok_for_root.include?(self.username)
     end
   end
 
