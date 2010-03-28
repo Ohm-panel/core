@@ -78,7 +78,10 @@ end
 modtoexec.each do |mod|
   unless mod.daemon_installed
     log "Installing new module: #{mod.name}"
-    Object.const_get("Ohmd_#{mod.controller}").install
+    unless Object.const_get("Ohmd_#{mod.controller}").install
+      logerror "Error installing module: #{mod.name}"
+      next
+    end
     mod.daemon_installed = true
     mod.save
   end

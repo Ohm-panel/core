@@ -1,4 +1,4 @@
-apt-get install dovecot-postfix
+apt-get install -y --force-yes dovecot-postfix
 
 useradd dovelda
 

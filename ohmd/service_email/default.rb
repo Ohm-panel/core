@@ -1,4 +1,30 @@
+require 'ftools'
+
 class Ohmd_service_email
+  def self.install
+    system "apt-get install -y --force-yes dovecot-postfix" or return false
+    system "useradd dovelda" or return false
+    begin
+      File.copy "service_email/dovecot-postfix.conf" "/etc/dovecot/dovecot-postfix.conf"
+      File.open("/etc/sudoers", "a") { |f|
+        f.puts "Defaults:dovelda !syslog"
+        f.puts "dovelda ALL=NOPASSWD:/usr/lib/dovecot/deliver"
+      }
+      File.open("/etc/postfix/master.cf", "a") { |f|
+        f.puts "dovecot   unix  -       n       n       -       -       pipe"
+        f.puts "  flags=DRhu user=dovelda:mail argv=/usr/bin/sudo /usr/lib/dovecot/deliver -f ${sender} -d ${recipient}"
+      }
+      File.open("/etc/postfix/main.cf", "a") { |f|
+        f.puts "dovecot_destination_recipient_limit = 1"
+        #f.puts "virtual_mailbox_domains = localhost.localdomain"
+        f.puts "virtual_transport = dovecot"
+      }
+    rescue Exception
+      return false
+    end
+    true
+  end
+
   def self.exec
     # Dovecot auth config
     mboxes = ServiceEmailMailbox.all.select { |m| !m.forward_only }
