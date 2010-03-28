@@ -90,9 +90,9 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should destroy user" do
     login_as users(:root)
-    assert_difference('User.count', -1) do
-      delete :destroy, :id => users(:one).to_param
-    end
+    delete :destroy, :id => users(:one).to_param
+
+    assert User.find_by_username(users(:one).username).deleted?
 
     assert_redirected_to users_path
     assert flash[:error].nil?

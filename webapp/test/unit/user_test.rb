@@ -47,6 +47,19 @@ class UserTest < ActiveSupport::TestCase
     assert user.errors.invalid?(:username), "Username from existing user valid"
   end
 
+  test "os reserved usernames" do
+    user = User.new(:username => "admin",
+                    :password => "x",
+                    :email    => "valid@email.com",
+                    :parent   => users(:root))
+    user.save
+    assert user.errors.invalid?(:username), "OS reserved username valid"
+
+    user.username = "nobody"
+    user.save
+    assert user.errors.invalid?(:username), "OS reserved username valid"
+  end
+
   test "password change" do
     user = users(:one)
     user.old_password = "test1"

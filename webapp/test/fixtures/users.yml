@@ -2,7 +2,7 @@
 
 root:
   id: 1
-  username: admin
+  username: ohmadmin
   # password is "test1" in SHA512
   password: <%= User.digest_password("admin") %>
   full_name: "Admin"
