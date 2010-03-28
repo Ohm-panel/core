@@ -2,8 +2,13 @@ require 'ftools'
 
 class Ohmd_service_email
   def self.install
+    # Install Dovecot/Postfix
     return false unless system "apt-get install -y --force-yes dovecot-postfix"
+
+    # Add user that will have sudo on deliver (Dovecot's LDA)
     system "useradd dovelda"
+
+    # Copy/edit configuration files
     begin
       File.copy "service_email/dovecot-postfix.conf", "/etc/dovecot/dovecot-postfix.conf"
       File.open("/etc/sudoers", "a") { |f|
@@ -22,6 +27,11 @@ class Ohmd_service_email
     rescue Exception
       return false
     end
+
+    # Restart services
+    return false unless system "service postfix restart"
+    return false unless system "service dovecot restart"
+
     true
   end
 

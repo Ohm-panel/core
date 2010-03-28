@@ -53,8 +53,8 @@ end
 # Load modules
 log "Loading modules"
 # Default modules
-modules = [ Service.new(:controller=>"users", :daemon_installed=>true),
-            Service.new(:controller=>"apache2", :daemon_installed=>true) ]
+modules = [ Service.new(:controller=>"users", :name=>"Users", :daemon_installed=>true),
+            Service.new(:controller=>"apache2", :name=>"Apache", :daemon_installed=>true) ]
 modules.concat Service.all
 modtoexec = []
 modules.each do |mod|
@@ -82,6 +82,7 @@ modtoexec.each do |mod|
       logerror "Error installing module: #{mod.name}"
       next
     end
+    system "service apache2 force-reload" # Apache reload is required for the new routes in Rails to work
     mod.daemon_installed = true
     mod.save
   end
