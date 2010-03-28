@@ -10,7 +10,7 @@ class Ohmd_users
                       collect { |u| u.split(":")[0] }
 
     # Find users to add
-    users_to_add = users.select { |u| ! u.deleted? && ! users_on_system.include? u.username }
+    users_to_add = users.select { |u| !u.deleted? && !users_on_system.include?(u.username) }
     users_to_add.each do |u|
       #next if u.root?
       log "[users] Creating user: #{u.username}"
@@ -21,7 +21,7 @@ class Ohmd_users
     end
 
     # Find users to del
-    users_to_del = users.select { |u| u.deleted }
+    users_to_del = users.select { |u| u.deleted? }
     users_to_del.each do |u|
       next unless users_on_system.include? u.username
 
@@ -48,6 +48,7 @@ class Ohmd_users
 
     # Upload disk usage for all users
     users.each do |u|
+      next if u.deleted?
       u.used_space = `du -s /home/#{u.username}/`.split("\t")[0].to_i / 1024
       u.save
     end
