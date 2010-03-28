@@ -91,6 +91,22 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validate :check_quota, :check_services
+  validate :unique_username
+
+  def unique_username
+    reserved_names = File.read("/etc/passwd").split("\n").
+                    collect { |u| u.split(":")[0] }
+    reserved_names.concat( File.read("/etc/group").split("\n").
+                           collect { |u| u.split(":")[0] } ).uniq!
+
+    ok_for_root = File.read("/etc/passwd").split("\n").
+                  select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
+                  collect { |u| u.split(":")[0] }
+
+    if reserved_names.include? self.username
+      errors.add(:username, "is taken or reserved on the system") unless self.root? && ok_for_root.include? (self.username)
+    end
+  end
 
   def check_quota
     # Fill blank quotas

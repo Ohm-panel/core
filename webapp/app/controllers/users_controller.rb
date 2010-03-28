@@ -94,6 +94,11 @@ class UsersController < ApplicationController
 
     if @user.parent == @logged_user
       @user.destroy
+      # We create a dummy user with parent -1, so Ohmd knows who to remove
+      @deluser = User.new(:id => @user.id,
+                          :username => @user.username,
+                          :parent_id => -1)
+      @deluser.save false
     else
       flash[:error] = "Invalid user"
     end

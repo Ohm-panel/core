@@ -130,13 +130,6 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
   f.print "panel_path: #{cfg["panel_path"]}\n"
   f.print "os: #{distro}\n"
 }
-# Config for ohmd user module
-users_on_system = File.read("/etc/passwd").split("\n").
-                  select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
-                  collect { |u| u.split(":")[0] }
-File.open("#{cfg["ohmd_path"]}/users/config.yml", "w") { |f|
-  f.puts "protected_users: [#{users_on_system.join(", ")}]"
-}
 
 
 # Generate panel config
