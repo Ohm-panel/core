@@ -39,8 +39,8 @@
   <% if @logged_user.id==1 %>
     <br /><br /><hr /><br />
     <strong>Admin menu</strong><br /><br />
-    <%= "&gt;" if current_controller?('services') %>
-    <%= link_to "Services", :controller => "services" %>
+    <%= "&gt;" if current_controller?('modules') %>
+    <%= link_to "Modules", :controller => "services" %>
   <% end %>
 
   <br /><br /><br /><br /><hr /><br />

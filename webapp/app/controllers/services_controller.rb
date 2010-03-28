@@ -1,5 +1,12 @@
+require 'ftools'
+require 'yaml'
+
 class ServicesController < ApplicationController
   before_filter :authenticate_root
+
+  def controller_name
+    "modules"
+  end
 
   # GET /services
   # GET /services.xml
@@ -27,14 +34,67 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.xml
   def create
-    @service = Service.new(params[:service])
-
-    if @service.save
-      flash[:notice] = 'Service was successfully created.'
-      redirect_to @service
-    else
-      render :action => "new"
+    # Save file
+    file = DataFile.save(params[:upload])
+    unless file
+      flash[:error] = 'Upload failed, please try again'
+      redirect_to :action => "new"
+      return
     end
+
+    # Untar
+    unless file.match(/.tar.gz\Z/) || file.match(/.tar.bz2\Z/)
+      File.delete file
+      flash[:error] = 'Only tar.gz and tar.bz2 archives are supported'
+      redirect_to :action => "new"
+      return
+    end
+    extractpath = "public/data/module_install_#{Time.new.to_i}"
+    File.makedirs extractpath
+    tarok = system "tar -xpf #{file} -C #{extractpath}"
+    File.delete file
+    unless tarok
+      flash[:error] = 'An error occured trying to extract the file. Please verify its integrity and try again'
+      redirect_to :action => "new"
+      return
+    end
+
+    # Copy on panel
+    # TODO: check content!
+    cpok = system "cp -rp #{extractpath}/webapp/* ./"
+    unless cpok
+      system "rm -rf #{extractpath}"
+      flash[:error] = 'An error occured during installation. Please verify the uploaded module is for this version of Ohm'
+      redirect_to :action => "new"
+      return
+    end
+
+    # Migrate DB
+    dbversion = `rake db:version`.split(": ")[1]
+    migrateok = system "rake db:migrate RAILS_ENV=#{RAILS_ENV}"
+    unless migrateok
+      system "rake db:migrate RAILS_ENV=#{RAILS_ENV} VERSION=#{dbversion}"
+      flash[:error] = 'An error occured during installation. Please verify the uploaded module is for this version of Ohm'
+      redirect_to :action => "new"
+      return
+    end
+
+    # Create service
+    begin
+      modcfg = YAML.load_file("#{extractpath}/module.yml")
+      @service = Service.new(modcfg)
+      @service.daemon_installed = false
+      @service.install_files = extractpath
+      @service.save
+    rescue Exception
+      system "rake db:migrate RAILS_ENV=#{RAILS_ENV} VERSION=#{dbversion}"
+      flash[:error] = 'An error occured during installation. Please verify the uploaded module is for this version of Ohm'
+      redirect_to :action => "new"
+      return
+    end
+
+    flash[:notice] = 'Module successfully uploaded, installation will be finished in a few minutes.'
+    redirect_to :action => "index"
   end
 
   # PUT /services/1

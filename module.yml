@@ -1,0 +1,12 @@
+# Module configuration file
+
+# What the users will see
+name: E-mail
+# What the administrator will see (include some technical details)
+tech_name: Dovecot/Postfix e-mail module
+description: Allows users to create multiple mailboxes and aliases, supports quota for size and message count
+# Should this service be enabled by domain, or globally
+by_domain: false
+# The name of the main controller
+controller: service_email
+

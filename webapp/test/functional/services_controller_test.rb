@@ -32,25 +32,25 @@ class ServicesControllerTest < ActionController::TestCase
     assert flash[:error]
   end
 
-  test "should create service" do
-    login_as users(:root)
-    assert_difference('Service.count') do
-      post :create, :service => { :name => "New service", :controller => "service_new_service" }
-    end
+#  test "should create service" do
+#    login_as users(:root)
+#    assert_difference('Service.count') do
+#      post :create, :service => { :name => "New service", :controller => "service_new_service" }
+#    end
 
-    assert_redirected_to service_path(assigns(:service))
-    assert flash[:error].nil?
-  end
+#    assert_redirected_to service_path(assigns(:service))
+#    assert flash[:error].nil?
+#  end
 
-  test "should refuse to create service" do
-    login_as users(:one)
-    assert_difference('Service.count', 0) do
-      post :create, :service => { :name => "New service", :controller => "service_new_service" }
-    end
+#  test "should refuse to create service" do
+#    login_as users(:one)
+#    assert_difference('Service.count', 0) do
+#      post :create, :service => { :name => "New service", :controller => "service_new_service" }
+#    end
 
-    assert_redirected_to :controller => 'dashboard'
-    assert flash[:error]
-  end
+#    assert_redirected_to :controller => 'dashboard'
+#    assert flash[:error]
+#  end
 
   test "should show service" do
     login_as users(:root)

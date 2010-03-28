@@ -37,32 +37,54 @@ Dir.new("#{panel_path}/app/models").each do |model|
   require "#{model_path}" if File.file?(model_path)
 end
 
+# Look for modules to be installed
+modstoinst = Service.all.select { |s| ! s.daemon_installed && s.install_files }
+modstoinst.each do |mod|
+  log "Copying new module: #{mod.name}"
+  unless system "cp -rp #{panel_path}/#{mod.install_files}/ohmd/* ./"
+    logerror "Error during copy"
+    next
+  end
+  system "rm -rf #{mod.install_files}"
+  mod.install_files = nil
+  mod.save
+end
+
 # Load modules
 log "Loading modules"
-modules = ["users", "apache2"] # Default modules
-modules.concat Service.all.collect { |s| s.controller }
+# Default modules
+modules = [ Service.new(:controller=>"users", :daemon_installed=>true),
+            Service.new(:controller=>"apache2", :daemon_installed=>true) ]
+modules.concat Service.all
 modtoexec = []
 modules.each do |mod|
   begin
     # Try to load OS-specific module first
-    require "#{mod}/#{os}"
+    require "#{mod.controller}/#{os}"
     modtoexec << mod
   rescue MissingSourceFile
     begin
       # Try to load default module
-      require "#{mod}/default"
+      require "#{mod.controller}/default"
       modtoexec << mod
     rescue MissingSourceFile
       # Ignore modules with no daemon
-      log " - No daemon found for #{mod}"
+      log " - No daemon found for #{mod.name}"
     end
   end
 end
 
 # Exec modules
-modtoexec.each do |m|
-  log "Executing #{m}"
-  Object.const_get("Ohmd_#{m}").exec
+modtoexec.each do |mod|
+  unless mod.daemon_installed
+    log "Installing new module: #{mod.name}"
+    Object.const_get("Ohmd_#{mod.controller}").install
+    mod.daemon_installed = true
+    mod.save
+  end
+
+  log "Executing #{mod.name}"
+  Object.const_get("Ohmd_#{mod.controller}").exec
 end
 
 
