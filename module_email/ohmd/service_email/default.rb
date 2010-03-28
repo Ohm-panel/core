@@ -2,10 +2,10 @@ require 'ftools'
 
 class Ohmd_service_email
   def self.install
-    system "apt-get install -y --force-yes dovecot-postfix" or return false
-    system "useradd dovelda" or return false
+    return false unless system "apt-get install -y --force-yes dovecot-postfix"
+    system "useradd dovelda"
     begin
-      File.copy "service_email/dovecot-postfix.conf" "/etc/dovecot/dovecot-postfix.conf"
+      File.copy "service_email/dovecot-postfix.conf", "/etc/dovecot/dovecot-postfix.conf"
       File.open("/etc/sudoers", "a") { |f|
         f.puts "Defaults:dovelda !syslog"
         f.puts "dovelda ALL=NOPASSWD:/usr/lib/dovecot/deliver"
