@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :service_email_users
-
   map.resources :subdomains
 
   map.resources :domains

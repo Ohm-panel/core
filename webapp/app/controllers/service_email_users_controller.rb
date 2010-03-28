@@ -16,11 +16,6 @@ class ServiceEmailUsersController < ServiceEmailController
   def new
     @service_email_user = ServiceEmailUser.new(:user_id => params[:user_id])
     @user = User.find(params[:user_id])
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @service_email_user }
-    end
   end
 
   # GET /service_email_users/1/edit

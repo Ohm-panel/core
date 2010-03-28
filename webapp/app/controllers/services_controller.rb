@@ -86,6 +86,8 @@ class ServicesController < ApplicationController
       @service.daemon_installed = false
       @service.install_files = extractpath
       @service.save
+      @logged_user.services << @service
+      @logged_user.save
     rescue Exception
       system "rake db:migrate RAILS_ENV=#{RAILS_ENV} VERSION=#{dbversion}"
       flash[:error] = 'An error occured during installation. Please verify the uploaded module is for this version of Ohm'

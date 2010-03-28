@@ -120,8 +120,7 @@ class User < ActiveRecord::Base
     self.max_subusers = -1 if !self.max_subusers or self.max_subusers < 0
 
     # Root can do anything
-    return if self.root?
-    return if self.parent.root?
+    return if self.root? || self.parent.root?
 
     # Compute quotas to take from parent
     oldme = self.id ? User.find(self.id) : nil
@@ -137,7 +136,7 @@ class User < ActiveRecord::Base
 
   def check_services
     # Skip check on root
-    return if self.root?
+    return if self.root? || self.parent.root?
 
     illegal_services = self.services - parent.services
     illegal_services.each do |is|

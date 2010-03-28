@@ -1,6 +1,6 @@
 <h1>Editing e-mail service for <%= @service_email_user.user.full_name %></h1>
 
-<% form_for(@service_email_user) do |f| %>
+<% form_for(@service_email_user, :url => { :controller => 'service_email_users', :action => 'update', :id => @service_email_user.id }) do |f| %>
   <%= f.error_messages %>
 
   <p>
