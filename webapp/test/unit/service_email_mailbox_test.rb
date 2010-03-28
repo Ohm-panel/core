@@ -37,6 +37,10 @@ class ServiceEmailMailboxTest < ActiveSupport::TestCase
     mbox.address = "invalid address"
     mbox.save
     assert mbox.errors.invalid?(:address), "Bad address accepted"
+
+    mbox.address = "invalid+address"
+    mbox.save
+    assert mbox.errors.invalid?(:address), "Bad address accepted"
   end
 
   test "address unique for domain" do

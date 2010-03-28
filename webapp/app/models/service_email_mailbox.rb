@@ -7,12 +7,9 @@ class ServiceEmailMailbox < ActiveRecord::Base
     self.address + '@' + self.domain.domain
   end
 
-  def self.digest_password password
-    Digest::SHA512.hexdigest(password)
-  end
-
   validates_presence_of :domain_id, :password
-  validates_format_of :address, :with => /\A([^@\s]+)\Z/i
+#  validates_format_of :address, :with => /\A([^@\s]+)\Z/i
+  validates_format_of :address, :with => /\A([a-zA-Z0-9\._-]+)\Z/i
   validates_uniqueness_of :address, :scope => :domain_id
   validate :passwords_match
 
@@ -23,7 +20,7 @@ class ServiceEmailMailbox < ActiveRecord::Base
   end
 
   def before_save
-    self.password = ServiceEmailMailbox.digest_password(password) if password_confirmation
+    self.password = User.shadow_password(password) if password_confirmation
     self.size = self.domain.user.max_space if self.size.nil?
   end
 end

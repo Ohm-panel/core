@@ -55,10 +55,11 @@ class Dialog
 end
 
 def exec(cmd)
-  system "(#{cmd}) >> #{LOG}"
+  system "(#{cmd}) >> #{LOG} 2>&1"
 end
 
 # Welcome
+File.open(LOG, "w") { |f| f.puts "Install starting (#{Time.new})" }
 dialog = Dialog.new
 go = dialog.yesno("Welcome to the Ohm installer for #{cfg["distro"]}.\n
 Please verify this is your distribution and you are connected to the internet.
