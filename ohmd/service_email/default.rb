@@ -1,6 +1,6 @@
 class Ohmd_service_email
   def self.exec
-    # Dovecot config
+    # Dovecot auth config
     mboxes = ServiceEmailMailbox.all.select { |m| !m.forward_only }
     newpasswd = ""
     mboxes.each do |m|
@@ -13,6 +13,23 @@ class Ohmd_service_email
     end
     File.open("/etc/ohm_email.passwd", "w") { |f| f.print newpasswd }
 
+
+    # Add domains to postfix
+    maincf = ""
+    dest = nil
+    File.read("/etc/postfix/main.cf").each_line do |line|
+      if line.match(/\A\s*mydestination/)
+        dest = line.split("=")[1].split(",").collect { |d| d.strip }
+      else
+        maincf << line
+      end
+    end
+    dest.concat ServiceEmailMailbox.all.collect { |m| m.domain.domain }
+    newline = "mydestination = " + dest.uniq.join(", ")
+    File.open("/etc/postfix/main.cf", "w") { |f|
+      f.puts maincf
+      f.puts newline
+    }
   end
 end
 
