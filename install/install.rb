@@ -97,7 +97,7 @@ File.open("/etc/fstab", "w") { |f| f.print newfstab }
 # Install requires Gems
 dialog.progress(3, "Installing required gems")
 exec "#{cfg["gem"]} install rails -v 2.3.4 --no-rdoc --no-ri"
-dialog.progress(3.8, "Installing required gems")
+dialog.progress(3.8)
 exec "#{cfg["gem"]} install fastthread --no-rdoc --no-ri"
 
 # Configure Apache
@@ -141,8 +141,14 @@ dbtype = dialog.select "Please select the database you wish to use", ["mysql", "
 system cfg["#{dbtype}_packages"]
 # Load installer and go
 dialog.progress(7, "Setting up the database")
-require dbtype
+require "install/#{dbtype}"
 setup_database cfg
+
+# Set permissions
+system "chown -R www-data:www-data #{panel_path}"
+system "chown -R root:root #{ohmd_path}"
+system "chmod -R go-rwx #{panel_path}"
+system "chmod -R go-rwx #{ohmd_path}"
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
