@@ -55,7 +55,7 @@ class Dialog
 end
 
 def exec(cmd)
-  system "(#{cmd}) >> #{LOG} 2>&1"
+  system "(#{cmd}) >> #{LOG} 2>&1" or raise RuntimeError("Error during installation. Please see #{LOG} for details")
 end
 
 # Welcome
@@ -97,7 +97,7 @@ File.open("/etc/fstab", "w") { |f| f.print newfstab }
 # Install requires Gems
 dialog.progress(3, "Installing required gems")
 exec "#{cfg["gem"]} install rails -v 2.3.4 --no-rdoc --no-ri"
-dialog.progress(3.5, "Installing required gems")
+dialog.progress(3.8, "Installing required gems")
 exec "#{cfg["gem"]} install fastthread --no-rdoc --no-ri"
 
 # Configure Apache
@@ -134,27 +134,15 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
   f.print "os: #{distro}\n"
 }
 
-
-# Generate panel config
-# Create db and user
-dbpwd = dialog.passwordbox "Please enter the master password for mysql (root@localhost)"
-dialog.progress(7, "Configuring the Ohm panel")
-PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
-dbohmpwd = Array.new(16) { PWD_CHARS[ rand(PWD_CHARS.size) ] }
-mysql_cmds = "CREATE USER 'ohm'@'localhost' IDENTIFIED BY '#{dbohmpwd}'; "
-mysql_cmds += "CREATE DATABASE ohm; "
-mysql_cmds += "GRANT ALL PRIVILEGES ON ohm.* TO 'ohm'@'localhost'; "
-exec "mysql -u root -p#{dbpwd} -e \"#{mysql_cmds}\""
-
-# Put details in rails and migrate
-dbyml = "production:
-           adapter: mysql
-           host: localhost
-           database: ohm
-           username: ohm
-           password: #{dbohmpwd}"
-File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f| f.print dbyml }
-exec "cd #{cfg["panel_path"]}; rake db:migrate RAILS_ENV=production"
+# Database
+# Select
+dbtype = dialog.select "Please select the database you wish to use", ["mysql", "sqlite3"]
+# Install packages
+system cfg["#{dbtype}_packages"]
+# Load installer and go
+dialog.progress(7, "Setting up the database")
+require dbtype
+setup_database cfg
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")

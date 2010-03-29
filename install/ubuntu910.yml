@@ -14,7 +14,6 @@ packages_update: apt-get update
 packages: "apt-get -y --force-yes install \\\n
              ruby-dev rubygems rails \\\n
              apache2 php5 libapache2-mod-passenger \\\n
-             mysql-server php5-mysql libmysql-ruby \\\n
              quota"
              # Ajouter le packet acl si il faut...
 
@@ -24,4 +23,7 @@ apache_conf: /etc/apache2/apache2.conf
 apache_sites: /etc/apache2/sites-available
 
 reboot: reboot
+
+mysql_packages: apt-get -y --force-yes install mysql-server libmysql-ruby
+sqlite3_packages: apt-get -y --force-yes install sqlite3 libsqlite3-ruby
 
