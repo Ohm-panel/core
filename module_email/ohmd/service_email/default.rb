@@ -23,6 +23,7 @@ class Ohmd_service_email
         f.puts "dovecot_destination_recipient_limit = 1"
         #f.puts "virtual_mailbox_domains = localhost.localdomain"
         f.puts "virtual_transport = dovecot"
+        f.puts "smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unknown_sender_domain, reject_unknown_recipient_domain, reject_unauth_pipelining, reject_unauth_destination"
       }
     rescue Exception
       return false
