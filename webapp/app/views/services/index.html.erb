@@ -13,12 +13,13 @@
     Controller: <%=h service.controller %>
   </p>
   <p>
-    <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => '', :class => 'action') + 'Remove this module', service, :method => 'delete', :confirm => 'This probably has a LOT of consequences! Are you sure?' %>
+    <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => '', :class => 'action') + 'Remove this module',
+                service, :method => 'delete', :confirm => 'This probably has a LOT of consequences! Are you sure?' %>
   </p>
   <br /><br />
 <% end %>
 
 <p>
   <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'Install a module', new_service_path %>
-</p>>
+</p>
 
