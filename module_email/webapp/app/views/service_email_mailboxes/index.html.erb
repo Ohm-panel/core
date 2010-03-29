@@ -29,7 +29,7 @@
         <td><%= '<em>' if mailbox.forward_only %><%= mailbox.full_address %><%= '</em>' if mailbox.forward_only %></td>
         <td><%=h mailbox.full_name %></td>
         <td><%= mailbox.forward_only ? '<em>alias</em>' : (mailbox.size==-1 ? 'Unlimited' : mailbox.size.to_s + ' Mb') %></td>
-        <td><%= mailbox.forward.split("\n").join("<br />") %></td>
+        <td><%= mailbox.forward.split(/\r?\n/).join("<br />") %></td>
         <td>
           <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action'),
                       :controller => 'service_email_mailboxes', :id => mailbox.id, :action => 'edit' %>

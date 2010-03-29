@@ -18,8 +18,7 @@ packages: "apt-get -y --force-yes install \\\n
              quota"
              # Ajouter le packet acl si il faut...
 
-gems: "gem install rails -v 2.3.4 --no-rdoc --no-ri\n
-       gem install fastthread --no-rdoc --no-ri"
+gem: gem
 
 apache_conf: /etc/apache2/apache2.conf
 apache_sites: /etc/apache2/sites-available

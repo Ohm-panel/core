@@ -96,7 +96,9 @@ File.open("/etc/fstab", "w") { |f| f.print newfstab }
 
 # Install requires Gems
 dialog.progress(3, "Installing required gems")
-exec cfg["gems"]
+exec "#{cfg["gem"]} install rails -v 2.3.4 --no-rdoc --no-ri"
+dialog.progress(3.5, "Installing required gems")
+exec "#{cfg["gem"]} install fastthread --no-rdoc --no-ri"
 
 # Configure Apache
 dialog.progress(4, "Configuring Apache")
