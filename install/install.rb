@@ -142,7 +142,7 @@ system cfg["#{dbtype}_packages"]
 # Load installer and go
 dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
-setup_database cfg
+setup_database cfg dialog
 
 # Set permissions
 system "chown -R www-data:www-data #{panel_path}"

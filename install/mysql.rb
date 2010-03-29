@@ -1,13 +1,13 @@
 PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
 
-def setup_database cfg
+def setup_database cfg dialog
   # Create db and user
   dbpwd = nil
   while(dbpwd.nil?) do
     dbpwd = dialog.passwordbox "Please enter the root password for mysql (root@localhost)"
     dbpwd = nil unless system("mysql -u root -p#{dbpwd} -e exit")
   end
-  dialog.progress(7, "Configuring the Ohm panel")
+  dialog.progress(7)
   dbohmpwd = Array.new(16) { PWD_CHARS[ rand(PWD_CHARS.size) ] }
   mysql_cmds = "CREATE USER 'ohm'@'localhost' IDENTIFIED BY '#{dbohmpwd}'; "
   mysql_cmds += "CREATE DATABASE ohm; "
