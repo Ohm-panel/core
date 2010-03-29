@@ -31,7 +31,7 @@
   <%= link_to 'Sub-users', :controller => 'users' %>
 
   <% @logged_user.services.each do |service| %>
-    <% next unless service.daemon_installed %>
+    <% next unless service.active? %>
     <br /><br />
     <%= "&gt;" if current_controller?(service.controller) %>
     <%= link_to service.name, :controller => service.controller %>
@@ -61,7 +61,7 @@
 </div>
 
 <div id="footer">
-  Copyright &copy; 2009-2010 <a href="http://www.umons.ac.be" target="_blank">UMons</a> and <a href="http://www.joelcogen.com" target="_blank">Joel Cogen</a><br />
+  Copyright &copy; 2009-2010 <a href="http://www.umons.ac.be" target="_blank">UMons</a><br />
   <strong>Ohm</strong> is <a href="http://www.fsf.org/resources/what-is-fs" target="_blank">free software</a> released under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>
 </div>
 

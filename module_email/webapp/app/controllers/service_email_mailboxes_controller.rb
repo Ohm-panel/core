@@ -1,6 +1,10 @@
 class ServiceEmailMailboxesController < ServiceEmailController
   before_filter :authenticate_email_user
 
+  def controller_name
+    "e-mail"
+  end
+
   # GET /service_email_mailboxes
   # GET /service_email_mailboxes.xml
   def index

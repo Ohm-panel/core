@@ -53,8 +53,8 @@ end
 # Load modules
 log "Loading modules"
 # Default modules
-modules = [ Service.new(:controller=>"users", :name=>"Users", :daemon_installed=>true),
-            Service.new(:controller=>"apache2", :name=>"Apache", :daemon_installed=>true) ]
+modules = [ Service.new(:controller=>"users", :name=>"Users", :daemon_installed=>true, :deleted=>false),
+            Service.new(:controller=>"apache2", :name=>"Apache", :daemon_installed=>true, :deleted=>false) ]
 modules.concat Service.all
 modtoexec = []
 modules.each do |mod|
@@ -87,8 +87,17 @@ modtoexec.each do |mod|
     mod.save
   end
 
-  log "Executing #{mod.name}"
-  Object.const_get("Ohmd_#{mod.controller}").exec
+  unless mod.deleted
+    log "Removing module: #{mod.name}"
+    unless Object.const_get("Ohmd_#{mod.controller}").remove
+      logerror "Error removing module: #{mod.name}"
+      next
+    end
+    mod.destroy
+  else
+    log "Executing #{mod.name}"
+    Object.const_get("Ohmd_#{mod.controller}").exec
+  end
 end
 
 

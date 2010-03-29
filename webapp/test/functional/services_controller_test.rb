@@ -52,52 +52,13 @@ class ServicesControllerTest < ActionController::TestCase
 #    assert flash[:error]
 #  end
 
-  test "should show service" do
-    login_as users(:root)
-    get :show, :id => services(:one).to_param
-    assert_response :success
-  end
-
-  test "should refuse to show service" do
-    login_as users(:one)
-    get :show, :id => services(:one).to_param
-    assert_redirected_to :controller => 'dashboard'
-    assert flash[:error]
-  end
-
-  test "should get edit" do
-    login_as users(:root)
-    get :edit, :id => services(:one).to_param
-    assert_response :success
-  end
-
-  test "should refuse to get edit" do
-    login_as users(:one)
-    get :edit, :id => services(:one).to_param
-    assert_redirected_to :controller => 'dashboard'
-    assert flash[:error]
-  end
-
-  test "should update service" do
-    login_as users(:root)
-    put :update, :id => services(:one).to_param, :service => { }
-    assert_redirected_to service_path(assigns(:service))
-    assert flash[:error].nil?
-  end
-
-  test "should refuse to update service" do
-    login_as users(:one)
-    put :update, :id => services(:one).to_param, :service => { }
-    assert_redirected_to :controller => 'dashboard'
-    assert flash[:error]
-  end
-
   test "should destroy service" do
     login_as users(:root)
-    assert_difference('Service.count', -1) do
+    assert_difference('Service.count', 0) do
       delete :destroy, :id => services(:one).to_param
     end
 
+    assert Service.find(services(:one)).deleted
     assert_redirected_to services_path
     assert flash[:error].nil?
   end

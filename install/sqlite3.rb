@@ -1,4 +1,4 @@
-def setup_database cfg dialog
+def setup_database cfg, dialog
   # Put details in rails and migrate
   dbyml = "production:
              adapter: sqlite3

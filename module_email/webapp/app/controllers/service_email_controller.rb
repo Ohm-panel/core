@@ -1,6 +1,10 @@
 class ServiceEmailController < ApplicationController
   before_filter :authenticate
 
+  def controller_name
+    "e-mail"
+  end
+
   def authenticate_email_user
     @logged_email_user = ServiceEmailUser.find(:first, :conditions => { :user_id => @logged_user })
     if @logged_email_user

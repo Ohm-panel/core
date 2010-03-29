@@ -1,31 +1,18 @@
 <%= image_tag "icons/icontexto-webdev-site-map-128x128.png", :alt=>"", :class=>"bigicon" %>
 <h1>Modules</h1>
 
-<table>
-  <tr>
-    <th>Displayed name</th>
-    <th>Technical name</th>
-    <th>Description</th>
-    <th>By domain</th>
-    <th>Controller</th>
-  </tr>
-
 <% @services.each do |service| %>
-  <tr>
-    <td>
-      <%= image_tag("icons/clock.gif", :alt=>"Pending...", :title=>"Pending...", :width=>32, :height=>32) unless service.daemon_installed %>
-      <%=h service.name %>
-    </td>
-    <td><%=h service.tech_name %></td>
-    <td><%=h service.description %></td>
-    <td><%=h service.by_domain %></td>
-    <td><%=h service.controller %></td>
-    <td><%= link_to 'Show', service %></td>
-    <td><%= link_to 'Edit', edit_service_path(service) %></td>
-    <td><%= link_to 'Destroy', service, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <h2>
+    <%=h service.name %>
+    <%= image_tag("icons/clock.gif", :alt=>"Pending...", :title=>"Pending...", :width=>20, :height=>20) unless service.active? %>
+  </h2>
+  <p><%=h service.tech_name %></p>
+  <p><em><%=h service.description %></em></p>
+  <p>
+    By domain: <%= service.by_domain ? "Yes" : "No" %><br />
+    Controller: <%=h service.controller %>
+  </p>
 <% end %>
-</table>
 
 <br />
 

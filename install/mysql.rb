@@ -1,6 +1,6 @@
 PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
 
-def setup_database cfg dialog
+def setup_database cfg, dialog
   # Create db and user
   dbpwd = nil
   while(dbpwd.nil?) do

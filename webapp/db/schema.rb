@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100328145425) do
+ActiveRecord::Schema.define(:version => 20100329194327) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20100328145425) do
     t.string   "tech_name"
     t.boolean  "daemon_installed", :default => false
     t.string   "install_files"
+    t.boolean  "deleted",          :default => false
   end
 
   create_table "services_users", :id => false, :force => true do |t|

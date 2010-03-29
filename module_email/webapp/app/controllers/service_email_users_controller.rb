@@ -1,6 +1,10 @@
 class ServiceEmailUsersController < ServiceEmailController
   before_filter :authenticate_email_user
 
+  def controller_name
+    "e-mail"
+  end
+
   # GET /service_email_users/1
   # GET /service_email_users/1.xml
   def show

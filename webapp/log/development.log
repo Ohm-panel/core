@@ -1,0 +1,354 @@
+# Logfile created on Mon Mar 29 21:43:27 +0200 2010  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (127.0ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (79.3ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateServices (20091102130116)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TABLE "services" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "description" text, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091102130116')[0m
+Migrating to CreateUsers (20091102130127)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091102130127')[0m
+Migrating to CreateServicesUsers (20091102150031)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "services_users" ("user_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091102150031')[0m
+Migrating to CreateDomains (20091108151922)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "domains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain" varchar(255), "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091108151922')[0m
+Migrating to AddSessionToUsers (20091109200020)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mALTER TABLE "users" ADD "session" varchar(255)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mALTER TABLE "users" ADD "session_ts" datetime[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091109200020')[0m
+Migrating to AddDomainToService (20091125223936)
+  [4;35;1mSQL (0.7ms)[0m   [0mALTER TABLE "services" ADD "by_domain" boolean[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091125223936')[0m
+Migrating to CreateDomainsServices (20091127193819)
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "domains_services" ("domain_id" integer, "service_id" integer) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091127193819')[0m
+Migrating to AddPathToDomain (20100202164535)
+  [4;35;1mSQL (0.7ms)[0m   [0mALTER TABLE "domains" ADD "path" varchar(255)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100202164535')[0m
+Migrating to CreateSubdomains (20100213152020)
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "subdomains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255), "domain" integer, "path" varchar(255), "mainsub" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100213152020')[0m
+Migrating to RemovePathFromDomain (20100213152112)
+  [4;35;1mSQL (0.9ms)[0m   [0mCREATE TEMPORARY TABLE "altered_domains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain" varchar(255), "user_id" integer, "created_at" datetime, "updated_at" datetime, "path" varchar(255)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("domains")[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mDROP TABLE "domains"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "domains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain" varchar(255), "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("altered_domains")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mDROP TABLE "altered_domains"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100213152112')[0m
+Migrating to CorrectSubdomains (20100213153633)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_subdomains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255), "domain" integer, "path" varchar(255), "mainsub" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("subdomains")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mDROP TABLE "subdomains"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mCREATE TABLE "subdomains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255), "path" varchar(255), "mainsub" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("altered_subdomains")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mDROP TABLE "altered_subdomains"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mALTER TABLE "subdomains" ADD "domain_id" integer[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100213153633')[0m
+Migrating to AddControllerToServices (20100215122816)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mALTER TABLE "services" ADD "controller" varchar(255)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100215122816')[0m
+Migrating to AddQuotaToUser (20100217100701)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mALTER TABLE "users" ADD "max_subdomains" integer[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mALTER TABLE "users" ADD "max_space" integer[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mALTER TABLE "users" ADD "max_bandwidth" integer[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mALTER TABLE "users" ADD "max_subusers" integer[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100217100701')[0m
+Migrating to AddUsedspaceToUsers (20100217102855)
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "users" ADD "used_space" integer[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100217102855')[0m
+Migrating to AddTechnameToServices (20100219230544)
+  [4;35;1mSQL (0.8ms)[0m   [0mALTER TABLE "services" ADD "tech_name" varchar(255)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100219230544')[0m
+Migrating to CreateLoggedUsers (20100220131710)
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "logged_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session" varchar(255), "session_ts" datetime, "ip" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100220131710')[0m
+Migrating to RemoveSessionFrom (20100220131724)
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TEMPORARY TABLE "altered_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "session" varchar(255), "session_ts" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mDROP TABLE "users"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "session_ts" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("altered_users")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDROP TABLE "altered_users"[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TEMPORARY TABLE "altered_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "session_ts" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mDROP TABLE "users"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("altered_users")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "altered_users"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100220131724')[0m
+Migrating to AddUserToLoggedUser (20100220132225)
+  [4;36;1mSQL (0.8ms)[0m   [0;1mALTER TABLE "logged_users" ADD "user_id" integer[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100220132225')[0m
+Migrating to AddOhmdToUsers (20100320104907)
+  [4;36;1mSQL (0.8ms)[0m   [0;1mALTER TABLE "users" ADD "ohmd_status" integer[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mALTER TABLE "users" ADD "ohmd_password" varchar(255)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100320104907')[0m
+Migrating to RemoveOhmdStatusFromUsers (20100325093414)
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TEMPORARY TABLE "altered_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer, "ohmd_status" integer, "ohmd_password" varchar(255)) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mDROP TABLE "users"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer, "ohmd_password" varchar(255)) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("altered_users")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDROP TABLE "altered_users"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100325093414')[0m
+Migrating to AddDaemonToServices (20100328143858)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "services" ADD "daemon_installed" boolean DEFAULT 'f'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100328143858')[0m
+Migrating to AddInstallationToServices (20100328145425)
+  [4;36;1mSQL (0.8ms)[0m   [0;1mALTER TABLE "services" ADD "install_files" varchar(255)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100328145425')[0m
+Migrating to AddDeletedToServices (20100329194327)
+  [4;36;1mSQL (0.8ms)[0m   [0;1mALTER TABLE "services" ADD "deleted" boolean DEFAULT 'f'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100329194327')[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("domains")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("domains_services")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("logged_users")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("services")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("services_users")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("subdomains")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (114.3ms)[0m   [0;1mCREATE TABLE "domains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain" varchar(255), "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (59.4ms)[0m   [0;1mCREATE TABLE "domains_services" ("domain_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (77.2ms)[0m   [0;1mCREATE TABLE "logged_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session" varchar(255), "session_ts" datetime, "ip" varchar(255), "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (79.6ms)[0m   [0;1mCREATE TABLE "services" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "description" text, "created_at" datetime, "updated_at" datetime, "by_domain" boolean, "controller" varchar(255), "tech_name" varchar(255), "daemon_installed" boolean DEFAULT 'f', "install_files" varchar(255), "deleted" boolean DEFAULT 'f') [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (90.0ms)[0m   [0;1mCREATE TABLE "services_users" ("user_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (77.9ms)[0m   [0;1mCREATE TABLE "subdomains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255), "path" varchar(255), "mainsub" boolean, "created_at" datetime, "updated_at" datetime, "domain_id" integer) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (59.0ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer, "ohmd_password" varchar(255)) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (76.0ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (63.2ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (54.6ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100329194327')[0m
+  [4;35;1mSQL (58.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100215122816')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100220131710')[0m
+  [4;35;1mSQL (74.7ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091109200020')[0m
+  [4;36;1mSQL (66.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100217102855')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100328143858')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091125223936')[0m
+  [4;35;1mSQL (58.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100219230544')[0m
+  [4;36;1mSQL (58.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100220131724')[0m
+  [4;35;1mSQL (58.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100220132225')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100320104907')[0m
+  [4;35;1mSQL (61.6ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091127193819')[0m
+  [4;36;1mSQL (71.2ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100328145425')[0m
+  [4;35;1mSQL (58.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091102130116')[0m
+  [4;36;1mSQL (66.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091102130127')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091102150031')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100202164535')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100213152020')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100325093414')[0m
+  [4;35;1mSQL (58.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100213153633')[0m
+  [4;36;1mSQL (58.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091108151922')[0m
+  [4;35;1mSQL (58.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100217100701')[0m
+  [4;36;1mSQL (58.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100213152112')[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (131.7ms)[0m   [0;1mCREATE TABLE "domains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain" varchar(255), "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (81.7ms)[0m   [0;1mCREATE TABLE "domains_services" ("domain_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (113.2ms)[0m   [0;1mCREATE TABLE "logged_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session" varchar(255), "session_ts" datetime, "ip" varchar(255), "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (85.0ms)[0m   [0;1mCREATE TABLE "services" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "description" text, "created_at" datetime, "updated_at" datetime, "by_domain" boolean, "controller" varchar(255), "tech_name" varchar(255), "daemon_installed" boolean DEFAULT 'f', "install_files" varchar(255), "deleted" boolean DEFAULT 'f') [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (99.9ms)[0m   [0;1mCREATE TABLE "services_users" ("user_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (68.0ms)[0m   [0;1mCREATE TABLE "subdomains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255), "path" varchar(255), "mainsub" boolean, "created_at" datetime, "updated_at" datetime, "domain_id" integer) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (59.4ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer, "ohmd_password" varchar(255)) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (79.3ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (93.4ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (62.8ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100329194327')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100215122816')[0m
+  [4;36;1mSQL (66.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100220131710')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091109200020')[0m
+  [4;36;1mSQL (58.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100217102855')[0m
+  [4;35;1mSQL (58.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100328143858')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091125223936')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100219230544')[0m
+  [4;36;1mSQL (58.2ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100220131724')[0m
+  [4;35;1mSQL (66.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100220132225')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100320104907')[0m
+  [4;35;1mSQL (66.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091127193819')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100328145425')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091102130116')[0m
+  [4;36;1mSQL (66.5ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091102130127')[0m
+  [4;35;1mSQL (57.9ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091102150031')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100202164535')[0m
+  [4;35;1mSQL (58.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100213152020')[0m
+  [4;36;1mSQL (58.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100325093414')[0m
+  [4;35;1mSQL (58.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100213153633')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091108151922')[0m
+  [4;35;1mSQL (66.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100217100701')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100213152112')[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (111.0ms)[0m   [0;1mCREATE TABLE "domains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain" varchar(255), "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (75.2ms)[0m   [0;1mCREATE TABLE "domains_services" ("domain_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (103.1ms)[0m   [0;1mCREATE TABLE "logged_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session" varchar(255), "session_ts" datetime, "ip" varchar(255), "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (85.7ms)[0m   [0;1mCREATE TABLE "services" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "description" text, "created_at" datetime, "updated_at" datetime, "by_domain" boolean, "controller" varchar(255), "tech_name" varchar(255), "daemon_installed" boolean DEFAULT 'f', "install_files" varchar(255), "deleted" boolean DEFAULT 'f') [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (116.1ms)[0m   [0;1mCREATE TABLE "services_users" ("user_id" integer, "service_id" integer) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (76.5ms)[0m   [0;1mCREATE TABLE "subdomains" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255), "path" varchar(255), "mainsub" boolean, "created_at" datetime, "updated_at" datetime, "domain_id" integer) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (76.0ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "password" varchar(255), "full_name" varchar(255), "email" varchar(255), "parent_id" integer, "created_at" datetime, "updated_at" datetime, "max_subdomains" integer, "max_space" integer, "max_bandwidth" integer, "max_subusers" integer, "used_space" integer, "ohmd_password" varchar(255)) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (94.1ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (136.8ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (71.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100329194327')[0m
+  [4;35;1mSQL (91.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100215122816')[0m
+  [4;36;1mSQL (83.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100220131710')[0m
+  [4;35;1mSQL (83.1ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091109200020')[0m
+  [4;36;1mSQL (88.9ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100217102855')[0m
+  [4;35;1mSQL (85.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100328143858')[0m
+  [4;36;1mSQL (99.6ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091125223936')[0m
+  [4;35;1mSQL (58.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100219230544')[0m
+  [4;36;1mSQL (66.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100220131724')[0m
+  [4;35;1mSQL (58.2ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100220132225')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100320104907')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091127193819')[0m
+  [4;36;1mSQL (66.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100328145425')[0m
+  [4;35;1mSQL (66.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091102130116')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091102130127')[0m
+  [4;35;1mSQL (69.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20091102150031')[0m
+  [4;36;1mSQL (55.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100202164535')[0m
+  [4;35;1mSQL (58.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100213152020')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100325093414')[0m
+  [4;35;1mSQL (58.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100213153633')[0m
+  [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091108151922')[0m
+  [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100217100701')[0m
+  [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100213152112')[0m

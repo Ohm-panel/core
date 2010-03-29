@@ -22,8 +22,12 @@ gem: gem
 apache_conf: /etc/apache2/apache2.conf
 apache_sites: /etc/apache2/sites-available
 
-reboot: reboot
+databases:
+  - mysql
+  - sqlite3
 
 mysql_packages: apt-get -y --force-yes install mysql-server libmysql-ruby
 sqlite3_packages: apt-get -y --force-yes install sqlite3 libsqlite3-ruby
+
+reboot: reboot
 

@@ -44,6 +44,13 @@ class Ohmd_service_email
     true
   end
 
+  def self.remove
+    system "service dovecot stop" or return false
+    system "service postfix stop" or return false
+    system "apt-get purge -y --force-yes dovecot-postfix" or return false
+    system "apt-get -y --force-yes autoremove"
+  end
+
   def self.exec
     # Dovecot auth config
     mboxes = ServiceEmailMailbox.all.select { |m| !m.forward_only }

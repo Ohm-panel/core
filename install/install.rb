@@ -55,7 +55,7 @@ class Dialog
 end
 
 def exec(cmd)
-  system "(#{cmd}) >> #{LOG} 2>&1" or raise RuntimeError("Error during installation. Please see #{LOG} for details")
+  system "(#{cmd}) >> #{LOG} 2>&1" or raise RuntimeError.new("Error during installation. Please see #{LOG} for details")
 end
 
 # Welcome
@@ -136,19 +136,19 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
 
 # Database
 # Select
-dbtype = dialog.select "Please select the database you wish to use", ["mysql", "sqlite3"]
+dbtype = dialog.select "Please select the database you wish to use", cfg["databases"]
 # Install packages
 system cfg["#{dbtype}_packages"]
 # Load installer and go
 dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
-setup_database cfg dialog
+setup_database cfg, dialog
 
 # Set permissions
-system "chown -R www-data:www-data #{panel_path}"
-system "chown -R root:root #{ohmd_path}"
-system "chmod -R go-rwx #{panel_path}"
-system "chmod -R go-rwx #{ohmd_path}"
+system "chown -R www-data:www-data #{cfg["panel_path"]}"
+system "chmod -R go-rwx #{cfg["ohmd_path"]}"
+system "chown -R root:root #{cfg["ohmd_path"]}"
+system "chmod -R go-rwx #{cfg["panel_path"]}"
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")

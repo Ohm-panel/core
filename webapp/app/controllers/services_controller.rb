@@ -14,21 +14,10 @@ class ServicesController < ApplicationController
     @services = Service.all
   end
 
-  # GET /services/1
-  # GET /services/1.xml
-  def show
-    @service = Service.find(params[:id])
-  end
-
   # GET /services/new
   # GET /services/new.xml
   def new
     @service = Service.new
-  end
-
-  # GET /services/1/edit
-  def edit
-    @service = Service.find(params[:id])
   end
 
   # POST /services
@@ -84,6 +73,7 @@ class ServicesController < ApplicationController
       modcfg = YAML.load_file("#{extractpath}/module.yml")
       @service = Service.new(modcfg)
       @service.daemon_installed = false
+      @service.deleted = false
       @service.install_files = extractpath
       @service.save or raise Exception
       @logged_user.services << @service
@@ -99,24 +89,11 @@ class ServicesController < ApplicationController
     redirect_to :action => "index"
   end
 
-  # PUT /services/1
-  # PUT /services/1.xml
-  def update
-    @service = Service.find(params[:id])
-
-    if @service.update_attributes(params[:service])
-      flash[:notice] = 'Service was successfully updated.'
-      redirect_to @service
-    else
-      render :action => "edit"
-    end
-  end
-
   # DELETE /services/1
   # DELETE /services/1.xml
   def destroy
     @service = Service.find(params[:id])
-    @service.destroy
+    @service.update_attribute(:deleted, true)
 
     redirect_to services_url
   end
