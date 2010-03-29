@@ -76,7 +76,7 @@ end
 
 # Exec modules
 modtoexec.each do |mod|
-  unless mod.daemon_installed
+  unless mod.daemon_installed || mod.deleted
     log "Installing new module: #{mod.name}"
     unless Object.const_get("Ohmd_#{mod.controller}").install
       logerror "Error installing module: #{mod.name}"
@@ -87,9 +87,9 @@ modtoexec.each do |mod|
     mod.save
   end
 
-  unless mod.deleted
+  if mod.deleted
     log "Removing module: #{mod.name}"
-    unless Object.const_get("Ohmd_#{mod.controller}").remove
+    unless !mod.daemon_installed || Object.const_get("Ohmd_#{mod.controller}").remove
       logerror "Error removing module: #{mod.name}"
       next
     end
