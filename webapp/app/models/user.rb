@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates_format_of :username, :with => /\A[a-z][a-z0-9_-]*\Z/
   validate :check_quota, :check_services
-  validate :unique_username, :on => :create
+  validate_on_create :unique_username
 
   def unique_username
     reserved_names = File.read("/etc/passwd").split("\n").

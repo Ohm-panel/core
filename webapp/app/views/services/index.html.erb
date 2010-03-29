@@ -12,7 +12,10 @@
 
 <% @services.each do |service| %>
   <tr>
-    <td><%=h service.name %></td>
+    <td>
+      <%= image_tag("icons/clock.gif", :alt=>"Pending...", :title=>"Pending...") unless service.daemon_installed %>
+      <%=h service.name %>
+    </td>
     <td><%=h service.tech_name %></td>
     <td><%=h service.description %></td>
     <td><%=h service.by_domain %></td>

@@ -120,7 +120,7 @@ class UsersController < ApplicationController
         flash[:error] = 'Error occured'
         redirect_to @user
       end
-  else
+    else
       flash[:error] = 'Invalid user'
       redirect_to users_path
     end

@@ -1,9 +1,6 @@
 TODO
-- Probleme dajout de service (encore)
-- supprimer un user n'enleve pas ses domaines, user email et mailboxes
-- methodes accessibles via get?
+- supprimer un user n'enleve pas son user email et ses mailboxes
 
 TOTEST
-- pas de mot de passe si alias
-- erreur de comptage despace
+- probleme dajout de service (encore)
 
