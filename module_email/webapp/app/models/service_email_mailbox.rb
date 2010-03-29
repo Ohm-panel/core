@@ -7,8 +7,8 @@ class ServiceEmailMailbox < ActiveRecord::Base
     self.address + '@' + self.domain.domain
   end
 
-  validates_presence_of :domain_id, :password
-#  validates_format_of :address, :with => /\A([^@\s]+)\Z/i
+  validates_presence_of :domain_id
+  validates_presence_of :password, :unless => Proc.new { |m| m.forward_only }
   validates_format_of :address, :with => /\A([a-zA-Z0-9\._-]+)\Z/i
   validates_uniqueness_of :address, :scope => :domain_id
   validate :passwords_match

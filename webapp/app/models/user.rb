@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :services
 
-  has_many :domains
+  has_many :domains, :dependent => :destroy
 
 
   def root?
@@ -169,6 +169,13 @@ class User < ActiveRecord::Base
     if password_confirmation
       self.ohmd_password = User.shadow_password(password)
       self.password = User.digest_password(password)
+    end
+  end
+
+  def before_destroy
+    # If we're destroyed, give our children to our parent
+    self.users.each do |u|
+      u.update_attribute(:parent, self.parent)
     end
   end
 end

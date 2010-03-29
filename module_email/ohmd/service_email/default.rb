@@ -3,7 +3,7 @@ require 'ftools'
 class Ohmd_service_email
   def self.install
     # Install Dovecot/Postfix
-    return false unless system "apt-get install -y --force-yes dovecot-postfix"
+    system "apt-get install -y --force-yes dovecot-postfix" or return false
 
     # Add user that will have sudo on deliver (Dovecot's LDA)
     system "useradd dovelda"
@@ -11,13 +11,10 @@ class Ohmd_service_email
     # Copy/edit configuration files
     begin
       File.copy "service_email/dovecot-postfix.conf", "/etc/dovecot/dovecot-postfix.conf"
+      File.copy "service_email/master.cf", "/etc/postfix/master.cf"
       File.open("/etc/sudoers", "a") { |f|
         f.puts "Defaults:dovelda !syslog"
         f.puts "dovelda ALL=NOPASSWD:/usr/lib/dovecot/deliver"
-      }
-      File.open("/etc/postfix/master.cf", "a") { |f|
-        f.puts "dovecot   unix  -       n       n       -       -       pipe"
-        f.puts "  flags=DRhu user=dovelda:mail argv=/usr/bin/sudo /usr/lib/dovecot/deliver -c /etc/dovecot/dovecot-postfix.conf -f ${sender} -d ${recipient}"
       }
       File.open("/etc/postfix/main.cf", "a") { |f|
         f.puts "smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unknown_sender_domain, reject_unknown_recipient_domain, reject_unauth_pipelining, reject_unauth_destination"
@@ -37,9 +34,12 @@ class Ohmd_service_email
       return false
     end
 
+    File.delete "service_email/dovecot-postfix.conf"
+    File.delete "service_email/master.cf"
+
     # Restart services
-    return false unless system "service postfix restart"
-    return false unless system "service dovecot restart"
+    system "service postfix restart" or return false
+    system "service dovecot restart" or return false
 
     true
   end

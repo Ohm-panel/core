@@ -1,7 +1,7 @@
 class Domain < ActiveRecord::Base
   belongs_to :user
 
-  has_many :subdomains
+  has_many :subdomains, :dependent => :destroy
 
   has_and_belongs_to_many :services
 

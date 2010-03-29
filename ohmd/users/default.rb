@@ -49,8 +49,8 @@ class Ohmd_users
     # Upload disk usage for all users
     users.each do |u|
       next if u.deleted?
-      u.used_space = `du -s /home/#{u.username}/`.split("\t")[0].to_i / 1024
-      u.save
+      u.update_attribute(:used_space, (`du -s /home/#{u.username}/`.split("\t")[0].to_i / 1024).to_i) \
+        or logerror "[users] Error updating usage for #{u.username}"
     end
   end
 end
