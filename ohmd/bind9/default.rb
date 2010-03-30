@@ -31,6 +31,8 @@ class Ohmd_bind9
         end
       }
     end
+
+    system "service bind9 reload"
   end
 
   def self.getips
