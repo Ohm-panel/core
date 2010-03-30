@@ -1,0 +1,2 @@
+webapp/log/*
+webapp/db/*.sqlite3

@@ -1,0 +1,23 @@
+<%= image_tag "icons/icontexto-webdev-file-128x128.png", :alt=>"", :class=>"bigicon" %>
+<h1>Logs</h1>
+
+<table border="0"><tr><td style="vertical-align: top; padding-right: 50px;">
+
+<ul>
+  <li><%= link_to "Ohm Panel", :action => 'index' %></li>
+  <% @loglist.each do |l| %>
+    <li><%= link_to l, :action => 'index', :file => l %></li>
+  <% end %>
+</ul>
+
+</td><td style="vertical-align: top;">
+
+<h2><%=h @logfile %></h2>
+
+<pre>
+<%= @logtext %>
+</pre>
+
+
+</td></tr></table>
+

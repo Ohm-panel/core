@@ -42,6 +42,10 @@
     <strong>Admin menu</strong><br /><br />
     <%= "&gt;" if current_controller?('modules') %>
     <%= link_to "Modules", :controller => "services" %>
+
+    <br /><br />
+    <%= "&gt;" if current_controller?('logs') %>
+    <%= link_to "Logs", :controller => "logs" %>
   <% end %>
 
   <br /><br /><br /><br /><hr /><br />
