@@ -2,7 +2,7 @@ class Ohmd_bind9
   def self.exec
     domains = Domain.all
 
-    # Create /etc/bind9/named.conf.local
+    # Create /etc/bind/named.conf.local
     named_conf_local = ""
     domains.each do |d|
       named_conf_local << "zone \"#{d.domain}\" {\n"
@@ -10,6 +10,7 @@ class Ohmd_bind9
       named_conf_local << "  file \"/etc/bind/db.#{d.domain}\";\n"
       named_conf_local << "};\n"
     end
+    File.open("/etc/bind/named.conf.local", "w") { |f| f.print named_conf_local }
 
     # Create databases
     serial = Time.new.to_i
@@ -37,7 +38,7 @@ class Ohmd_bind9
 
   def self.getips
     `ifconfig | grep "inet addr"`.split("\n").
-    collect { |line| line.split(":")[1].strip }.
+    collect { |line| line.split(":")[1].split(" ")[0] }.
     #select { |ip| !( ip.start_with?("127") || ip.start_with?("192.168") || ip.start_with?("10") || ip.start_with?("172.16") ) }
     select { |ip| !( ip.start_with?("127") || ip.start_with?("10") || ip.start_with?("172.16") ) }  ### KEEP 192.168 FOR TESTING ONLY !!!
   end
