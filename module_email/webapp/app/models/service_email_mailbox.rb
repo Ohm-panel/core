@@ -40,8 +40,8 @@ class ServiceEmailMailbox < ActiveRecord::Base
 
   def before_destroy
     # If we remove the last mailbox, no need for DNS entries
-    if ServiceEmailMailbox.find_by_domain_id(self.domain_id).count == 0
-      DnsEntry.find_by_creator_and_domain_id("service_email", self.domain_id).each do |d|
+    if ServiceEmailMailbox.all.select { |m| m.domain_id==self.domain_id }.count == 1
+      DnsEntry.all.select { |e| e.domain_id==self.domain_id && e.creator=="service_email" }.each do |d|
         d.destroy
       end
     end

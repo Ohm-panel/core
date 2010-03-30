@@ -43,7 +43,7 @@ class Ohmd_bind9
     `ifconfig | grep "inet addr"`.split("\n").
     collect { |line| line.split(":")[1].split(" ")[0] }.
     #select { |ip| !( ip.start_with?("127") || ip.start_with?("192.168") || ip.start_with?("10") || ip.start_with?("172.16") ) }
-    select { |ip| !( ip.start_with?("127") || ip.start_with?("10") || ip.start_with?("172.16") ) }  ### KEEP 192.168 FOR TESTING ONLY !!!
+    select { |ip| !( ip.start_with?("127") ) }  ### FOR TESTING ONLY !!!
   end
 
   def self.put_static f, ips
