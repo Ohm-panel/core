@@ -54,7 +54,8 @@ end
 log "Loading modules"
 # Default modules
 modules = [ Service.new(:controller=>"users", :name=>"Users", :daemon_installed=>true, :deleted=>false),
-            Service.new(:controller=>"apache2", :name=>"Apache", :daemon_installed=>true, :deleted=>false) ]
+            Service.new(:controller=>"apache2", :name=>"Apache", :daemon_installed=>true, :deleted=>false),
+            Service.new(:controller=>"bind9", :name=>"Bind DNS", :daemon_installed=>true, :deleted=>false) ]
 modules.concat Service.all
 modtoexec = []
 modules.each do |mod|

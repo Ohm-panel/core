@@ -1,5 +1,3 @@
-require 'yaml'
-
 class Ohmd_users
   QUOTA_HARD_MULT = 1.2
 

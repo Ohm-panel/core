@@ -1,5 +1,7 @@
 TODO
 - supprimer un user n'enleve pas son user email et ses mailboxes
+- SSL apache
+- bind
 
 TOTEST
 - probleme dajout de service (encore)

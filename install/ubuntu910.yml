@@ -14,7 +14,7 @@ packages_update: apt-get update
 packages: "apt-get -y --force-yes install \\\n
              ruby-dev rubygems rails \\\n
              apache2 php5 libapache2-mod-passenger \\\n
-             quota"
+             bind9 quota"
              # Ajouter le packet acl si il faut...
 
 gem: gem
