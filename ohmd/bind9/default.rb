@@ -30,6 +30,9 @@ class Ohmd_bind9
         d.subdomains.each do |sub|
           put_record f, ips, sub.url
         end
+        d.dns_entries.each do |entry|
+          put_entry f, ips, entry
+        end
       }
     end
 
@@ -48,7 +51,6 @@ class Ohmd_bind9
       f.puts "@\tIN\tA\t#{ip}"
       f.puts "\tIN\tA\t#{ip}"
       f.puts "ns1\tIN\tA\t#{ip}"
-      f.puts "@\tIN\tMX 5\t#{ip}"
     end
   end
 
@@ -57,5 +59,16 @@ class Ohmd_bind9
       f.puts "#{url}\tIN\tA\t#{ip}"
     end
   end
+
+  def self.put_entry f, ips, e
+    if e.add_ip
+      ips.each do |ip|
+        f.puts "#{e.line}\t#{ip}"
+      end
+    else
+      f.puts e.line
+    end
+  end
+
 end
 

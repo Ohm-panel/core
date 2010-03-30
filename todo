@@ -2,7 +2,9 @@ TODO
 - supprimer un user n'enleve pas son user email et ses mailboxes
 - SSL apache
 - bind
+- unlimited if blank
+- full_name = username if blank
 
 TOTEST
-- probleme dajout de service (encore)
+- auto -1 dans add_to_user email
 

@@ -352,3 +352,52 @@ Migrating to AddDeletedToServices (20100329194327)
   [4;36;1mSQL (58.0ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20091108151922')[0m
   [4;35;1mSQL (66.4ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100217100701')[0m
   [4;36;1mSQL (66.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100213152112')[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateServices (20091102130116)
+Migrating to CreateUsers (20091102130127)
+Migrating to CreateServicesUsers (20091102150031)
+Migrating to CreateDomains (20091108151922)
+Migrating to AddSessionToUsers (20091109200020)
+Migrating to AddDomainToService (20091125223936)
+Migrating to CreateDomainsServices (20091127193819)
+Migrating to AddPathToDomain (20100202164535)
+Migrating to CreateSubdomains (20100213152020)
+Migrating to RemovePathFromDomain (20100213152112)
+Migrating to CorrectSubdomains (20100213153633)
+Migrating to AddControllerToServices (20100215122816)
+Migrating to AddQuotaToUser (20100217100701)
+Migrating to AddUsedspaceToUsers (20100217102855)
+Migrating to AddTechnameToServices (20100219230544)
+Migrating to CreateLoggedUsers (20100220131710)
+Migrating to RemoveSessionFrom (20100220131724)
+Migrating to AddUserToLoggedUser (20100220132225)
+Migrating to AddOhmdToUsers (20100320104907)
+Migrating to RemoveOhmdStatusFromUsers (20100325093414)
+Migrating to AddDaemonToServices (20100328143858)
+Migrating to AddInstallationToServices (20100328145425)
+Migrating to AddDeletedToServices (20100329194327)
+Migrating to CreateDnsEntries (20100330221923)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mCREATE TABLE "dns_entries" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "domain_id" integer, "line" varchar(255), "add_ip" boolean, "creator" varchar(255), "creator_data" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100330221923')[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (1.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("dns_entries")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("domains")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("domains_services")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("logged_users")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("services")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("services_users")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("subdomains")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("users")[0m

@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100329194327) do
+ActiveRecord::Schema.define(:version => 20100330221923) do
+
+  create_table "dns_entries", :force => true do |t|
+    t.integer  "domain_id"
+    t.string   "line"
+    t.boolean  "add_ip"
+    t.string   "creator"
+    t.string   "creator_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "domains", :force => true do |t|
     t.string   "domain"

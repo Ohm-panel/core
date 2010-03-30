@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  domain_id: 1
+  line: MyString
+  add_ip: false
+  creator: MyString
+  creator_data: MyString
+
+two:
+  domain_id: 1
+  line: MyString
+  add_ip: false
+  creator: MyString
+  creator_data: MyString
