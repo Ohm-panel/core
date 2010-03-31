@@ -170,6 +170,9 @@ class User < ActiveRecord::Base
       self.ohmd_password = User.shadow_password(password)
       self.password = User.digest_password(password)
     end
+
+    # Blank full_name can lead to display problems...
+    self.full_name = self.username if !self.full_name
   end
 
   def before_destroy

@@ -9,7 +9,7 @@
     <%= f.text_field :full_name %>
   </p>
   <p>
-    <%= f.label :size %> <%= '(max ' + @logged_user.max_space.to_s + ' Mb)' unless @logged_user.max_space==-1 %><br />
+    <%= f.label :size %> <%= '(max ' + @logged_user.max_space.to_s + ' Mb)' unless @logged_user.max_space==-1 %> (leave blank or set to -1 for unlimited)<br />
     <%= f.text_field :size %>
   </p>
   <p>

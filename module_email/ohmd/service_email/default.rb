@@ -44,6 +44,7 @@ class Ohmd_service_email
     true
   end
 
+
   def self.remove
     # Remove installed programs
     system "service dovecot stop" or return false
@@ -57,7 +58,16 @@ class Ohmd_service_email
     end
   end
 
+
   def self.exec
+    # Check for orphan users first
+    ServiceEmailUser.all.select { |u| u.user.nil? }.each do |orphan|
+      orphan.destroy
+    end
+    ServiceEmailMailbox.all.select { |m| m.domain.nil? }.each do |orphan|
+      orphan.destroy
+    end
+
     # Dovecot auth config
     mboxes = ServiceEmailMailbox.all.select { |m| !m.forward_only }
     newpasswd = ""
