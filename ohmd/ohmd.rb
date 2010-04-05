@@ -83,7 +83,7 @@ modtoexec.each do |mod|
       logerror "Error installing module: #{mod.name}"
       next
     end
-    system "service apache2 reload" # Required for the new routes in Rails to work
+    system "service apache2 force-reload" # Required for the new routes in Rails to work
     mod.daemon_installed = true
     mod.save
   end

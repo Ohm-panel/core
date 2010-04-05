@@ -1,5 +1,6 @@
 TODO
-- SSL apache
+- SSL apache, mail
+- 500 pendant quelques secs apres le daemon
 
 TOTEST
 - full_name = username if blank

@@ -46,12 +46,6 @@ class Ohmd_service_email
 
 
   def self.remove
-    # Remove installed programs
-    system "service dovecot stop" or return false
-    system "service postfix stop" or return false
-    system "apt-get purge -y --force-yes dovecot-postfix" or return false
-    system "apt-get -y --force-yes autoremove"
-
     # Remove DNS entries
     DnsEntry.all.select { |e| e.creator=="service_email" }.each do |d|
       d.destroy
