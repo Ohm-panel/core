@@ -67,10 +67,11 @@ Proceed?")
 exit 1 unless go
 
 # Check internet connection
-netok = false
-while !netok do
-  dialog.progress(0, "Checking internet connection...")
-  netok = system "ping -c 1 google.com"
+dialog.progress(0, "Checking internet connection...")
+unless system "ping -c 3 google.com"
+  puts "No internet connection. Aborting"
+  dialog.exit
+  exit 1
 end
 
 # Phusion Passenger (mod_rails)
@@ -104,7 +105,7 @@ end
 File.open("/etc/fstab", "w") { |f| f.print newfstab }
 # Remount modified mountpoints
 toremount.each do |mp|
-  exec "mount -o remount #{mp}"
+  system "mount -o remount #{mp}"
 end
 
 # Install requires Gems
