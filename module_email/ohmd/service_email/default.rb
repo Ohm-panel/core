@@ -1,6 +1,8 @@
 require 'ftools'
 
 class Ohmd_service_email
+  DES_CHARS = [('a'..'z'),('A'..'Z'),(0..9),'-','_'].inject([]) {|s,r| s+Array(r)}
+
   def self.install
     # Install Dovecot/Postfix
     system "apt-get install -y dovecot-postfix" or return false
@@ -44,11 +46,13 @@ class Ohmd_service_email
     # Install roundcube
     system "apt-get -y install php-pear php5-mcrypt php-mdb2 php-mdb2-driver-sqlite php-mail-mime php-net-smtp sqlite php5-sqlite php5-gd" or return false
     system "tar -xf service_email/roundcube.tar.bz2 -C /var/www" or return false
-    DES_CHARS = [('a'..'z'),('A'..'Z'),(0..9),'-','_'].inject([]) {|s,r| s+Array(r)}
     des_key = Array.new(24) { DES_CHARS[ rand(DES_CHARS.size) ] }
     begin
-      File.open("/var/www/roundcube/config/main.inc.php", "a") { |f|
+      maininc = File.read("/var/www/roundcube/config/main.inc.php").split("?>")[0]
+      File.open("/var/www/roundcube/config/main.inc.php", "w") { |f|
+        f.puts maininc
         f.puts "$rcmail_config['des_key'] = '#{des_key}';"
+        f.print "?>"
       }
     rescue Exception
       return false
