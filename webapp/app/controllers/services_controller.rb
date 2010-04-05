@@ -85,7 +85,7 @@ class ServicesController < ApplicationController
       return
     end
 
-    flash[:notice] = 'Module successfully uploaded, installation will be finished in a few minutes.'
+    flash[:notice] = 'Module successfully uploaded.<br />To complete the installation, please log onto the server using SSH and run \'ohm-install-modules\''
     redirect_to :action => "index"
   end
 

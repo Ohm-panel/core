@@ -148,6 +148,13 @@ File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
   f.print "panel_path: #{cfg["panel_path"]}\n"
   f.print "os: #{distro}\n"
 }
+# Create install-modules script
+File.open("/usr/bin/ohm-install-modules", "w") { |f|
+  f.puts "#!/bin/sh"
+  f.puts "cd #{cfg["ohmd_path"]}"
+  f.puts "./ohm-install-modules.rb"
+}
+exec "chmod ug+x /usr/bin/ohm-install-modules"
 
 # Database
 # Select
