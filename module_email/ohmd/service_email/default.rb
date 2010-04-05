@@ -41,6 +41,21 @@ class Ohmd_service_email
     system "service postfix restart" or return false
     system "service dovecot restart" or return false
 
+    # Install roundcube
+    system "apt-get -y install php-pear php5-mcrypt php-mdb2 php-mdb2-driver-sqlite php-mail-mime php-net-smtp sqlite php5-sqlite php5-gd" or return false
+    system "tar -xf service_email/roundcube.tar.bz2 -C /var/www" or return false
+    DES_CHARS = [('a'..'z'),('A'..'Z'),(0..9),'-','_'].inject([]) {|s,r| s+Array(r)}
+    des_key = Array.new(24) { DES_CHARS[ rand(DES_CHARS.size) ] }
+    begin
+      File.open("/var/www/roundcube/config/main.inc.php", "a") { |f|
+        f.puts "$rcmail_config['des_key'] = '#{des_key}';"
+      }
+    rescue Exception
+      return false
+    end
+    system "chown -R www-data:www-data /var/www/roundcube" or return false
+    system "chmod -R o-rwx /var/www/roundcube" or return false
+
     true
   end
 
@@ -115,6 +130,22 @@ class Ohmd_service_email
       end
     }
     system "postmap /etc/postfix/virtual"
+
+    # Add webmail.*
+    File.open("/etc/apache2/sites-available/ohm_webmail", "w") { |f|
+      Domain.all.each do |d|
+        f.puts "<VirtualHost *:80>"
+        f.puts "  ServerName webmail.#{d.domain}"
+        f.puts "  DocumentRoot /var/www/roundcube"
+        f.puts "  <Directory /var/www/roundcube>"
+        f.puts "    Allow from all"
+        f.puts "    Options FollowSymLinks -Indexes"
+        f.puts "  </Directory>"
+        f.puts "</VirtualHost>"
+      end
+    }
+    system "a2ensite ohm_webmail"
+    system "service apache2 reload"
 
   end
 

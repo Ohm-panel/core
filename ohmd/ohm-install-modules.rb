@@ -46,6 +46,8 @@ modstoinst.each do |mod|
     next
   end
   system "rm -rf #{mod.install_files}"
+  system "chown -R root:root ./"
+  system "chmod -R go-rwx ./"
   mod.install_files = nil
   mod.save
 end

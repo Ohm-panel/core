@@ -86,7 +86,7 @@ class Ohmd_apache2
     end
 
     # Reload Apache
-    system "service apache2 force-reload" if changes
+    system "service apache2 reload" if changes
 
   end
 end

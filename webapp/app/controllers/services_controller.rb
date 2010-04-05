@@ -57,6 +57,7 @@ class ServicesController < ApplicationController
       redirect_to :action => "new"
       return
     end
+    system "chmod -R go-rwx ./"
 
     # Migrate DB
     dbversion = `rake db:version`.split(": ")[1]
@@ -85,7 +86,7 @@ class ServicesController < ApplicationController
       return
     end
 
-    flash[:notice] = 'Module successfully uploaded.<br />To complete the installation, please log onto the server using SSH and run \'ohm-install-modules\''
+    flash[:notice] = 'Module successfully uploaded.<br />To complete the installation, please log onto the server using SSH and run (as root) \'ohm-install-modules\''
     redirect_to :action => "index"
   end
 

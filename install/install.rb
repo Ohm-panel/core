@@ -168,9 +168,9 @@ setup_database cfg, dialog
 
 # Set permissions
 system "chown -R www-data:www-data #{cfg["panel_path"]}"
-system "chmod -R go-rwx #{cfg["ohmd_path"]}"
 system "chown -R root:root #{cfg["ohmd_path"]}"
 system "chmod -R go-rwx #{cfg["panel_path"]}"
+system "chmod -R go-rwx #{cfg["ohmd_path"]}"
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
