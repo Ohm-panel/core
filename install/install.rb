@@ -69,8 +69,8 @@ exit 1 unless go
 # Check internet connection
 dialog.progress(0, "Checking internet connection...")
 unless system "ping -c 2 google.com >> /dev/null"
-  puts "No internet connection. Aborting"
   dialog.exit
+  puts "No internet connection. Aborting"
   exit 1
 end
 
@@ -132,7 +132,7 @@ File.open(cfg["apache_conf"], "w") { |f|
 }
 exec "a2ensite ohm"
 exec "a2dissite default"
-exec "service apache2 restart"
+exec cfg["apache_restart"]
 
 # Copy files
 dialog.progress(5, "Copying Ohm files")

@@ -3,7 +3,7 @@ require 'ftools'
 class Ohmd_service_email
   def self.install
     # Install Dovecot/Postfix
-    system "apt-get install -y --force-yes dovecot-postfix" or return false
+    system "apt-get install -y dovecot-postfix" or return false
 
     # Add user that will have sudo on deliver (Dovecot's LDA)
     system "useradd dovelda"
