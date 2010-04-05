@@ -24,7 +24,7 @@ class Dialog
     @text = text if text
     pc = (step*100/STEPS).to_i
     system("#{dialog "gauge", @text, pc} &")
-    sleep 1
+    sleep 0.5
   end
 
   def message(text)
@@ -66,6 +66,13 @@ Please verify this is your distribution and you are connected to the internet.
 Proceed?")
 exit 1 unless go
 
+# Check internet connection
+netok = false
+while !netok do
+  dialog.progress(0, "Checking internet connection...")
+  netok = system "ping -c 1 google.com"
+end
+
 # Phusion Passenger (mod_rails)
 dialog.progress(0, "Preparing Phusion Passenger (mod_rail)")
 exec cfg["mod_rails"]
@@ -75,8 +82,9 @@ dialog.progress(1, "Installing required packages")
 exec cfg["packages_update"]
 system cfg["packages"] # We don't use exec because input might be needed
 
-# Configure mount points for quota
+# Configure mount points for quota and ACL
 dialog.progress(2, "Configuring packages")
+toremount = []
 fstab = File.read("/etc/fstab")
 newfstab = ""
 fstab.each_line do |line|
@@ -87,12 +95,17 @@ fstab.each_line do |line|
     if fields[1].start_with?("/") && fields[0] != "proc"
       fields[3] += ",usrquota,grpquota,acl"
       newfstab << fields.join("   ") + "\n"
+      toremount << fields[1]
     else
       newfstab << line
     end
   end
 end
 File.open("/etc/fstab", "w") { |f| f.print newfstab }
+# Remount modified mountpoints
+toremount.each do |mp|
+  exec "mount -o remount #{mp}"
+end
 
 # Install requires Gems
 dialog.progress(3, "Installing required gems")
@@ -118,6 +131,7 @@ File.open(cfg["apache_conf"], "w") { |f|
 }
 exec "a2ensite ohm"
 exec "a2dissite default"
+exec "service apache2 restart"
 
 # Copy files
 dialog.progress(5, "Copying Ohm files")
@@ -152,7 +166,6 @@ system "chmod -R go-rwx #{cfg["panel_path"]}"
 
 # Finished, reboot
 dialog.progress(STEPS, "Finished")
-rb = dialog.yesno("Installation is complete, but you MUST reboot before using Ohm.\n\nReboot now?")
+dialog.message("Installation complete!")
 dialog.exit
-system cfg["reboot"] if rb
 
