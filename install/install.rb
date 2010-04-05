@@ -68,7 +68,7 @@ exit 1 unless go
 
 # Check internet connection
 dialog.progress(0, "Checking internet connection...")
-unless system "ping -c 3 google.com"
+unless system "ping -c 2 google.com >> /dev/null"
   puts "No internet connection. Aborting"
   dialog.exit
   exit 1
