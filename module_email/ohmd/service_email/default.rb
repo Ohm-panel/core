@@ -73,6 +73,8 @@ class Ohmd_service_email
       maildir = "/home/#{username}/mail/#{m.domain.domain}/#{m.address}"
       File.makedirs maildir
       system "chown -R #{username}:#{username} #{maildir}"
+      system "setfacl -m d:u:postfix:rw #{maildir}"
+      system "setfacl -m d:u:dovecot:rw #{maildir}"
 
       newpasswd << "#{m.full_address}:#{m.password}:#{uid}:#{gid}::#{maildir}\n"
     end

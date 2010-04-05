@@ -68,7 +68,7 @@ class Ohmd_apache2
 
       # Check permissions are correct
       system "chown -R #{user}:#{user} #{path}"
-      #system "setfacl -m u:www-data:rwx #{path}"
+      system "setfacl -m d:u:www-data:rwx #{path}"
 
       # Did we do anything?
       changes ||= newfile || File.read(file) != File.read("/tmp/#{site}.bak")

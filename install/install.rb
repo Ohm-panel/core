@@ -85,7 +85,7 @@ fstab.each_line do |line|
   else
     fields = line.squeeze(" ").split(" ")
     if fields[1].start_with?("/") && fields[0] != "proc"
-      fields[3] += ",usrquota,grpquota"                                         ### Ajouter acl si il faut..
+      fields[3] += ",usrquota,grpquota,acl"
       newfstab << fields.join("   ") + "\n"
     else
       newfstab << line
