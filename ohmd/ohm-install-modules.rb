@@ -31,11 +31,11 @@ log "Connecting to database"
 ActiveRecord::Base.establish_connection(dbcfg)
 
 # Include all models from panel
-#log "Loading models"
-#Dir.new("#{panel_path}/app/models").each do |model|
-#  model_path = "#{panel_path}/app/models/#{model}"
-#  require "#{model_path}" if File.file?(model_path)
-#end
+log "Loading models"
+Dir.new("#{panel_path}/app/models").each do |model|
+  model_path = "#{panel_path}/app/models/#{model}"
+  require "#{model_path}" if File.file?(model_path)
+end
 
 # Look for modules to be installed
 modstoinst = Service.all.select { |s| ! s.daemon_installed && s.install_files }

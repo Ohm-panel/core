@@ -71,7 +71,7 @@ modtoexec.each do |mod|
       next
     end
     mod.destroy
-  else
+  elsif mod.daemon_installed
     log "Executing #{mod.name}"
     Object.const_get("Ohmd_#{mod.controller}").exec
   end
