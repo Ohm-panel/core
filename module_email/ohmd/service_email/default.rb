@@ -111,5 +111,6 @@ class Ohmd_service_email
     system "postmap /etc/postfix/virtual"
 
   end
+
 end
 

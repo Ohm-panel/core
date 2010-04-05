@@ -20,7 +20,7 @@ def logerror(message)
   puts "#{timestamp} !!! #{message}"
 end
 
-log "Ohmd start"
+log "Ohm Module Installer start"
 begin
 
 # Load DB config from panel
@@ -31,19 +31,29 @@ log "Connecting to database"
 ActiveRecord::Base.establish_connection(dbcfg)
 
 # Include all models from panel
-log "Loading models"
-Dir.new("#{panel_path}/app/models").each do |model|
-  model_path = "#{panel_path}/app/models/#{model}"
-  require "#{model_path}" if File.file?(model_path)
+#log "Loading models"
+#Dir.new("#{panel_path}/app/models").each do |model|
+#  model_path = "#{panel_path}/app/models/#{model}"
+#  require "#{model_path}" if File.file?(model_path)
+#end
+
+# Look for modules to be installed
+modstoinst = Service.all.select { |s| ! s.daemon_installed && s.install_files }
+modstoinst.each do |mod|
+  log "Copying new module: #{mod.name}"
+  unless system "cp -rp #{panel_path}/#{mod.install_files}/ohmd/* ./"
+    logerror "Error during copy"
+    next
+  end
+  system "rm -rf #{mod.install_files}"
+  mod.install_files = nil
+  mod.save
 end
 
 # Load modules
 log "Loading modules"
 # Default modules
-modules = [ Service.new(:controller=>"users", :name=>"Users", :daemon_installed=>true, :deleted=>false),
-            Service.new(:controller=>"apache2", :name=>"Apache", :daemon_installed=>true, :deleted=>false),
-            Service.new(:controller=>"bind9", :name=>"Bind DNS", :daemon_installed=>true, :deleted=>false) ]
-modules.concat Service.all
+modules = Service.all
 modtoexec = []
 modules.each do |mod|
   begin
@@ -64,19 +74,18 @@ end
 
 # Exec modules
 modtoexec.each do |mod|
-  if mod.deleted
-    log "Removing module: #{mod.name}"
-    unless !mod.daemon_installed || Object.const_get("Ohmd_#{mod.controller}").remove
-      logerror "Error removing module: #{mod.name}"
+  unless mod.daemon_installed || mod.deleted
+    log "Installing new module: #{mod.name}"
+    unless Object.const_get("Ohmd_#{mod.controller}").install
+      logerror "Error installing module: #{mod.name}"
       next
     end
-    mod.destroy
-  else
-    log "Executing #{mod.name}"
-    Object.const_get("Ohmd_#{mod.controller}").exec
+    mod.daemon_installed = true
+    mod.save
   end
 end
 
+system "service apache2 force-reload" # Required for the new routes in Rails to work
 
 rescue Exception => e
   logerror e
