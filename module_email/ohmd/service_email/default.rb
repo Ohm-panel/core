@@ -155,7 +155,7 @@ class Ohmd_service_email
     system "postmap /etc/postfix/virtual"
 
     # Add webmail.*
-    prev_file = (File.read("/etc/apache2/sites-available/ohm_webmail") or "")
+    prev_file = (File.file?("/etc/apache2/sites-available/ohm_webmail") ? File.read("/etc/apache2/sites-available/ohm_webmail") : "")
     File.open("/etc/apache2/sites-available/ohm_webmail", "w") { |f|
       Domain.all.each do |d|
         f.puts "<VirtualHost *:80>"
