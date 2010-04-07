@@ -23,6 +23,5 @@ def setup_database cfg, dialog
              username: ohm
              password: #{dbohmpwd}"
   File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f| f.print dbyml }
-  exec "cd #{cfg["panel_path"]}; rake db:migrate RAILS_ENV=production"
 end
 

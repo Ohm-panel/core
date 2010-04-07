@@ -165,6 +165,7 @@ system cfg["#{dbtype}_packages"]
 dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
 setup_database cfg, dialog
+exec "cd #{cfg["panel_path"]}; rake db:schema:load RAILS_ENV=production"
 
 # Set permissions
 system "chown -R www-data:www-data #{cfg["panel_path"]}"

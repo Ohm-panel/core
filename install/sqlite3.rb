@@ -6,6 +6,5 @@ def setup_database cfg, dialog
              pool: 5
              timeout: 5000"
   File.open("#{cfg["panel_path"]}/config/database.yml", "w") { |f| f.print dbyml }
-  exec "cd #{cfg["panel_path"]}; rake db:migrate RAILS_ENV=production"
 end
 
