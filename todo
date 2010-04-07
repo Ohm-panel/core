@@ -1,9 +1,6 @@
 TODO
 - SSL apache, mail
-- 500 pendant quelques secs apres le daemon
+- unlimited if blank (view)
 
 TOTEST
-- full_name = username if blank
-- supprimer un user n'enleve pas son user email et ses mailboxes
-- unlimited if blank (view)
 

@@ -82,8 +82,12 @@ class Ohmd_apache2
       next unless asite.start_with? PREFIX
       unless psites.include? asite
         system "a2dissite #{asite}"
+        changes = true
       end
     end
+
+    # Make sure we can read the logs from the panel
+    system "setfacl -R -m u:www-data:r /var/log"
 
     # Reload Apache
     system "service apache2 reload" if changes
