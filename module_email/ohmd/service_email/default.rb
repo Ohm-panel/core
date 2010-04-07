@@ -5,7 +5,8 @@ class Ohmd_service_email
 
   def self.install
     # Install Dovecot/Postfix, ClamAV, SpamAssassin, Amavis
-    system "apt-get install -y dovecot-postfix amavisd-new spamassassin clamav-daemon pyzor razor arj cabextract cpio lha nomarch pax rar unrar unzip zip" \
+    system "apt-get install -y dovecot-postfix amavisd-new spamassassin clamav-daemon pyzor razor \
+                               arj cabextract cpio lha nomarch pax rar unrar unrar-free unzip zip lzop zoo ripole" \
       or return false
 
     # Add user that will have sudo on deliver (Dovecot's LDA)
@@ -47,21 +48,16 @@ class Ohmd_service_email
       return false
     end
 
-    File.delete "service_email/dovecot-postfix.conf"
-    File.delete "service_email/master.cf"
-    File.delete "service_email/spamassassin"
-    File.delete "service_email/amavis-15-content_filter_mode"
-
     # (Re)start services
     system "service postfix restart" or return false
     system "service dovecot restart" or return false
     system "service spamassassin start" or return false
+    system "service clamav-daemon start" or return false
     system "service amavis restart" or return false
 
     # Install roundcube
     system "apt-get -y install php-pear php5-mcrypt php-mdb2 php-mdb2-driver-sqlite php-mail-mime php-net-smtp sqlite php5-sqlite php5-gd" or return false
     system "tar -xf service_email/roundcube.tar.bz2 -C /var/www" or return false
-    File.delete "service_email/roundcube.tar.bz2"
     des_key = Array.new(24) { DES_CHARS[ rand(DES_CHARS.size) ] }
     begin
       maininc = File.read("/var/www/roundcube/config/main.inc.php").split("?>")[0]
@@ -75,6 +71,13 @@ class Ohmd_service_email
     end
     system "chown -R www-data:www-data /var/www/roundcube" or return false
     system "chmod -R o-rwx /var/www/roundcube" or return false
+
+    # All ok, remove install files
+    File.delete "service_email/roundcube.tar.bz2"
+    File.delete "service_email/dovecot-postfix.conf"
+    File.delete "service_email/master.cf"
+    File.delete "service_email/spamassassin"
+    File.delete "service_email/amavis-15-content_filter_mode"
 
     true
   end

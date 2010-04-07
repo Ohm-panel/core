@@ -154,7 +154,7 @@ File.open("/usr/bin/ohm-install-modules", "w") { |f|
   f.puts "cd #{cfg["ohmd_path"]}"
   f.puts "./ohm-install-modules.rb"
 }
-exec "chmod ug+x /usr/bin/ohm-install-modules"
+exec "chmod u+rwx,go-rwx /usr/bin/ohm-install-modules"
 
 # Database
 # Select

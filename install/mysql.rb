@@ -2,9 +2,10 @@ PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
 
 def setup_database cfg, dialog
   # Create db and user
-  dbpwd = nil
+  dbpwd = dialog.passwordbox "Please enter the root password for mysql (root@localhost)"
+  dbpwd = nil unless system("mysql -u root -p#{dbpwd} -e exit")
   while(dbpwd.nil?) do
-    dbpwd = dialog.passwordbox "Please enter the root password for mysql (root@localhost)"
+    dbpwd = dialog.passwordbox "Please enter the root password for mysql (root@localhost)\nError. Please try again"
     dbpwd = nil unless system("mysql -u root -p#{dbpwd} -e exit")
   end
   dialog.progress(7)
