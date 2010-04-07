@@ -4,15 +4,21 @@ class Ohmd_service_email
   DES_CHARS = [('a'..'z'),('A'..'Z'),(0..9),'-','_'].inject([]) {|s,r| s+Array(r)}
 
   def self.install
-    # Install Dovecot/Postfix
-    system "apt-get install -y dovecot-postfix" or return false
+    # Install Dovecot/Postfix, ClamAV, SpamAssassin, Amavis
+    system "apt-get install -y dovecot-postfix amavisd-new spamassassin clamav-daemon pyzor razor arj cabextract cpio lha nomarch pax rar unrar unzip zip" \
+      or return false
 
     # Add user that will have sudo on deliver (Dovecot's LDA)
     system "useradd dovelda"
+    # Add amavis and clamav to their groups
+    system "adduser amavis clamav"
+    system "adduser clamav amavis"
 
     # Copy/edit configuration files
     begin
+      # Dovecot
       File.copy "service_email/dovecot-postfix.conf", "/etc/dovecot/dovecot-postfix.conf"
+      # Postfix
       File.copy "service_email/master.cf", "/etc/postfix/master.cf"
       File.open("/etc/sudoers", "a") { |f|
         f.puts "Defaults:dovelda !syslog"
@@ -25,27 +31,37 @@ class Ohmd_service_email
         f.puts "virtual_transport = dovecot"
         f.puts "virtual_mailbox_maps = hash:/etc/postfix/vmailbox"
         f.puts "virtual_alias_maps = hash:/etc/postfix/virtual"
+        f.puts "content_filter = smtp-amavis:[127.0.0.1]:10024"
       }
-      # Create an empty files to prevent crashes
+      # Create empty mailboxes/aliases/password files to prevent crashes
       File.open("/etc/ohm_email.passwd", "w") { |f| f.puts "" }
       File.open("/etc/postfix/virtual", "w") { |f| f.puts "" }
       system "postmap /etc/postfix/virtual"
       File.open("/etc/postfix/vmailbox", "w") { |f| f.puts "" }
       system "postmap /etc/postfix/vmailbox"
+      # SpamAssassin
+      File.copy "service_email/spamassassin", "/etc/default/spamassassin"
+      # Amavis
+      File.copy "service_email/amavis-15-content_filter_mode", "/etc/amavis/conf.d/15-content_filter_mode"
     rescue Exception
       return false
     end
 
     File.delete "service_email/dovecot-postfix.conf"
     File.delete "service_email/master.cf"
+    File.delete "service_email/spamassassin"
+    File.delete "service_email/amavis-15-content_filter_mode"
 
-    # Restart services
+    # (Re)start services
     system "service postfix restart" or return false
     system "service dovecot restart" or return false
+    system "service spamassassin start" or return false
+    system "service amavis restart" or return false
 
     # Install roundcube
     system "apt-get -y install php-pear php5-mcrypt php-mdb2 php-mdb2-driver-sqlite php-mail-mime php-net-smtp sqlite php5-sqlite php5-gd" or return false
     system "tar -xf service_email/roundcube.tar.bz2 -C /var/www" or return false
+    File.delete "service_email/roundcube.tar.bz2"
     des_key = Array.new(24) { DES_CHARS[ rand(DES_CHARS.size) ] }
     begin
       maininc = File.read("/var/www/roundcube/config/main.inc.php").split("?>")[0]

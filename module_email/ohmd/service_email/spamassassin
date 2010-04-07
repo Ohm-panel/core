@@ -1,0 +1,13 @@
+# This file was automatically installed by Ohm
+# Only edit this if you know what you're doing
+
+# /etc/default/spamassassin
+# Duncan Findlay
+# WARNING: please read README.spamd before using.
+# There may be security risks.
+
+ENABLED=1
+OPTIONS="--create-prefs --max-children 5 --helper-home-dir"
+PIDFILE="/var/run/spamd.pid"
+CRON=1
+
