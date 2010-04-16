@@ -1,5 +1,8 @@
 class Ohmd_bind9
   def self.exec
+    config = Configuration.all.first
+    return unless config.enable_dns
+  
     domains = Domain.all
 
     # Create /etc/bind/named.conf.local
@@ -14,7 +17,7 @@ class Ohmd_bind9
 
     # Create databases
     serial = Time.new.to_i
-    ips = self.getips
+    ips = self.getips config
     domains.each do |d|
       File.open("/etc/bind/db.#{d.domain}", "w") { |f|
         f.puts "$TTL\t7200"
@@ -39,11 +42,11 @@ class Ohmd_bind9
     system "service bind9 reload"
   end
 
-  def self.getips
-    `ifconfig | grep "inet addr"`.split("\n").
-    collect { |line| line.split(":")[1].split(" ")[0] }.
+  def self.getips config
+    #`ifconfig | grep "inet addr"`.split("\n").
+    #collect { |line| line.split(":")[1].split(" ")[0] }.
     #select { |ip| !( ip.start_with?("127") || ip.start_with?("192.168") || ip.start_with?("10") || ip.start_with?("172.16") ) }
-    select { |ip| !( ip.start_with?("127") ) }  ### FOR TESTING ONLY !!!
+    [config.ip_address]
   end
 
   def self.put_static f, ips

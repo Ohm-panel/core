@@ -1,13 +1,6 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
-  enable_www: false
-  enable_dns: false
-  enable_ssh: false
-  ip_address: MyString
+  enable_www: true
+  enable_dns: true
+  enable_ssh: true
+  ip_address: 1.2.3.4
 
-two:
-  enable_www: false
-  enable_dns: false
-  enable_ssh: false
-  ip_address: MyString

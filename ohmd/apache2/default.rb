@@ -4,6 +4,9 @@ class Ohmd_apache2
   PREFIX = "ohm-"
 
   def self.exec
+    config = Configuration.all.first
+    return unless config.enable_www
+    
     changes = false
 
     # Add/edit all sites from panel

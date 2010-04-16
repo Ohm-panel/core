@@ -1,45 +1,47 @@
 require 'test_helper'
 
 class ConfigurationsControllerTest < ActionController::TestCase
+  test "should get login" do
+    get :index
+    assert_redirected_to :controller => 'login', :action => 'index'
+  end
+
   test "should get index" do
+    login_as users(:root)
     get :index
     assert_response :success
-    assert_not_nil assigns(:configurations)
+  end
+
+  test "should refuse index" do
+    login_as users(:one)
+    get :index
+    assert_redirected_to :controller => 'dashboard'
+    assert flash[:error]
   end
 
   test "should get new" do
+    login_as users(:root)
     get :new
     assert_response :success
   end
 
-  test "should create configuration" do
-    assert_difference('Configuration.count') do
-      post :create, :configuration => { }
-    end
-
-    assert_redirected_to configuration_path(assigns(:configuration))
-  end
-
-  test "should show configuration" do
-    get :show, :id => configurations(:one).to_param
-    assert_response :success
+  test "should refuse new" do
+    login_as users(:one)
+    get :new
+    assert_redirected_to :controller => 'dashboard'
+    assert flash[:error]
   end
 
   test "should get edit" do
-    get :edit, :id => configurations(:one).to_param
+    login_as users(:root)
+    get :edit, :configuration => 1
     assert_response :success
   end
 
-  test "should update configuration" do
-    put :update, :id => configurations(:one).to_param, :configuration => { }
-    assert_redirected_to configuration_path(assigns(:configuration))
-  end
-
-  test "should destroy configuration" do
-    assert_difference('Configuration.count', -1) do
-      delete :destroy, :id => configurations(:one).to_param
-    end
-
-    assert_redirected_to configurations_path
+  test "should refuse edit" do
+    login_as users(:one)
+    get :edit, :configuration => 1
+    assert_redirected_to :controller => 'dashboard'
+    assert flash[:error]
   end
 end

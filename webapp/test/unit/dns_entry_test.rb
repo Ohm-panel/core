@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class DnsEntryTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  test "valid fixtures" do
+    assert dns_entries(:one).valid?, "fixtures: one is invalid"
   end
 end

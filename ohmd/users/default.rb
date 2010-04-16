@@ -2,6 +2,9 @@ class Ohmd_users
   QUOTA_HARD_MULT = 1.2
 
   def self.exec
+    config = Configuration.all.first
+    shell = config.enable_ssh ? "/bin/bash" : "/bin/false"
+  
     users = User.all
     users_on_system = File.read("/etc/passwd").split("\n").
                       select { |u| u.split(":")[2].to_i >= 1000 && u.split(":")[0] != "nobody" }.
@@ -11,7 +14,7 @@ class Ohmd_users
     users_to_add = users.select { |u| !u.deleted? && !users_on_system.include?(u.username) }
     users_to_add.each do |u|
       log "[users] Creating user: #{u.username}"
-      system "useradd --create-home --user-group --shell /bin/bash --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
+      system "useradd --create-home --user-group --shell #{shell} --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
         or logerror "[users] Error adding user: #{u.username}"
       (system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" \
         or logerror "[users] Error setting quota for #{u.username}") unless u.max_space == -1
@@ -38,13 +41,18 @@ class Ohmd_users
     users_to_mod = users.select { |u| !users_to_add.include?(u) && !users_to_del.include?(u) }
     users_to_mod.each do |u|
       log "[users] Modify user: #{u.username}"
-      system "usermod --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
+      system "usermod --shell #{shell} --comment \"#{u.full_name},,,\" --password \"#{u.ohmd_password}\" #{u.username}" \
         or logerror "[users] Error modifying user: #{u.username}"
       (system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" \
         or logerror "[users] Error setting quota for #{u.username}") unless u.max_space == -1
       # Make sure nobody has access to the home folder
       system "chmod -R o-rwx /home/#{u.username}/"
     end
+
+    # Root can always use SSH
+    root = users.select { |u| u.root? }.first
+    system "usermod --shell /bin/bash #{root.username}" \
+        or logerror "[users] Error modifying user: #{root.username}"
 
     # Upload disk usage for all users
     users.each do |u|
