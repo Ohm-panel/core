@@ -1,23 +1,18 @@
 <%= image_tag "icons/icontexto-webdev-file-128x128.png", :alt=>"", :class=>"bigicon" %>
 <h1>Logs</h1>
 
-<table border="0"><tr><td style="vertical-align: top; padding-right: 50px;">
+<p></p>
+<% form_for :logfile, LogFile.new, :url => { :controller => 'Logs', :action => 'index' } do |f| %>
+  <%= f.select 'id', @loglist.collect { |l| [l.name, l.id] },
+                     { :selected => @logfile.nil? ? nil : @logfile.id  },
+                     { :onchange => "javascript:submit();" } %>
+  <%= submit_tag 'Open' %>
+<% end %>
 
-<ul>
-  <li><%= link_to "Ohm Panel", :action => 'index' %></li>
-  <% @loglist.each do |l| %>
-    <li><%= link_to l, :action => 'index', :file => l %></li>
-  <% end %>
-</ul>
-
-</td><td style="vertical-align: top;">
-
-<h2><%=h @logfile %></h2>
+<h2>
+  <%=h "#{@logfile.name} (#{@logfile.path})" if @logfile %>
+</h2>
 
 <pre>
-<%= @logtext %>
+  <%=h @logtext %>
 </pre>
-
-
-</td></tr></table>
-
