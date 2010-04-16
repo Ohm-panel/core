@@ -48,8 +48,7 @@ class LoginController < ApplicationController
 
     if @user.save
       login_as @user
-      flash[:notice] = 'Installation complete'
-      redirect_to :controller => "dashboard", :action => "index"
+      redirect_to :controller => "configurations", :action => "new"
     else
       render :action => "setup"
     end

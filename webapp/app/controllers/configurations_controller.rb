@@ -21,8 +21,8 @@ class ConfigurationsController < ApplicationController
     @configuration = Configuration.new(params[:configuration])
 
     if @configuration.save
-      flash[:notice] = 'Configuration was successfully created.'
-      redirect_to :action => 'index'
+      flash[:notice] = 'Installation complete'
+      redirect_to :controller => 'dashboard', :action => 'index'
     else
       render :action => 'new'
     end

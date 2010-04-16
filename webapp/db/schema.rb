@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100416120556) do
+ActiveRecord::Schema.define(:version => 20100416150602) do
 
   create_table "configurations", :force => true do |t|
     t.boolean  "enable_www"

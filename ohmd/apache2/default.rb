@@ -4,6 +4,12 @@ class Ohmd_apache2
   PREFIX = "ohm-"
 
   def self.exec
+    # Make sure we can read the logs from the panel
+    LogFile.all.each do |l|
+      system "setfacl -m u:www-data:r #{l.path}"
+    end
+
+    # Stop here if we don't want a web server
     config = Configuration.all.first
     return unless config.enable_www
     
@@ -88,9 +94,6 @@ class Ohmd_apache2
         changes = true
       end
     end
-
-    # Make sure we can read the logs from the panel
-    system "setfacl -R -m u:www-data:r /var/log"
 
     # Reload Apache
     system "service apache2 reload" if changes
