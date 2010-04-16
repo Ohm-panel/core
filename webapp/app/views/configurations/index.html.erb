@@ -1,0 +1,25 @@
+<%= image_tag 'icons/icontexto-webdev-config-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Global configuration</h1>
+
+<p>
+  <b>Enable web server:</b>
+  <%= @configuration.enable_www ? "yes" : "no" %>
+</p>
+
+<p>
+  <b>Enable DNS server:</b>
+  <%= @configuration.enable_dns ? "yes" : "no" %>
+</p>
+
+<p>
+  <b>Enable SSH login:</b>
+  <%= @configuration.enable_ssh ? "yes" : "no" %>
+</p>
+
+<p>
+  <b>Server IP address:</b>
+  <%=h @configuration.ip_address %>
+</p>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action') + 'Edit',
+    edit_configuration_path(@configuration) %>

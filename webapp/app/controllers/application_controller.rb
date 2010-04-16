@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   @@timeout = 600
 
+private
+
   def authenticate
     lu = findsession
     if lu
@@ -68,12 +70,6 @@ class ApplicationController < ActionController::Base
       # Bogus session
       nil
     end
-  end
-
-  # Verify ohmd
-  def authenticate_ohmd(passphrase)
-    ok = passphrase == "kikoolol"
-    render :controller => "Ohmd", :action => "badlogin" unless ok
   end
 end
 

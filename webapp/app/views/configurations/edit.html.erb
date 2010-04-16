@@ -1,0 +1,28 @@
+<%= image_tag 'icons/icontexto-webdev-config-128x128.png', :alt => '', :class => 'bigicon' %>
+<h1>Editing configuration</h1>
+
+<% form_for(@configuration) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :enable_www, 'Enable web server' %>
+    <%= f.check_box :enable_www %>
+  </p>
+  <p>
+    <%= f.label :enable_dns, 'Enable DNS server' %>
+    <%= f.check_box :enable_dns %>
+  </p>
+  <p>
+    <%= f.label :enable_ssh, 'Enable SSH login' %>
+    <%= f.check_box :enable_ssh %>
+  </p>
+  <p>
+    <%= f.label :ip_address, 'Server IP address' %>
+    <%= f.text_field :ip_address %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', configurations_path %>

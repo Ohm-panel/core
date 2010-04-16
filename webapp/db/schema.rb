@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330221923) do
+ActiveRecord::Schema.define(:version => 20100416120556) do
+
+  create_table "configurations", :force => true do |t|
+    t.boolean  "enable_www"
+    t.boolean  "enable_dns"
+    t.boolean  "enable_ssh"
+    t.string   "ip_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "dns_entries", :force => true do |t|
     t.integer  "domain_id"
@@ -31,6 +40,13 @@ ActiveRecord::Schema.define(:version => 20100330221923) do
   create_table "domains_services", :id => false, :force => true do |t|
     t.integer "domain_id"
     t.integer "service_id"
+  end
+
+  create_table "log_files", :force => true do |t|
+    t.string   "name"
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "logged_users", :force => true do |t|
