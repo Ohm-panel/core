@@ -1,10 +1,10 @@
 TODO
 - SSL apache, mail
-- unlimited if blank (view)
-- migration logs dans e-mail
 - FTP
 
 TOTEST
 - Joomla (mods PHP)
 - Config (install, prise en compte)
 - Logs (ACLs)
+- migration logs dans e-mail
+- unlimited if blank (view)
