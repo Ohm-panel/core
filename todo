@@ -1,10 +1,8 @@
 TODO
 - SSL apache, mail
 - FTP
+- Install modules: changer les numéros de migration
+- PHP display errors off
 
 TOTEST
-- Joomla (mods PHP)
-- Config (install, prise en compte)
 - Logs (ACLs)
-- migration logs dans e-mail
-- unlimited if blank (view)
