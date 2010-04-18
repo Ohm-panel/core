@@ -60,14 +60,21 @@ class ServicesController < ApplicationController
     system "chmod -R go-rwx ./"
 
     # Migrate DB
-    dbversion = `rake db:version`.split(": ")[1].to_i
+    dbversion = `rake db:version RAILS_ENV=#{RAILS_ENV}`.split(": ")[1].to_i
     # Renumber migrations to avoid conflicts
     newversion = dbversion + 1
-    Dir.entries("#{extractpath}/webapp/db/migrate").each do |m|
-      splitname = m.split(/\A\d+/)
-      newname = "#{newversion}#{splitname[1]}"
-      File.rename("db/migrate/#{m}"; "db/migrate/#{newname}")
-      newversion += 1
+    begin
+      Dir.entries("#{extractpath}/webapp/db/migrate").each do |m|
+        next unless File.file? "#{extractpath}/webapp/db/migrate/#{m}"
+        splitname = m.split(/\A\d+/)
+        newname = "#{newversion}#{splitname[1]}"
+        File.rename("db/migrate/#{m}", "db/migrate/#{newname}")
+        newversion += 1
+      end
+    rescue Exception
+      flash[:error] = 'An error occured during migration preparation. Please verify the uploaded module is for this version of Ohm'
+      redirect_to :action => "new"
+      return
     end
     # Actual migration
     migrateok = system "rake db:migrate RAILS_ENV=#{RAILS_ENV}"

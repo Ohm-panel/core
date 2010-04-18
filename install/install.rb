@@ -185,7 +185,7 @@ system cfg["#{dbtype}_packages"]
 dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
 setup_database cfg, dialog
-exec "cd #{cfg["panel_path"]}; rake db:schema:load RAILS_ENV=production"
+exec "cd #{cfg["panel_path"]}; rake db:setup RAILS_ENV=production; rake db:migrate RAILS_ENV=production"
 
 
 # Set permissions

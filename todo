@@ -1,10 +1,8 @@
 TODO
-- Quota e-mail
+- Permissions ClamAV
 - FTP
 - Install modules: content check
 - SSL apache, mail
 
 TOTEST
-- Logs (ACLs)
-- PHP display errors off
-- Install modules: changer les numéros de migration
+- Quota e-mail
