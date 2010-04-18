@@ -1,8 +1,10 @@
 TODO
-- SSL apache, mail
+- Quota e-mail
 - FTP
-- Install modules: changer les numéros de migration
-- PHP display errors off
+- Install modules: content check
+- SSL apache, mail
 
 TOTEST
 - Logs (ACLs)
+- PHP display errors off
+- Install modules: changer les numéros de migration

@@ -22,6 +22,8 @@ apache_conf: /etc/apache2/apache2.conf
 apache_sites: /etc/apache2/sites-available
 apache_restart: service apache2 restart
 
+php_ohm_ini: /etc/php5/apache2/conf.d/ohm.ini
+
 databases:
   - mysql
   - sqlite3

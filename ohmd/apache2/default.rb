@@ -5,6 +5,8 @@ class Ohmd_apache2
 
   def self.exec
     # Make sure we can read the logs from the panel
+    system "setfacl -R -m u:www-data:rx /var/log"
+    system "setfacl -R -m d:u:www-data:rx /var/log"
     LogFile.all.each do |l|
       system "setfacl -m u:www-data:r #{l.path}"
     end

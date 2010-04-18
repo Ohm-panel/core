@@ -53,18 +53,27 @@ class ServicesController < ApplicationController
     cpok = system "cp -rp #{extractpath}/webapp/* ./"
     unless cpok
       system "rm -rf #{extractpath}"
-      flash[:error] = 'An error occured during installation. Please verify the uploaded module is for this version of Ohm'
+      flash[:error] = 'An error occured during file copy. Please verify the uploaded module is for this version of Ohm'
       redirect_to :action => "new"
       return
     end
     system "chmod -R go-rwx ./"
 
     # Migrate DB
-    dbversion = `rake db:version`.split(": ")[1]
+    dbversion = `rake db:version`.split(": ")[1].to_i
+    # Renumber migrations to avoid conflicts
+    newversion = dbversion + 1
+    Dir.entries("#{extractpath}/webapp/db/migrate").each do |m|
+      splitname = m.split(/\A\d+/)
+      newname = "#{newversion}#{splitname[1]}"
+      File.rename("db/migrate/#{m}"; "db/migrate/#{newname}")
+      newversion += 1
+    end
+    # Actual migration
     migrateok = system "rake db:migrate RAILS_ENV=#{RAILS_ENV}"
     unless migrateok
       system "rake db:migrate RAILS_ENV=#{RAILS_ENV} VERSION=#{dbversion}"
-      flash[:error] = 'An error occured during installation. Please verify the uploaded module is for this version of Ohm'
+      flash[:error] = 'An error occured during database migration. Please verify the uploaded module is for this version of Ohm'
       redirect_to :action => "new"
       return
     end

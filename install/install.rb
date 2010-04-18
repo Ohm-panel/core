@@ -58,6 +58,7 @@ def exec(cmd)
   system "(#{cmd}) >> #{LOG} 2>&1" or raise RuntimeError.new("Error during installation. Please see #{LOG} for details")
 end
 
+
 # Welcome
 File.open(LOG, "w") { |f| f.puts "Install starting (#{Time.new})" }
 dialog = Dialog.new
@@ -65,6 +66,7 @@ go = dialog.yesno("Welcome to the Ohm installer for #{cfg["distro"]}.\n
 Please verify this is your distribution and you are connected to the internet.
 Proceed?")
 exit 1 unless go
+
 
 # Check internet connection
 dialog.progress(0, "Checking internet connection...")
@@ -74,14 +76,17 @@ unless system "ping -c 2 google.com >> /dev/null"
   exit 1
 end
 
+
 # Phusion Passenger (mod_rails)
 dialog.progress(0, "Preparing Phusion Passenger (mod_rail)")
 exec cfg["mod_rails"]
+
 
 # Update and install packages
 dialog.progress(1, "Installing required packages")
 exec cfg["packages_update"]
 system cfg["packages"] # We don't use exec because input might be needed
+
 
 # Configure mount points for quota and ACL
 dialog.progress(2, "Configuring packages")
@@ -103,16 +108,19 @@ fstab.each_line do |line|
   end
 end
 File.open("/etc/fstab", "w") { |f| f.print newfstab }
+
 # Remount modified mountpoints
 toremount.each do |mp|
   system "mount -o remount #{mp}"
 end
+
 
 # Install requires Gems
 dialog.progress(3, "Installing required gems")
 exec "#{cfg["gem"]} install rails -v 2.3.4 --no-rdoc --no-ri"
 dialog.progress(3.8)
 exec "#{cfg["gem"]} install fastthread --no-rdoc --no-ri"
+
 
 # Configure Apache
 dialog.progress(4, "Configuring Apache")
@@ -126,13 +134,19 @@ vhost = "<VirtualHost *:80>
 File.open("#{cfg["apache_sites"]}/ohm", "w") { |f| f.print vhost }
 apacheconf = File.read(cfg["apache_conf"])
 File.open(cfg["apache_conf"], "w") { |f|
-  f.print apacheconf
-  f.print "\nServerName 0.0.0.0\n"
-  f.print "NameVirtualHost *:80\n"
+  f.puts apacheconf
+  f.puts "ServerName 0.0.0.0"
+  f.puts "NameVirtualHost *:80"
 }
 exec "a2ensite ohm"
 exec "a2dissite default"
 exec cfg["apache_restart"]
+
+# Configure PHP
+File.open(cfg["php_ohm_ini"], "w") { |f|
+  f.puts "display_errors = Off"
+}
+
 
 # Copy files
 dialog.progress(5, "Copying Ohm files")
@@ -142,12 +156,14 @@ File.makedirs cfg["ohmd_path"]
 exec "cp -rp ohmd/* #{cfg["ohmd_path"]}/
       chmod u+x #{cfg["ohmd_path"]}/ohmd.rb"
 
+
 # Generate Ohmd config
 dialog.progress(6, "Generating Ohmd configuration")
 File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
-  f.print "panel_path: #{cfg["panel_path"]}\n"
-  f.print "os: #{distro}\n"
+  f.puts "panel_path: #{cfg["panel_path"]}"
+  f.puts "os: #{distro}"
 }
+
 # Create install-modules script
 File.open("/usr/bin/ohm-install-modules", "w") { |f|
   f.puts "#!/bin/sh"
@@ -156,16 +172,21 @@ File.open("/usr/bin/ohm-install-modules", "w") { |f|
 }
 exec "chmod u+rwx,go-rwx /usr/bin/ohm-install-modules"
 
+
 # Database
+
 # Select
 dbtype = dialog.select "Please select the database you wish to use", cfg["databases"]
+
 # Install packages
 system cfg["#{dbtype}_packages"]
+
 # Load installer and go
 dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
 setup_database cfg, dialog
 exec "cd #{cfg["panel_path"]}; rake db:schema:load RAILS_ENV=production"
+
 
 # Set permissions
 system "chown -R www-data:www-data #{cfg["panel_path"]}"
@@ -173,7 +194,8 @@ system "chown -R root:root #{cfg["ohmd_path"]}"
 system "chmod -R go-rwx #{cfg["panel_path"]}"
 system "chmod -R go-rwx #{cfg["ohmd_path"]}"
 
-# Finished, reboot
+
+# Finished
 dialog.progress(STEPS, "Finished")
 dialog.message("Installation complete!")
 dialog.exit
