@@ -109,6 +109,8 @@ class Ohmd_service_email
       uid = userinfo[0].split(":")[2]
       gid = userinfo[0].split(":")[3]
       maildir = "/home/#{username}/mail/#{m.domain.domain}/#{m.address}"
+      size = (m.size == -1 ? 0 : m.size)
+      
       File.makedirs maildir
       system "chown -R #{username}:#{username} /home/#{username}/mail/"
       system "setfacl -m u:postfix:rwx /home/#{username}"
@@ -118,7 +120,7 @@ class Ohmd_service_email
       system "setfacl -m d:u:postfix:rwx /home/#{username}/mail/"
       system "setfacl -m d:u:dovecot:rwx /home/#{username}/mail/"
 
-      newpasswd << "#{m.full_address}:#{m.password}:#{uid}:#{gid}::#{maildir}\n"
+      newpasswd << "#{m.full_address}:#{m.password}:#{uid}:#{gid}::#{maildir}::userdb_quota_rule=*:storage=#{size}M\n"
     end
     File.open("/etc/ohm_email.passwd", "w") { |f| f.print newpasswd }
 
