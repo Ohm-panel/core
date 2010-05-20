@@ -11,6 +11,8 @@ class Ohmd_service_email
 
     # Add user that will have sudo on deliver (Dovecot's LDA)
     system "useradd dovelda"
+    # Add ClamAV user to Amavis group (for file permissions)
+    system "adduser clamav amavis"
 
     # Copy/edit configuration files
     begin
@@ -42,8 +44,8 @@ class Ohmd_service_email
       # Amavis
       File.copy "service_email/amavis-15-content_filter_mode", "/etc/amavis/conf.d/15-content_filter_mode"
       # ClamAV
-      newclamconf = File.read("/etc/clamav/clamd.conf").split("User clamav").join("User amavis")
-      File.open("/etc/clamav/clamd.conf", "w") { |f| f.puts newclamconf }
+      #newclamconf = File.read("/etc/clamav/clamd.conf").split("User clamav").join("User amavis")
+      #File.open("/etc/clamav/clamd.conf", "w") { |f| f.puts newclamconf }
     rescue Exception
       return false
     end

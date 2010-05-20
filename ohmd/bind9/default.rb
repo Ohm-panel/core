@@ -21,7 +21,7 @@ class Ohmd_bind9
     domains.each do |d|
       File.open("/etc/bind/db.#{d.domain}", "w") { |f|
         f.puts "$TTL\t7200"
-        f.puts "@\tIN\tSOA\tns1.#{d.domain}.\twebmaster.#{d.domain}. ("
+        f.puts "@\tIN\tSOA\tns1.#{d.domain}.\t#{d.user.email.split("@").join(".")}. ("
         f.puts "\t\t\t#{serial}\t; Serial"
         f.puts "\t\t\t2H\t; Refresh"
         f.puts "\t\t\t60M\t; Retry"
@@ -43,9 +43,6 @@ class Ohmd_bind9
   end
 
   def self.getips config
-    #`ifconfig | grep "inet addr"`.split("\n").
-    #collect { |line| line.split(":")[1].split(" ")[0] }.
-    #select { |ip| !( ip.start_with?("127") || ip.start_with?("192.168") || ip.start_with?("10") || ip.start_with?("172.16") ) }
     [config.ip_address]
   end
 

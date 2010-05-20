@@ -1,8 +1,9 @@
 TODO
-- Permissions ClamAV
 - FTP
 - Install modules: content check
 - SSL apache, mail
 
 TOTEST
 - Quota e-mail
+- Permissions ClamAV
+- E-mail utilisateur dans BIND
