@@ -132,10 +132,8 @@ vhost = "<VirtualHost *:80>
   </Directory>
 </VirtualHost>"
 File.open("#{cfg["apache_sites"]}/ohm", "w") { |f| f.print vhost }
-apacheconf = File.read(cfg["apache_conf"])
-File.open(cfg["apache_conf"], "w") { |f|
-  f.puts apacheconf
-  f.puts "ServerName 0.0.0.0"
+File.open(cfg["apache_conf"], "a") { |f|
+  f.puts "\nServerName 0.0.0.0"
   f.puts "NameVirtualHost *:80"
 }
 exec "a2ensite ohm"
@@ -170,7 +168,7 @@ File.open("/usr/bin/ohm-install-modules", "w") { |f|
   f.puts "cd #{cfg["ohmd_path"]}"
   f.puts "./ohm-install-modules.rb"
 }
-exec "chmod u+rwx,go-rwx /usr/bin/ohm-install-modules"
+exec "chmod u+rwx,go-wx /usr/bin/ohm-install-modules"
 
 
 # Database
@@ -191,8 +189,17 @@ exec "cd #{cfg["panel_path"]}; rake db:setup RAILS_ENV=production; rake db:migra
 # Set permissions
 system "chown -R www-data:www-data #{cfg["panel_path"]}"
 system "chown -R root:root #{cfg["ohmd_path"]}"
-system "chmod -R go-rwx #{cfg["panel_path"]}"
-system "chmod -R go-rwx #{cfg["ohmd_path"]}"
+system "chmod -R go-wx #{cfg["panel_path"]}"
+system "chmod -R go-wx #{cfg["ohmd_path"]}"
+
+
+# Add CRON job for daemon
+File.open(cfg["crontab"], "a") { |f|
+  f.puts "\n# OHM DAEMON"
+  f.puts "# Removing this line will prevent Ohm from working correctly"
+  f.puts "# Do not edit this line unless you know exactly what you're doing"
+  f.puts "*/5 * * * * root ruby #{cfg["ohmd_path"]}/ohmd.rb"
+}
 
 
 # Finished

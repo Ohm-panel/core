@@ -31,5 +31,5 @@ databases:
 mysql_packages: apt-get -y install mysql-server libmysql-ruby
 sqlite3_packages: apt-get -y install sqlite3 libsqlite3-ruby
 
-reboot: reboot
+crontab: /etc/crontab
 
