@@ -25,8 +25,7 @@ class PureftpdAccount < ActiveRecord::Base
   end
 
   def before_save
-    self.password = User.shadow_password(password).split("\\$").join("$") if password_confirmation
-    #self.size = self.domain.user.max_space if self.size.nil?
+    self.password = User.shadow_password(password) if password_confirmation
   end
 end
 

@@ -58,11 +58,11 @@ class Ohmd_pureftpd
       gid = userinfo[0].split(":")[3]
       
       # Add a default account for user
-      newpasswd << "#{username}:#{u.user.ohmd_password}:#{uid}:#{gid}::/home/#{username}/./::::::::::::\n"
+      newpasswd << "#{username}:#{u.user.ohmd_password.split("\\$").join("$")}:#{uid}:#{gid}::/home/#{username}/./::::::::::::\n"
       
       # Add one line per account
       u.pureftpd_accounts.each do |a|
-        newpasswd << "#{a.full_username}:#{a.password}:#{uid}:#{gid}::/home/#{username}/#{a.root}/./::::::::::::\n"
+        newpasswd << "#{a.full_username}:#{a.password.split("\\$").join("$")}:#{uid}:#{gid}::/home/#{username}/#{a.root}/./::::::::::::\n"
       end
     end
     File.open("/etc/pure-ftpd/pureftpd.passwd", "w") { |f| f.puts newpasswd }
