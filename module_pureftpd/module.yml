@@ -1,0 +1,8 @@
+# Pure-FTPd
+
+name: FTP
+tech_name: FTP module using Pure-FTPd [http://www.pureftpd.org]
+description: Installation and management of an FTP server
+by_domain: false
+controller: pureftpd
+

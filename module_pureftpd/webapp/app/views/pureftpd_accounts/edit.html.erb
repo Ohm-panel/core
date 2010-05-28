@@ -1,0 +1,26 @@
+<%= image_tag "icons/icontexto-webdev-file-128x128.png", :alt=>"", :class=>"bigicon" %>
+<h1>Editing <%= @account.full_username %></h1>
+
+<% form_for(@account, :url => { :controller => 'pureftpd_accounts', :action => 'update', :id => @account.id }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label "Root directory" %><br />
+    /home/<%=h @logged_user.username %>/<%= f.text_field :root %>
+  </p>
+  <p>
+    <%= f.label 'New password' %> <small>(leave blank to keep current one)</small><br />
+    <%= f.password_field :password, :value => '' %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, :value => '' %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back',
+            :controller => 'pureftpd_accounts', :action => 'index' %>
+

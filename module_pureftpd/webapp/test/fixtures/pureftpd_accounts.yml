@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  username: one
+  root: one
+  password: password
+  pureftpd_user_id: 1
+  domain_id: 1
+
+two:
+  username: two
+  root: two
+  password: password
+  pureftpd_user_id: 1
+  domain_id: 1

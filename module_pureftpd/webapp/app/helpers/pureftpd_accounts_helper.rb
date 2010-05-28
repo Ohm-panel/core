@@ -1,0 +1,2 @@
+module PureftpdAccountsHelper
+end

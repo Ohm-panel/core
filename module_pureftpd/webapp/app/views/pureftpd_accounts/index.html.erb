@@ -1,0 +1,40 @@
+<%= image_tag "icons/icontexto-webdev-file-128x128.png", :alt=>"", :class=>"bigicon" %>
+<h1>Your FTP accounts</h1>
+
+<p>
+  Quota usage: <%= print_quota @logged_pureftpd_user.used_accounts_total, @logged_pureftpd_user.max_accounts, '' %><br/>
+</p>
+
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'New account',
+              :controller => 'pureftpd_accounts', :action => 'new' %>
+</p>
+
+<div class="frame">
+<% if @accounts.count > 0 %>
+  <table class="indextable">
+    <tr>
+      <th>Username</th>
+      <th>Root directory</th>
+      <th>Actions</th>
+    </tr>
+
+  <% @accounts.each do |account| %>
+    <tr>
+      <td><%=h account.full_username %></td>
+      <td><%=h "/home/" + @logged_pureftpd_user.user.username + "/" + account.root %></td>
+      <td>
+        <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => 'Edit', :title => 'Edit', :class => 'action'),
+                    :controller => 'pureftpd_accounts', :id => account.id, :action => 'edit' %>
+        <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => 'Delete', :title => 'Delete', :class => 'action'),
+                    {:controller => 'pureftpd_accounts', :id => account.id, :action => 'destroy'}, :confirm => 'Are you sure?' %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <br />
+<% else %>
+  No accounts yet
+<% end %>
+</div>
+

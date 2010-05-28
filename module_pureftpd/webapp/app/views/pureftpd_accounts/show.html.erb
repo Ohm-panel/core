@@ -1,0 +1,13 @@
+<p>
+  <b>Username:</b>
+  <%=h @account.full_username %>
+</p>
+
+<p>
+  <b>Root directory:</b>
+  <%=h "/home/" + @account.pureftpd_user.user.username + "/" + @account.root %>
+</p>
+
+
+<%= link_to 'Edit', edit_pureftpd_account_path(@account) %> |
+<%= link_to 'Back', pureftpd_accounts_path %>

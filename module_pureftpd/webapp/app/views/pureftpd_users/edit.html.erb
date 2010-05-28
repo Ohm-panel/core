@@ -1,0 +1,16 @@
+<h1>Editing FTP service for <%= @pureftpd_user.user.full_name %></h1>
+
+<% form_for(@pureftpd_user, :url => { :controller => 'pureftpd_users', :action => 'update', :id => @pureftpd_user.id }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :max_accounts %> (leave blank or set to -1 for unlimited)<br />
+    <%= f.text_field :max_accounts, :size => 15 %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', @pureftpd_user.user %>
+

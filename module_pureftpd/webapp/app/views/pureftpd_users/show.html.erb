@@ -1,0 +1,13 @@
+<h1>FTP service for <%= @pureftpd_user.user.full_name %></h1>
+
+<p>
+  <b>Accounts:</b>
+  <%= print_quota @pureftpd_user.used_accounts_total, @pureftpd_user.max_accounts, '' %>
+</p>
+
+<p>
+  <%= link_to (image_tag 'icons/icontexto-webdev-config-032x032.png', :alt => '', :class => 'action') + 'Edit',
+              :controller => 'pureftpd_users', :action => 'edit', :id => @pureftpd_user.to_param %><br/>
+  <%= link_to (image_tag 'icons/icontexto-webdev-arrow-left-032x032.png', :alt => '', :class => 'action') + 'Back', @pureftpd_user.user %>
+</p>
+
