@@ -14,7 +14,11 @@ class Ohmd_pureftpd
     end
     
     # Enable PureDB auth (virtual users)
-    system "ln -s ../conf/PureDB /etc/pure-ftpd/auth/75pdb" \
+    system "ln -fs ../conf/PureDB /etc/pure-ftpd/auth/75pdb" \
+      or return false
+      
+    # Generate initial PureDB, or else server refuses to start
+    system "pure-pw mkdb" \
       or return false
       
     # Restart FTP server

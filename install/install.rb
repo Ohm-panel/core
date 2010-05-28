@@ -198,7 +198,7 @@ File.open(cfg["crontab"], "a") { |f|
   f.puts "\n# OHM DAEMON"
   f.puts "# Removing this line will prevent Ohm from working correctly"
   f.puts "# Do not edit this line unless you know exactly what you're doing"
-  f.puts "*/5 * * * * root ruby #{cfg["ohmd_path"]}/ohmd.rb"
+  f.puts "*/5 * * * * root (cd #{cfg["ohmd_path"]} && ruby ohmd.rb >> /var/log/ohmd.log 2>&1)"
 }
 
 

@@ -63,6 +63,7 @@ class ServicesController < ApplicationController
     dbversion = `rake db:version RAILS_ENV=#{RAILS_ENV}`.split(": ")[1].to_i
     # Renumber migrations to avoid conflicts
     newversion = dbversion + 1
+    migrations = []
     begin
       Dir.entries("#{extractpath}/webapp/db/migrate").each do |m|
         next unless File.file? "#{extractpath}/webapp/db/migrate/#{m}"
@@ -70,6 +71,7 @@ class ServicesController < ApplicationController
         newname = "#{newversion}#{splitname[1]}"
         File.rename("db/migrate/#{m}", "db/migrate/#{newname}")
         newversion += 1
+        migrations << newname
       end
     rescue Exception
       flash[:error] = 'An error occured during migration preparation. Please verify the uploaded module is for this version of Ohm'
@@ -92,6 +94,7 @@ class ServicesController < ApplicationController
       @service.daemon_installed = false
       @service.deleted = false
       @service.install_files = extractpath
+      @service.migrations = migrations.join(",")
       @service.save or raise Exception
       @logged_user.services << @service
       @logged_user.save or raise Exception
@@ -109,8 +112,22 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.xml
   def destroy
+    # Mark service as deleted
     @service = Service.find(params[:id])
     @service.update_attribute(:deleted, true)
+    
+    # Undo migrations and remove files
+    migrations = @service.migrations.split(",")
+    migrations.each do |m|
+      version = m.split("_")[0]
+      migrateok = system "rake db:migrate:undo RAILS_ENV=#{RAILS_ENV} VERSION=#{version}"
+      unless migrateok
+        flash[:error] = 'An error occured during database restore!'
+        redirect_to :action => "index"
+        return
+      end
+      File.delete "db/migrate/#{m}"
+    end
 
     redirect_to services_url
   end

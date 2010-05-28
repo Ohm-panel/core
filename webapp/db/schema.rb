@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 26) do
+ActiveRecord::Schema.define(:version => 27) do
 
   create_table "configurations", :force => true do |t|
     t.boolean  "enable_www"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 26) do
     t.boolean  "daemon_installed", :default => false
     t.string   "install_files"
     t.boolean  "deleted",          :default => false
+    t.string   "migrations"
   end
 
   create_table "services_users", :id => false, :force => true do |t|

@@ -1,6 +1,7 @@
 class InitializeLogs < ActiveRecord::Migration
   def self.up
-    LogFile.create :name => "Ohm web panel", :path => "log/production.log"
+    LogFile.create :name => "Ohm web panel", :path => "/var/www/ohm/log/production.log"
+    LogFile.create :name => "Ohm daemon", :path => "/var/log/ohmd.log"
     LogFile.create :name => "Apache error", :path => "/var/log/apache2/error.log"
     LogFile.create :name => "Apache access", :path => "/var/log/apache2/access.log"
     LogFile.create :name => "Syslog", :path => "/var/log/syslog"
