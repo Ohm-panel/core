@@ -90,6 +90,9 @@ class Ohmd_service_email
     DnsEntry.all.select { |e| e.creator=="service_email" }.each do |d|
       d.destroy
     end
+    
+    # Remove postfix and dovecot
+    system "apt-get remove -y dovecot-postfix"
   end
 
 

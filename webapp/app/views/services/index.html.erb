@@ -14,7 +14,7 @@
   </p>
   <p>
     <%= link_to (image_tag 'icons/icontexto-webdev-remove-032x032.png', :alt => '', :class => 'action') + 'Remove this module',
-                service, :method => 'delete', :confirm => 'This probably has a LOT of consequences! Are you sure?' %>
+                service, :method => 'delete', :confirm => 'This can have a LOT of consequences! It is probably safer to remove the service from your users and keep it installed. If you do remove it, please also run a "clean" action with your packages manager (e.g. apt-get autoremove). Are you sure?' %>
   </p>
   <br /><br />
 <% end %>
