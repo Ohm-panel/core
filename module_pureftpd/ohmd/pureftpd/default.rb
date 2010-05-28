@@ -18,6 +18,7 @@ class Ohmd_pureftpd
       or return false
       
     # Generate initial PureDB, or else server refuses to start
+    File.open("/etc/pure-ftpd/pureftpd.passwd", "w") { |f| f.puts "" }
     system "pure-pw mkdb" \
       or return false
       
@@ -64,6 +65,7 @@ class Ohmd_pureftpd
         newpasswd << "#{a.full_username}:#{a.password}:#{uid}:#{gid}::/home/#{username}/#{a.root}/./::::::::::::\n"
       end
     end
+    File.open("/etc/pure-ftpd/pureftpd.passwd", "w") { |f| f.puts newpasswd }
     
     # Add DNS entries
     PureftpdAccount.all.collect { |a| a.domain }.uniq.each do |dom|

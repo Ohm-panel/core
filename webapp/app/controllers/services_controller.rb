@@ -120,7 +120,7 @@ class ServicesController < ApplicationController
     migrations = @service.migrations.split(",")
     migrations.each do |m|
       version = m.split("_")[0]
-      migrateok = system "rake db:migrate:undo RAILS_ENV=#{RAILS_ENV} VERSION=#{version}"
+      migrateok = system "rake db:migrate:down RAILS_ENV=#{RAILS_ENV} VERSION=#{version}"
       unless migrateok
         flash[:error] = 'An error occured during database restore!'
         redirect_to :action => "index"
