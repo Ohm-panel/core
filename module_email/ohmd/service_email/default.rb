@@ -18,6 +18,7 @@ class Ohmd_service_email
     begin
       # Dovecot
       File.copy "service_email/dovecot-postfix.conf", "/etc/dovecot/dovecot-postfix.conf"
+      
       # Postfix
       File.copy "service_email/master.cf", "/etc/postfix/master.cf"
       File.open("/etc/sudoers", "a") { |f|
@@ -33,19 +34,21 @@ class Ohmd_service_email
         f.puts "virtual_alias_maps = hash:/etc/postfix/virtual"
         f.puts "content_filter = smtp-amavis:[127.0.0.1]:10024"
       }
+      changedest = File.read("/etc/postfix/main.cf").split(/\n\s*mydestination.*\n/).join("\nmydestination = localhost, localhost.localdomain\n")
+      File.open("/etc/postfix/main.cf", "w") { |f| f.puts changedest }
+      
       # Create empty mailboxes/aliases/password files to prevent crashes
       File.open("/etc/ohm_email.passwd", "w") { |f| f.puts "" }
       File.open("/etc/postfix/virtual", "w") { |f| f.puts "" }
       system "postmap /etc/postfix/virtual"
       File.open("/etc/postfix/vmailbox", "w") { |f| f.puts "" }
       system "postmap /etc/postfix/vmailbox"
+      
       # SpamAssassin
       File.copy "service_email/spamassassin", "/etc/default/spamassassin"
+      
       # Amavis
       File.copy "service_email/amavis-15-content_filter_mode", "/etc/amavis/conf.d/15-content_filter_mode"
-      # ClamAV
-      #newclamconf = File.read("/etc/clamav/clamd.conf").split("User clamav").join("User amavis")
-      #File.open("/etc/clamav/clamd.conf", "w") { |f| f.puts newclamconf }
     rescue Exception
       return false
     end
@@ -58,8 +61,10 @@ class Ohmd_service_email
     system "service amavis restart" or return false
 
     # Install roundcube
-    system "apt-get -y install php-pear php5-mcrypt php-mdb2 php-mdb2-driver-sqlite php-mail-mime php-net-smtp sqlite php5-sqlite php5-gd" or return false
-    system "tar -xf service_email/roundcube.tar.bz2 -C /var/www" or return false
+    system "apt-get -y install php-pear php5-mcrypt php-mdb2 php-mdb2-driver-sqlite php-mail-mime php-net-smtp sqlite php5-sqlite php5-gd" \
+      or return false
+    system "tar -xf service_email/roundcube.tar.bz2 -C /var/www" \
+      or return false
     des_key = Array.new(24) { DES_CHARS[ rand(DES_CHARS.size) ] }
     begin
       maininc = File.read("/var/www/roundcube/config/main.inc.php").split("?>")[0]
@@ -91,8 +96,10 @@ class Ohmd_service_email
       d.destroy
     end
     
-    # Remove postfix and dovecot
+    # Remove Dovecot/Postfix and RoundCube
+    # We leave Amavis, Spamassassin and ClamAV in case they are in use by other applications
     system "apt-get remove -y dovecot-postfix"
+    system "rm -rf /var/www/roundcube"
   end
 
 
