@@ -1,8 +1,0 @@
-# Dovecot/Postfix/...
-
-name: E-mail
-tech_name: Dovecot/Postfix e-mail module
-description: Allows users to create multiple mailboxes and aliases, supports quota for size and message count
-by_domain: false
-controller: service_email
-
