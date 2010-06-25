@@ -1,3 +1,23 @@
+# Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
+# E-mail module daemon
+#
+# Copyright (C) 2009-2010 UMONS <http://www.umons.ac.be>
+#
+# This file is part of Ohm.
+#
+# Ohm is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Ohm is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Ohm. If not, see <http://www.gnu.org/licenses/>.
+
 require 'ftools'
 
 class Ohmd_service_email
@@ -18,7 +38,7 @@ class Ohmd_service_email
     begin
       # Dovecot
       File.copy "service_email/dovecot-postfix.conf", "/etc/dovecot/dovecot-postfix.conf"
-      
+
       # Postfix
       File.copy "service_email/master.cf", "/etc/postfix/master.cf"
       File.open("/etc/sudoers", "a") { |f|
@@ -36,17 +56,17 @@ class Ohmd_service_email
       }
       changedest = File.read("/etc/postfix/main.cf").split(/\n\s*mydestination.*\n/).join("\nmydestination = localhost, localhost.localdomain\n")
       File.open("/etc/postfix/main.cf", "w") { |f| f.puts changedest }
-      
+
       # Create empty mailboxes/aliases/password files to prevent crashes
       File.open("/etc/ohm_email.passwd", "w") { |f| f.puts "" }
       File.open("/etc/postfix/virtual", "w") { |f| f.puts "" }
       system "postmap /etc/postfix/virtual"
       File.open("/etc/postfix/vmailbox", "w") { |f| f.puts "" }
       system "postmap /etc/postfix/vmailbox"
-      
+
       # SpamAssassin
       File.copy "service_email/spamassassin", "/etc/default/spamassassin"
-      
+
       # Amavis
       File.copy "service_email/amavis-15-content_filter_mode", "/etc/amavis/conf.d/15-content_filter_mode"
     rescue Exception
@@ -95,7 +115,7 @@ class Ohmd_service_email
     DnsEntry.all.select { |e| e.creator=="service_email" }.each do |d|
       d.destroy
     end
-    
+
     # Remove Dovecot/Postfix and RoundCube
     # We leave Amavis, Spamassassin and ClamAV in case they are in use by other applications
     system "apt-get remove -y dovecot-postfix"
@@ -122,7 +142,7 @@ class Ohmd_service_email
       gid = userinfo[0].split(":")[3]
       maildir = "/home/#{username}/mail/#{m.domain.domain}/#{m.address}"
       size = (m.size == -1 ? 0 : m.size)
-      
+
       File.makedirs maildir
       system "chown -R #{username}:#{username} /home/#{username}/mail/"
       system "setfacl -m u:postfix:rwx /home/#{username}"

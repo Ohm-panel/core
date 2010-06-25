@@ -1,4 +1,22 @@
-#require 'ftools'
+# Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
+# PureFTPd module - daemon
+#
+# Copyright (C) 2009-2010 UMONS <http://www.umons.ac.be>
+#
+# This file is part of Ohm.
+#
+# Ohm is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Ohm is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Ohm. If not, see <http://www.gnu.org/licenses/>.
 
 class Ohmd_pureftpd
   def self.install
@@ -12,16 +30,16 @@ class Ohmd_pureftpd
     rescue Exception
       return false
     end
-    
+
     # Enable PureDB auth (virtual users)
     system "ln -fs ../conf/PureDB /etc/pure-ftpd/auth/75pdb" \
       or return false
-      
+
     # Generate initial PureDB, or else server refuses to start
     File.open("/etc/pure-ftpd/pureftpd.passwd", "w") { |f| f.puts "" }
     system "pure-pw mkdb" \
       or return false
-      
+
     # Restart FTP server
     system "service pure-ftpd restart" \
       or return false
@@ -56,17 +74,17 @@ class Ohmd_pureftpd
       userinfo = File.read("/etc/passwd").split("\n").select { |p| p.split(":")[0] == username }
       uid = userinfo[0].split(":")[2]
       gid = userinfo[0].split(":")[3]
-      
+
       # Add a default account for user
       newpasswd << "#{username}:#{u.user.ohmd_password.split("\\$").join("$")}:#{uid}:#{gid}::/home/#{username}/./::::::::::::\n"
-      
+
       # Add one line per account
       u.pureftpd_accounts.each do |a|
         newpasswd << "#{a.full_username}:#{a.password.split("\\$").join("$")}:#{uid}:#{gid}::/home/#{username}/#{a.root}/./::::::::::::\n"
       end
     end
     File.open("/etc/pure-ftpd/pureftpd.passwd", "w") { |f| f.puts newpasswd }
-    
+
     # Add DNS entries
     PureftpdAccount.all.collect { |a| a.domain }.uniq.each do |dom|
       unless dom.dns_entries.select { |e| e.creator=="pureftpd" }.count > 0
@@ -78,7 +96,7 @@ class Ohmd_pureftpd
         end
       end
     end
-    
+
     # Generate PureDB
     system "pure-pw mkdb"
   end

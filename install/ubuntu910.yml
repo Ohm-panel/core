@@ -1,4 +1,4 @@
-# Ohm - Open Hosting Manager
+# Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
 # Installer configuration for Ubuntu Server 9.10
 
 distro: "Ubuntu Server 9.10"
