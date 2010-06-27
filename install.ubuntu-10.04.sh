@@ -1,9 +1,10 @@
 #!/bin/bash
 #
 # Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
-# Installer launcher for Ubuntu Server 9.10
+# Installer launcher for Ubuntu Server 10.04 LTS
 #
 # Copyright (C) 2009-2010 UMONS <http://www.umons.ac.be>
+# Copyright (C) 2010 Joel Cogen <joel@joelcogen.com>
 #
 # This file is part of Ohm.
 #
@@ -20,7 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Ohm. If not, see <http://www.gnu.org/licenses/>.
 
-echo "=== Ohm install launcher for Ubuntu 9.10 ==="
+echo "=== Ohm install launcher for Ubuntu 10.04 ==="
 
 if ((`id -u` != 0)); then
     echo "Must run as root"
@@ -33,5 +34,5 @@ if [[ ! `which dialog` || ! `which ruby` ]]; then
 fi
 
 echo "Launching installer..."
-ruby install/install.rb ubuntu910
+ruby install/install.rb ubuntu1004
 

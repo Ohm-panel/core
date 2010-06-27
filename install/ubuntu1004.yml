@@ -1,7 +1,7 @@
 # Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
-# Installer configuration for Ubuntu Server 9.10
+# Installer configuration for Ubuntu Server 10.04
 
-distro: "Ubuntu Server 9.10"
+distro: "Ubuntu Server 10.04"
 
 panel_path: /var/www/ohm
 ohmd_path: /usr/lib/ohmd
