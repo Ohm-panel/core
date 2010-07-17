@@ -30,6 +30,13 @@ args = ARGV
 distro = args.last
 cfg = YAML.load_file("install/#{distro}.yml")
 
+# Modify config if dev mode
+dev = args.include? "--dev"
+if dev
+  cfg["panel_path"] = "#{Dir.pwd}/webapp"
+  cfg["ohmd_path"] = "#{Dir.pwd}/ohmd"
+end
+
 
 # Class to print progress
 class Dialog
@@ -79,7 +86,7 @@ end
 # Welcome
 File.open(LOG, "w") { |f| f.puts "Install starting (#{Time.new})" }
 dialog = Dialog.new
-go = dialog.yesno("Welcome to the Ohm installer for #{cfg["distro"]}.\n
+go = dialog.yesno("Welcome to the Ohm installer for #{cfg["distro"]}.#{dev ? " (DEV MODE)" : ""}\n
 Please verify this is your distribution and you are connected to the internet.
 Proceed?")
 exit 1 unless go
@@ -164,20 +171,26 @@ File.open(cfg["php_ohm_ini"], "w") { |f|
 
 
 # Copy files
-dialog.progress(5, "Copying Ohm files")
-File.makedirs cfg["panel_path"]
-exec "cp -rp webapp/* #{cfg["panel_path"]}/"
-File.makedirs cfg["ohmd_path"]
-exec "cp -rp ohmd/* #{cfg["ohmd_path"]}/
-      chmod u+x #{cfg["ohmd_path"]}/ohmd.rb"
+unless dev
+  dialog.progress(5, "Copying Ohm files")
+  File.makedirs cfg["panel_path"]
+  exec "cp -rp webapp/* #{cfg["panel_path"]}/"
+  File.makedirs cfg["ohmd_path"]
+  exec "cp -rp ohmd/* #{cfg["ohmd_path"]}/
+        chmod u+x #{cfg["ohmd_path"]}/ohmd.rb"
+else
+  dialog.progress(5, "Copying Ohm files - SKIPPED FOR DEV MODE")
+end
 
 
 # Generate Ohmd config
-dialog.progress(6, "Generating Ohmd configuration")
-File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
-  f.puts "panel_path: #{cfg["panel_path"]}"
-  f.puts "os: #{distro}"
-}
+unless dev
+  dialog.progress(6, "Generating Ohmd configuration")
+  File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
+    f.puts "panel_path: #{cfg["panel_path"]}"
+    f.puts "os: #{distro}"
+  }
+end
 
 # Create install-modules script
 File.open("/usr/bin/ohm-install-modules", "w") { |f|
@@ -191,7 +204,12 @@ exec "chmod u+rwx,go-wx /usr/bin/ohm-install-modules"
 # Database
 
 # Select
-dbtype = dialog.select "Please select the database you wish to use", cfg["databases"]
+if dev
+  dbtype = "sqlite3"
+else
+  dbtype = dialog.select "Please select the database you wish to use", cfg["databases"]
+end
+
 
 # Install packages
 system cfg["#{dbtype}_packages"]
@@ -199,24 +217,31 @@ system cfg["#{dbtype}_packages"]
 # Load installer and go
 dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
-setup_database cfg, dialog
+setup_database cfg, dialog unless dev
 exec "cd #{cfg["panel_path"]}; rake db:setup RAILS_ENV=production; rake db:migrate RAILS_ENV=production"
 
 
 # Set permissions
-system "chown -R www-data:www-data #{cfg["panel_path"]}"
-system "chown -R root:root #{cfg["ohmd_path"]}"
-system "chmod -R go-wx #{cfg["panel_path"]}"
-system "chmod -R go-wx #{cfg["ohmd_path"]}"
+if dev
+  system "chmod -R a+rw *"
+  system cfg["apache_restart"]
+else
+  system "chown -R www-data:www-data #{cfg["panel_path"]}"
+  system "chown -R root:root #{cfg["ohmd_path"]}"
+  system "chmod -R go-wx #{cfg["panel_path"]}"
+  system "chmod -R go-wx #{cfg["ohmd_path"]}"
+end
 
 
 # Add CRON job for daemon
-File.open(cfg["crontab"], "a") { |f|
-  f.puts "\n# OHM DAEMON"
-  f.puts "# Removing this line will prevent Ohm from working correctly"
-  f.puts "# Do not edit this line unless you know exactly what you're doing"
-  f.puts "*/5 * * * * root (cd #{cfg["ohmd_path"]} && ruby ohmd.rb >> /var/log/ohmd.log 2>&1)"
-}
+unless dev
+  File.open(cfg["crontab"], "a") { |f|
+    f.puts "\n# OHM DAEMON"
+    f.puts "# Removing this line will prevent Ohm from working correctly"
+    f.puts "# Do not edit this line unless you know exactly what you're doing"
+    f.puts "*/5 * * * * root (cd #{cfg["ohmd_path"]} && ruby ohmd.rb >> /var/log/ohmd.log 2>&1)"
+  }
+end
 
 
 # Finished

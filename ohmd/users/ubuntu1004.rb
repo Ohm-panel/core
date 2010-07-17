@@ -67,7 +67,7 @@ class Ohmd_users
       (system "setquota #{u.username} #{u.space_for_me*1024} #{(u.space_for_me*1024*QUOTA_HARD_MULT).to_i} 0 0 -a" \
         or logerror "[users] Error setting quota for #{u.username}") unless u.max_space == -1
       # Make sure nobody has access to the home folder
-      system "chmod -R o-rwx /home/#{u.username}/"
+      # system "chmod -R o-rwx /home/#{u.username}/"
     end
 
     # Root can always use SSH

@@ -34,5 +34,5 @@ if [[ ! `which dialog` || ! `which ruby` ]]; then
 fi
 
 echo "Launching installer..."
-ruby install/install.rb ubuntu1004
+ruby install/install.rb $1 ubuntu1004
 
