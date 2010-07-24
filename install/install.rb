@@ -48,7 +48,6 @@ class Dialog
     @text = text if text
     pc = (step*100/STEPS).to_i
     system("#{dialog "gauge", @text, pc} &")
-    sleep 0.5
   end
 
   def message(text)
