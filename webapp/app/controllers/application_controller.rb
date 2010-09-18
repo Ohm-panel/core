@@ -1,7 +1,8 @@
-# Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
+# Ohm - Open Hosting Manager <https://launchpad.net/ohm>
 # Application controller
 #
 # Copyright (C) 2009-2010 UMONS <http://www.umons.ac.be>
+# Copyright (C) 2010 Joel Cogen <http://joelcogen.com>
 #
 # This file is part of Ohm.
 #
@@ -29,6 +30,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   @@timeout = 600
+  @@warn_changes = "<br/>Changes may take up to 5 minutes to take effect"
 
 private
 

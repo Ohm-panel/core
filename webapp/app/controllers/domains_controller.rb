@@ -74,7 +74,7 @@ class DomainsController < ApplicationController
         @subdomain.mainsub = true
 
         if @subdomain.save
-          flash[:notice] = 'Domain was successfully added.'
+          flash[:notice] = "Domain was successfully added.#{@@changes}"
           format.html { redirect_to @domain }
         end
       else

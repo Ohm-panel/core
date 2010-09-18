@@ -68,7 +68,7 @@ class UsersController < ApplicationController
     @user.used_space = 0
 
     if @user.save
-      flash[:notice] = 'User was successfully created.'
+      flash[:notice] = "User was successfully created.#{@@changes}"
       redirect_to(@user)
     else
       render :action => "new"
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       flash[:error] = "Invalid user"
       redirect_to :controller => 'users', :action => 'index'
     elsif @user.update_attributes(params[:user])
-      flash[:notice] = 'User was successfully updated.'
+      flash[:notice] = "User was successfully updated.#{@@changes}"
       redirect_to @user
     else
       render :action => "edit"
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
     end
 
     if @user.update_attributes(params[:user])
-      flash[:notice] = 'Profile successfully updated.'
+      flash[:notice] = "Profile successfully updated.#{@@changes}"
       redirect_to :controller => 'dashboard'
     else
       render :action => "profile"

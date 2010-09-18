@@ -52,7 +52,7 @@ class SubdomainsController < ApplicationController
       flash[:error] = 'Invalid domain'
       redirect_to :controller => 'domains'
     elsif @subdomain.save
-      flash[:notice] = 'Subdomain was successfully created.'
+      flash[:notice] = "Subdomain was successfully created.#{@@changes}"
       redirect_to @subdomain.domain
     else
       flash[:error] = 'Error occured.'
@@ -69,7 +69,7 @@ class SubdomainsController < ApplicationController
       flash[:error] = 'Invalid domain'
       redirect_to :controller => "domains"
     elsif @subdomain.update_attributes(params[:subdomain])
-      flash[:notice] = 'Subdomain was successfully updated.'
+      flash[:notice] = "Subdomain was successfully updated.#{@@changes}"
       redirect_to @subdomain.domain
     else
       flash[:error] = 'Error applying modifications.'
@@ -90,7 +90,7 @@ class SubdomainsController < ApplicationController
         end
         @subdomain.destroy
 
-        flash[:notice] = 'Subdomain was successfully deleted.'
+        flash[:notice] = "Subdomain was successfully deleted.#{@@changes}"
         redirect_to @subdomain.domain
       else
         flash[:error] = 'Invalid subdomain'
