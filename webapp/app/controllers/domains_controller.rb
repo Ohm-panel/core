@@ -93,6 +93,7 @@ class DomainsController < ApplicationController
         sub.destroy
       end
       @domain.destroy
+      flash[:notice] = "Domain was successfully deleted.#{@@changes}"
     else
       flash[:error] = "Invalid domain"
     end
