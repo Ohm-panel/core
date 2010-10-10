@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   @@timeout = 600
-  @@warn_changes = "<br/>Changes may take up to 5 minutes to take effect"
+  @@changes = "<br/>Changes may take up to 5 minutes to take effect"
 
 private
 
