@@ -150,7 +150,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @service = Service.find(params[:service_id])
 
-    if @user.parent == @logged_user and @logged_user.services.include? @service
+    if @logged_user.root? or (@user.parent == @logged_user and @logged_user.services.include? @service)
       @user.services.delete(@service)
 
       if @user.save
