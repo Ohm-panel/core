@@ -23,17 +23,17 @@ PWD_CHARS = [('a'..'z'),('A'..'Z'),(0..9)].inject([]) {|s,r| s+Array(r)}
 def setup_database cfg, dialog
   # Create db and user
   dbpwd = dialog.passwordbox "Please enter the root password for mysql (root@localhost)"
-  dbpwd = nil unless system("mysql -u root -p#{dbpwd} -e exit")
+  dbpwd = nil unless system("mysql -u root -p\"#{dbpwd}\" -e exit")
   while(dbpwd.nil?) do
     dbpwd = dialog.passwordbox "Please enter the root password for mysql (root@localhost)\nError. Please try again"
-    dbpwd = nil unless system("mysql -u root -p#{dbpwd} -e exit")
+    dbpwd = nil unless system("mysql -u root -p\"#{dbpwd}\" -e exit")
   end
   dialog.progress(7)
   dbohmpwd = Array.new(16) { PWD_CHARS[ rand(PWD_CHARS.size) ] }
   mysql_cmds = "CREATE USER 'ohm'@'localhost' IDENTIFIED BY '#{dbohmpwd}'; "
   mysql_cmds += "CREATE DATABASE ohm; "
   mysql_cmds += "GRANT ALL PRIVILEGES ON ohm.* TO 'ohm'@'localhost'; "
-  exec "mysql -u root -p#{dbpwd} -e \"#{mysql_cmds}\""
+  exec "mysql -u root -p\"#{dbpwd}\" -e \"#{mysql_cmds}\""
 
   # Put details in rails and migrate
   dbyml = "production:
