@@ -161,12 +161,28 @@ File.open(cfg["apache_conf"], "a") { |f|
 }
 exec "a2ensite ohm"
 exec "a2dissite default"
+exec "a2enmod rewrite"
 exec cfg["apache_restart"]
 
 # Configure PHP
 File.open(cfg["php_ohm_ini"], "w") { |f|
   f.puts "display_errors = Off"
 }
+
+# Configure BIND
+dialog.progress(4.5, "Configuring BIND")
+named = File.read("/etc/bind/named.conf.options")
+newnamed = ""
+named.each_line do |line|
+  if line.strip.start_with?("listen-on")
+    newnamed << "listen-on { any; }\n";
+  elsif line.strip.start_with?("listen-on-v6")
+    newnamed << "listen-on-v6 { any; }\n";
+  else
+    newnamed << line
+  end
+end
+File.open("/etc/bind/named.conf.options", "w") { |f| f.print newnamed }
 
 
 # Copy files
