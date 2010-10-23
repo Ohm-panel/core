@@ -72,6 +72,7 @@ class Ohmd_bind9
       f.puts "@\tIN\tA\t#{ip}"
       f.puts "\tIN\tA\t#{ip}"
       f.puts "ns1\tIN\tA\t#{ip}"
+      f.puts "ohm\tIN\tA\t#{ip}"
     end
   end
 
