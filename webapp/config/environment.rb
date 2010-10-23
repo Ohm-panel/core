@@ -1,6 +1,25 @@
-# Be sure to restart your server when you modify this file
-
+### Ohm - Open Hosting Manager <http://joelcogen.com/projects/ohm/> ###
+#
 # Specifies gem version of Rails to use when vendor/rails is not present
+#
+# Copyright (C) 2009-2010 UMONS <http://www.umons.ac.be>
+# Copyright (C) 2010 Joel Cogen <http://joelcogen.com>
+#
+# This file is part of Ohm.
+#
+# Ohm is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Ohm is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Ohm. If not, see <http://www.gnu.org/licenses/>.
+
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration

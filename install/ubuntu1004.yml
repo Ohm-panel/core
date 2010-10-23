@@ -1,4 +1,5 @@
-# Ohm - Open Hosting Manager <http://ohmanager.sourceforge.net>
+### Ohm - Open Hosting Manager <http://joelcogen.com/projects/ohm/> ###
+#
 # Installer configuration for Ubuntu Server 10.04
 
 distro: "Ubuntu Server 10.04"

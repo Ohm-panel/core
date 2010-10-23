@@ -1,4 +1,5 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+### Ohm - Open Hosting Manager <http://joelcogen.com/projects/ohm/> ###
+#
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -8,6 +9,24 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
+#
+# Copyright (C) 2009-2010 UMONS <http://www.umons.ac.be>
+# Copyright (C) 2010 Joel Cogen <http://joelcogen.com>
+#
+# This file is part of Ohm.
+#
+# Ohm is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Ohm is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Ohm. If not, see <http://www.gnu.org/licenses/>.
 
 ActiveRecord::Schema.define(:version => 9001) do
 
