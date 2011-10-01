@@ -17,8 +17,6 @@ packages: "apt-get -y install \\\n
              apache2 php5 libapache2-mod-passenger libapache2-mod-php5 \\\n
              bind9 quota acl"
 
-gem: gem
-
 apache_conf: /etc/apache2/apache2.conf
 apache_sites: /etc/apache2/sites-available
 apache_restart: service apache2 restart
@@ -33,4 +31,3 @@ mysql_packages: apt-get -y install mysql-server libmysql-ruby
 sqlite3_packages: apt-get -y install sqlite3 libsqlite3-ruby
 
 crontab: /etc/crontab
-

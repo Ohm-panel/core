@@ -20,8 +20,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Ohm. If not, see <http://www.gnu.org/licenses/>.
 
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
-
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 

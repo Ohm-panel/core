@@ -1,0 +1,13 @@
+source "http://rubygems.org"
+
+gem "rails", "2.3.14"
+gem "sqlite3-ruby"
+
+group :development do
+  # Cucumber, ...
+end
+
+group :production do
+  gem "mysql2"
+  gem "fastthread"
+end
