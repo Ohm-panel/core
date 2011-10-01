@@ -144,7 +144,7 @@ end
 dialog.progress(3, "Installing required gems")
 exec "gem install bundler"
 dialog.progress(3.2)
-exec "cd webapp; bundle install"
+exec "cd webapp; bundle install --without development"
 
 
 # Configure Apache
