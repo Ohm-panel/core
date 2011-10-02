@@ -24,7 +24,7 @@ class LoginController < ApplicationController
   before_filter :authenticate, :except => [:index, :login, :setup, :dosetup]
 
   def index
-    if User.all.count == 0
+    if User.count == 0
       redirect_to :action => 'setup'
     elsif findsession
       redirect_to :controller => 'dashboard', :action => 'index'
@@ -56,13 +56,13 @@ class LoginController < ApplicationController
   end
 
   def setup
-    redirect_to :action => 'index' if User.all.count > 0
+    redirect_to :action => 'index' if User.count > 0
 
     @user = User.new
   end
 
   def dosetup
-    redirect_to :action => 'index' if User.all.count > 0
+    redirect_to :action => 'index' if User.count > 0
 
     @user = User.new(params[:user])
     @user.id = 1
@@ -70,7 +70,7 @@ class LoginController < ApplicationController
 
     if @user.save
       login_as @user
-      redirect_to :controller => "configurations", :action => "new"
+      redirect_to new_configuration_path
     else
       render :action => "setup"
     end

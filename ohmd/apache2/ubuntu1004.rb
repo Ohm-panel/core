@@ -34,7 +34,7 @@ class Ohmd_apache2
     end
 
     # Stop here if we don't want a web server
-    config = Configuration.all.first
+    config = Configuration.first
     return unless config.enable_www
 
     changes = false

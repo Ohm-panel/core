@@ -22,7 +22,7 @@
 
 class Ohmd_bind9
   def self.exec
-    config = Configuration.all.first
+    config = Configuration.first
     return unless config.enable_dns
 
     domains = Domain.all
