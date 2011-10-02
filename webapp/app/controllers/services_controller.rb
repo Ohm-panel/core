@@ -127,6 +127,7 @@ class ServicesController < ApplicationController
       return
     end
 
+    # TODO this command has changed, adapt this message
     flash[:notice] = 'Module successfully uploaded.<br />To complete the installation, please log onto the server using SSH and run (as root) \'ohm-install-modules\''
     redirect_to :action => "index"
   end

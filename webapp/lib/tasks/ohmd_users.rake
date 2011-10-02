@@ -1,3 +1,5 @@
+# Ohm users daemon
+
 namespace :ohmd do
   namespace :users do
     task :run => :environment do
