@@ -29,7 +29,7 @@ class LogsController < ApplicationController
     if params[:logfile]
       @logfile = LogFile.find(params[:logfile][:id])
     else
-      @logfile = LogFile.all.first
+      @logfile = LogFile.first
     end
 
 

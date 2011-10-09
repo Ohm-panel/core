@@ -24,17 +24,15 @@ class ConfigurationsController < ApplicationController
   before_filter :authenticate_root
 
   def index
-    @configuration = Configuration.all.first
+    @configuration = Configuration.first
   end
 
   def new
-    @configuration = Configuration.new(:enable_www => true,
-                                       :enable_dns => true,
-                                       :enable_ssh => true)
+    @configuration = Configuration.first
   end
 
   def edit
-    @configuration = Configuration.all.first
+    @configuration = Configuration.first
   end
 
   # POST /configurations

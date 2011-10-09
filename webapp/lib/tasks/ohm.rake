@@ -6,5 +6,7 @@ namespace :ohm do
     LogFile.create :name => "Apache error", :path => "/var/log/apache2/error.log"
     LogFile.create :name => "Apache access", :path => "/var/log/apache2/access.log"
     LogFile.create :name => "Syslog", :path => "/var/log/syslog"
+
+    Configuration.new(:os => ENV['OHM_OS']).save(false)
   end
 end

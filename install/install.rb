@@ -200,15 +200,6 @@ else
 end
 
 
-# Generate Ohmd config
-unless dev
-  dialog.progress(6, "Generating Ohmd configuration")
-  File.open("#{cfg["ohmd_path"]}/ohmd.yml", "w") { |f|
-    f.puts "panel_path: #{cfg["panel_path"]}"
-    f.puts "os: #{distro}"
-  }
-end
-
 # Create install-modules script
 File.open("/usr/bin/ohm-install-modules", "w") { |f|
   f.puts "#!/bin/sh"
@@ -236,7 +227,7 @@ dialog.progress(7, "Setting up the database")
 require "install/#{dbtype}"
 setup_database cfg, dialog unless dev
 exec "cd #{cfg["panel_path"]}; rake db:setup RAILS_ENV=production"
-exec "cd #{cfg["panel_path"]}; rake ohm:setup RAILS_ENV=production"
+exec "cd #{cfg["panel_path"]}; rake ohm:setup RAILS_ENV=production OHM_OS=#{distro}"
 
 
 # Set permissions
