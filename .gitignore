@@ -3,3 +3,4 @@ webapp/db/*.sqlite3
 install.log
 *.idea
 *.bundle
+webapp/vendor/plugins/

@@ -2,10 +2,7 @@
 <h1>Modules</h1>
 
 <% @services.each do |service| %>
-  <h2>
-    <%=h service.name %>
-    <%= image_tag("icons/clock.gif", :alt=>"Pending...", :title=>"Pending...", :width=>20, :height=>20) unless service.active? %>
-  </h2>
+  <h2><%=h service.name %></h2>
   <p><%=h service.tech_name %></p>
   <p><em><%=h service.description %></em></p>
   <p>
@@ -22,4 +19,3 @@
 <p>
   <%= link_to (image_tag 'icons/icontexto-webdev-add-032x032.png', :alt => '', :class => 'action') + 'Install a module', new_service_path %>
 </p>
-

@@ -31,7 +31,6 @@
   <%= link_to 'Sub-users', :controller => 'users' %>
 
   <% @logged_user.services.each do |service| %>
-    <% next unless service.active? %>
     <br /><br />
     <%= "&gt;" if current_controller?(service.controller) %>
     <%= link_to service.name, :controller => service.controller %>
