@@ -33,21 +33,6 @@ class DomainsController < ApplicationController
     end
   end
 
-  # GET /domains/1
-  # GET /domains/1.xml
-  def show
-    @domain = Domain.find(params[:id])
-
-    respond_to do |format|
-      if !@domain or @domain.user == @logged_user
-        format.html
-      else
-        flash[:error] = "Invalid domain"
-        format.html { redirect_to :controller => 'domains' }
-      end
-    end
-  end
-
   # GET /domains/new
   # GET /domains/new.xml
   def new
@@ -77,7 +62,7 @@ class DomainsController < ApplicationController
 
         if @subdomain.save
           flash[:notice] = "Domain was successfully added.#{@@changes}"
-          format.html { redirect_to @domain }
+          format.html { redirect_to :controller => 'domains' }
         end
       else
         flash[:error] = 'Error adding domain.'
@@ -114,7 +99,7 @@ class DomainsController < ApplicationController
         redirect_to :controller => (@service.controller), :action => "addtodomain", :domain_id => @domain.id, :service_id => @service.id
       else
         flash[:error] = 'Error occured'
-        redirect_to @domain
+        redirect_to :controller => 'domains'
       end
     else
       flash[:error] = "Invalid domain or service"
