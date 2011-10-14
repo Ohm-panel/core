@@ -25,21 +25,8 @@ class DomainsControllerTest < ActionController::TestCase
       post :create, :domain => { :domain => "newdom.com" }
     end
 
-    assert_redirected_to domain_path(assigns(:domain))
-    assert flash[:error].nil?
-  end
-
-  test "should show domain" do
-    login_as users(:root)
-    get :show, :id => domains(:one).to_param
-    assert_response :success
-  end
-
-  test "should refuse to show domain" do
-    login_as users(:one)
-    get :show, :id => domains(:one).to_param
     assert_redirected_to domains_path
-    assert flash[:error]
+    assert flash[:error].nil?
   end
 
   test "should destroy domain" do
