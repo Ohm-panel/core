@@ -5,8 +5,6 @@
 distro: "Ubuntu Server 10.04"
 
 panel_path: /var/www/ohm
-ohmd_path: /usr/lib/ohmd
-
 
 mod_rails: "echo \"deb http://apt.brightbox.net hardy main\" > /etc/apt/sources.list.d/brightbox.list\n
             wget -q -O - http://apt.brightbox.net/release.asc | apt-key add -"

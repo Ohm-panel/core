@@ -15,7 +15,6 @@ cfg = YAML.load_file("install/#{distro}.yml")
 dev = args.include? "--dev"
 if dev
   cfg["panel_path"] = "#{Dir.pwd}/webapp"
-  cfg["ohmd_path"] = "#{Dir.pwd}/ohmd"
 end
 
 
@@ -171,21 +170,9 @@ unless dev
   dialog.progress(5, "Copying Ohm files")
   File.makedirs cfg["panel_path"]
   exec "cp -rp webapp/* #{cfg["panel_path"]}/"
-  File.makedirs cfg["ohmd_path"]
-  exec "cp -rp ohmd/* #{cfg["ohmd_path"]}/
-        chmod u+x #{cfg["ohmd_path"]}/ohmd.rb"
 else
   dialog.progress(5, "Copying Ohm files - SKIPPED FOR DEV MODE")
 end
-
-
-# Create install-modules script
-File.open("/usr/bin/ohm-install-modules", "w") { |f|
-  f.puts "#!/bin/sh"
-  f.puts "cd #{cfg["ohmd_path"]}"
-  f.puts "./ohm-install-modules.rb"
-}
-exec "chmod u+rwx,go-wx /usr/bin/ohm-install-modules"
 
 
 # Database
@@ -215,20 +202,13 @@ if dev
   system cfg["apache_restart"]
 else
   system "chown -R www-data:www-data #{cfg["panel_path"]}"
-  system "chown -R root:root #{cfg["ohmd_path"]}"
   system "chmod -R go-wx #{cfg["panel_path"]}"
-  system "chmod -R go-wx #{cfg["ohmd_path"]}"
 end
 
 
 # Add CRON job for daemon
 unless dev
-  File.open(cfg["crontab"], "a") { |f|
-    f.puts "\n# OHM DAEMON"
-    f.puts "# Removing this line will prevent Ohm from working correctly"
-    f.puts "# Do not edit this line unless you know exactly what you're doing"
-    f.puts "*/5 * * * * root (cd #{cfg["ohmd_path"]} && ruby ohmd.rb >> /var/log/ohmd.log 2>&1)"
-  }
+  system "cd #{cfg["panel_path"]}; whenever -w"
 end
 
 

@@ -4,7 +4,7 @@ class DataFile < ActiveRecord::Base
     return false if upload.nil?
 
     name = upload['datafile'].original_filename
-    directory = "public/data"
+    directory = "tmp"
 
     # create the file path
     path = File.join(directory, name)
